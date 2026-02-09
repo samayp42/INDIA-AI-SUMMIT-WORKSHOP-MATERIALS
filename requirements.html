@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Workshop Requirements</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            line-height: 1.5;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+
+            body {
+                background: #fff;
+            }
+        }
+
+        @media screen {
+            body {
+                background: #f0f0f0;
+                padding: 10mm;
+            }
+
+            .page {
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                margin-bottom: 5mm;
+            }
+        }
+
+        /* Page Layout */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm 15mm;
+            margin: 0 auto;
+            background: #fff;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 5mm;
+            margin-bottom: 8mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-content h1 {
+            font-size: 22pt;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 2mm;
+        }
+
+        .header-content .subtitle {
+            font-size: 11pt;
+            color: #666;
+        }
+
+        .header-meta {
+            text-align: right;
+            font-size: 9pt;
+            color: #444;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 8mm;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #1a1a1a;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2mm;
+            margin-bottom: 4mm;
+            display: flex;
+            align-items: center;
+            gap: 2mm;
+        }
+
+        .section-title svg {
+            color: #0071c5;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6mm;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4mm;
+        }
+
+        /* Checkboxes List */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 3mm;
+            margin-bottom: 2.5mm;
+            font-size: 9.5pt;
+        }
+
+        .checklist li::before {
+            content: '';
+            display: block;
+            min-width: 4mm;
+            height: 4mm;
+            border: 1.5px solid #ccc;
+            border-radius: 1mm;
+            margin-top: 1.5px;
+        }
+
+        /* Warning / Info Box */
+        .info-box {
+            background: #f0f9ff;
+            border-left: 1mm solid #0071c5;
+            padding: 4mm;
+            border-radius: 0 2mm 2mm 0;
+            margin-bottom: 4mm;
+        }
+
+        .info-box.warning {
+            background: #fff7ed;
+            border-left-color: #f97316;
+        }
+
+        .info-box h3 {
+            font-size: 10pt;
+            font-weight: 600;
+            margin-bottom: 1mm;
+        }
+
+        .info-box p {
+            font-size: 9pt;
+            color: #444;
+        }
+
+        /* Items Box */
+        .items-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 2mm;
+            padding: 4mm;
+        }
+
+        .items-card h4 {
+            font-size: 10pt;
+            font-weight: 600;
+            margin-bottom: 3mm;
+            color: #111;
+        }
+
+        .items-list-sm {
+            list-style: none;
+            font-size: 9pt;
+        }
+
+        .items-list-sm li {
+            margin-bottom: 1.5mm;
+            padding-left: 3mm;
+            position: relative;
+        }
+
+        .items-list-sm li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #0071c5;
+            font-weight: bold;
+        }
+
+        /* Save Button */
+        .save-btn {
+            position: absolute;
+            top: 10mm;
+            right: 10mm;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            padding: 3mm 6mm;
+            border-radius: 2mm;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 2mm;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Save Button -->
+    <button onclick="window.print()" class="save-btn no-print">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Save as PDF
+    </button>
+
+    <div class="page">
+        <div class="header">
+            <div class="header-content">
+                <h1>Logistics & Requirements</h1>
+                <p class="subtitle">Complete Checklist for Facilitators & Organizers</p>
+            </div>
+            <div class="header-meta">
+                <p><strong>Event:</strong> AI Workshop Series</p>
+                <p><strong>Duration:</strong> 1 Day (10AM - 5PM)</p>
+            </div>
+        </div>
+
+        <!-- 1. VENUE & INFRASTRUCTURE -->
+        <div class="section">
+            <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Venue & Infrastructure
+            </div>
+            <div class="grid-2">
+                <div class="items-card">
+                    <h4>Audio / Visual</h4>
+                    <ul class="checklist">
+                        <li><strong>High-Res Projector/TV:</strong> Must support HDMI input (1080p min).</li>
+                        <li><strong>Sound System:</strong> Speakers for video demos & Voice AI session.</li>
+                        <li><strong>HDMI Cables:</strong> Extra long cables (at least 2).</li>
+                        <li><strong>Wireless Mic:</strong> For facilitator (if room > 20 people).</li>
+                    </ul>
+                </div>
+                <div class="items-card">
+                    <h4>Power & Connectivity</h4>
+                    <ul class="checklist">
+                        <li><strong>Power Strips:</strong> 1 extension socket per 2 attendees. (CRITICAL)</li>
+                        <li><strong>Wi-Fi:</strong> High-speed internet (for initial setup/emergencies).</li>
+                        <li><strong>Dedicated Power:</strong> For Facilitator desk.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. SESSION SPECIFIC HARDWARE -->
+        <div class="section">
+            <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                Specialized Equipment
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                <tr style="background: #f3f4f6;">
+                    <th style="padding: 3mm; text-align: left; border: 1px solid #ddd;">Session</th>
+                    <th style="padding: 3mm; text-align: left; border: 1px solid #ddd;">Item</th>
+                    <th style="padding: 3mm; text-align: left; border: 1px solid #ddd;">Details</th>
+                    <th style="padding: 3mm; text-align: left; border: 1px solid #ddd;">Quantity</th>
+                </tr>
+                <tr>
+                    <td style="padding: 3mm; border: 1px solid #ddd;"><strong>Session 5</strong></td>
+                    <td style="padding: 3mm; border: 1px solid #ddd;">Headset / Mic</td>
+                    <td style="padding: 3mm; border: 1px solid #ddd;">For Voice-to-Voice demo to prevent feedback.</td>
+                    <td style="padding: 3mm; border: 1px solid #ddd;">1 per Participant</td>
+                </tr>
+                <tr>
+                    <td style="padding: 3mm; border: 1px solid #ddd;"><strong>Session 6</strong></td>
+                    <td style="padding: 3mm; border: 1px solid #ddd;">AirOwl IoT Device</td>
+                    <td style="padding: 3mm; border: 1px solid #ddd;">Pre-flashed Air Quality Monitor.</td>
+                    <td style="padding: 3mm; border: 1px solid #ddd;">1 per Table (Shared)</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 3. STATIONARY & EXTRAS -->
+        <div class="section">
+            <div class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                    <path d="M2 2l7.586 7.586"></path>
+                    <circle cx="11" cy="11" r="2"></circle>
+                </svg>
+                Stationary & Supplies
+            </div>
+            <div class="grid-2">
+                <div class="items-card">
+                    <h4>For Attendees</h4>
+                    <ul class="checklist">
+                        <li>Notepad / Notebook</li>
+                        <li>Pen / Pencil</li>
+                        <li>Workshop Name Tag</li>
+                        <li>Cheat-sheet (Printed)</li>
+                    </ul>
+                </div>
+                <div class="items-card">
+                    <h4>For Facilitator</h4>
+                    <ul class="checklist">
+                        <li>Whiteboard + Markers</li>
+                        <li>Presenter Clicker</li>
+                        <li>Timer / Stopwatch</li>
+                        <li>Backup USB Drive</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 6 | Student Guide - IoT + AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #F97316;
+            --primary-light: #FFEDD5;
+            --bg: #FAFCFF;
+            --text-main: #7C2D12;
+            --text-sub: #334155;
+            --code-bg: #FFF7ED;
+            --tip-bg: #FFF7ED;
+            --tip-border: #FFEDD5;
+            --tip-text: #9A3412;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #EA580C;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-sub);
+        }
+
+        .concept-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .concept-icon {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .scenario-box {
+            background: #FFF7ED;
+            border: 1px solid #FED7AA;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .resource-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .resource-btn {
+            background: white;
+            border: 1px solid #CBD5E1;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .resource-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt-box {
+            background: var(--code-bg);
+            border: 1px solid #FED7AA;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+            color: #7C2D12;
+        }
+
+        .prompt-box:hover {
+            border-color: var(--primary);
+            background: #FFEDD5;
+        }
+
+        .prompt-box::after {
+            content: 'Click to Copy';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #EA580C;
+            font-family: sans-serif;
+        }
+
+        .tip-box {
+            background: var(--tip-bg);
+            border: 1px solid var(--tip-border);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--tip-text);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div
+            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
+            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 6
+        </div>
+
+        <h1>IoT + AI: Smart Cities</h1>
+        <p class="lead">Connecting Physical Sensors (ESP32) to Digital AI Intelligence.</p>
+
+        <!-- SECTION 1: CONCEPTS -->
+        <h2>Part 1: Key Concepts</h2>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="cpu"></i></div>
+            <div>
+                <h3>ESP32 Microcontroller</h3>
+                <p>A $5 chip with WiFi. It reads data from sensors (Temperature, Dust, Gas) and sends it to your
+                    computer.</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="share-2"></i></div>
+            <div>
+                <h3>Edge Intelligence</h3>
+                <p>Instead of sending massive video/audio streams to the cloud, we process data locally ("at the edge")
+                    using the AI PC. This saves bandwidth and privacy.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: SCENARIO -->
+        <h2>Part 2: The Lab - "AirOwl Smart Monitor"</h2>
+
+        <div class="scenario-box">
+            <h3><i data-lucide="activity"></i> The Mission</h3>
+            <p>You are deploying an Air Quality Monitor for a School. The AI needs to read the PM2.5 levels and
+                automatically advise if recess should be indoors or outdoors.</p>
+        </div>
+
+        <h3>Wiring Checklist</h3>
+        <p>Ensure your connections are secure:</p>
+        <div class="code-box"
+            style="background:#431407; padding:15px; border-radius:8px; color:#FED7AA; font-family:monospace; margin-bottom:20px;">
+            VCC -> 3.3V<br>
+            GND -> GND<br>
+            RX -> TX (Pin 17)
+        </div>
+
+        <!-- SECTION 3: PROMPTS -->
+        <h2>Part 3: The Prompt Library</h2>
+
+        <h3>Level 1: Live Status Check</h3>
+        <p><strong>Goal:</strong> Read the raw data.</p>
+        <div class="prompt-box" onclick="copy(this)">Fetch the latest sensor data from AirOwl. What is the current PM2.5
+            level?</div>
+
+        <h3>Level 2: Health Advisory</h3>
+        <p><strong>Goal:</strong> Interpret the number.</p>
+        <div class="prompt-box" onclick="copy(this)">The PM2.5 is currently 145. Is this safe for children with asthma?
+            What precautions should the school take?</div>
+        <div class="tip-box">
+            <i data-lucide="info"></i>
+            <div><strong>Note:</strong> PM2.5 > 100 is generally considered "Unhealthy".</div>
+        </div>
+
+        <h3>Level 3: Debugging Mode</h3>
+        <p><strong>Goal:</strong> Identify sensor fault.</p>
+        <div class="prompt-box" onclick="copy(this)">The sensor reports PM2.5 = 0 and Humidity = 0. Is this physically
+            possible, or is the wire loose?</div>
+
+        <h3>Level 4: Data Logging</h3>
+        <p><strong>Goal:</strong> Create a report.</p>
+        <div class="prompt-box" onclick="copy(this)">Based on the last 5 readings (all above 100), write an incident
+            report for the City Council complaining about the nearby factory pollution.</div>
+
+        <footer>
+            AI PC Workshop Series • Session 6
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function copy(el) {
+            navigator.clipboard.writeText(el.innerText);
+            const original = el.style.borderColor;
+            el.style.borderColor = '#22C55E';
+            el.style.backgroundColor = '#CCFBF1';
+            setTimeout(() => {
+                el.style.borderColor = original;
+                el.style.backgroundColor = '';
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Workshop Day Outline</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            line-height: 1.4;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Page Layout */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm 15mm;
+            margin: 0 auto;
+            background: #fff;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 10mm;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 5mm;
+        }
+
+        .header h1 {
+            font-size: 24pt;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 2mm;
+        }
+
+        .header .subtitle {
+            font-size: 12pt;
+            color: #666;
+            margin-bottom: 2mm;
+        }
+
+        .header .date {
+            font-size: 10pt;
+            color: #0071c5;
+            font-weight: 600;
+            background: #e0f2fe;
+            display: inline-block;
+            padding: 1mm 4mm;
+            border-radius: 4mm;
+        }
+
+        /* Timeline Container */
+        .roster-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4mm;
+        }
+
+        /* Time Slot Card */
+        .slot-card {
+            display: flex;
+            border-left: 1.5mm solid #ccc;
+            background: #fdfdfd;
+            border-radius: 0 2mm 2mm 0;
+            padding: 3mm;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            page-break-inside: avoid;
+        }
+
+        /* Left Column: Time */
+        .slot-time {
+            width: 35mm;
+            padding-right: 3mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid #eee;
+            color: #444;
+        }
+
+        .slot-time .start-time {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .slot-time .end-time {
+            font-size: 9pt;
+            color: #888;
+        }
+
+        .slot-time .duration {
+            margin-top: 1mm;
+            font-size: 8pt;
+            font-weight: 500;
+            background: #f0f0f0;
+            padding: 0.5mm 1.5mm;
+            border-radius: 1mm;
+            width: fit-content;
+        }
+
+        /* Right Column: Content */
+        .slot-content {
+            flex: 1;
+            padding-left: 4mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slot-header {
+            display: flex;
+            align-items: center;
+            gap: 2mm;
+            margin-bottom: 2mm;
+        }
+
+        .slot-badge {
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 1mm 2mm;
+            border-radius: 1mm;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .slot-title {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        /* Internal Schedule (The 30-20-10 breakdown) */
+        .internal-schedule {
+            display: flex;
+            gap: 2mm;
+            margin-top: 1mm;
+        }
+
+        .schedule-segment {
+            flex: 1;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 1.5mm;
+            padding: 2mm;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5mm;
+        }
+
+        .schedule-segment .seg-time {
+            font-size: 7.5pt;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .schedule-segment .seg-activity {
+            font-size: 8.5pt;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .schedule-segment.break {
+            background: #fef2f2;
+            /* Light red for break */
+            border-color: #fee2e2;
+            flex: 0.4;
+        }
+
+        .schedule-segment.break .seg-activity {
+            color: #dc2626;
+        }
+
+        /* Colors */
+        .s1 {
+            border-left-color: #0071c5;
+        }
+
+        .s1 .slot-badge {
+            background: #0071c5;
+        }
+
+        .s2 {
+            border-left-color: #7c3aed;
+        }
+
+        .s2 .slot-badge {
+            background: #7c3aed;
+        }
+
+        .s3 {
+            border-left-color: #059669;
+        }
+
+        .s3 .slot-badge {
+            background: #059669;
+        }
+
+        .s4 {
+            border-left-color: #ea580c;
+        }
+
+        .s4 .slot-badge {
+            background: #ea580c;
+        }
+
+        .s5 {
+            border-left-color: #dc2626;
+        }
+
+        .s5 .slot-badge {
+            background: #dc2626;
+        }
+
+        .s6 {
+            border-left-color: #0d9488;
+        }
+
+        .s6 .slot-badge {
+            background: #0d9488;
+        }
+
+        .lunch {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .lunch .slot-badge {
+            background: #f59e0b;
+            color: #fff;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+
+            body {
+                background: #fff;
+            }
+        }
+
+        @media screen {
+            body {
+                background: #f0f0f0;
+                padding: 10mm;
+            }
+
+            .page {
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div style="position: absolute; top: 10mm; right: 10mm;" class="no-print">
+            <button onclick="window.print()" style="
+                background: #1a1a1a; 
+                color: #fff; 
+                border: none; 
+                padding: 3mm 6mm; 
+                border-radius: 2mm; 
+                font-family: inherit; 
+                font-weight: 600; 
+                cursor: pointer;
+                display: flex; 
+                align-items: center; 
+                gap: 2mm;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            ">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Save as PDF
+            </button>
+        </div>
+
+        <div class="header">
+            <h1>Daily Workshop Roster</h1>
+            <p class="subtitle">Complete Day-to-Day Schedule & Agenda</p>
+            <div class="date">10:00 AM — 05:00 PM</div>
+        </div>
+
+        <div class="roster-container">
+
+            <!-- Slot 1 -->
+            <div class="slot-card s1">
+                <div class="slot-time">
+                    <div class="start-time">10:00</div>
+                    <div class="end-time">11:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">Session 1</span>
+                        <div class="slot-title">Chat Smarter, Stay Private</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment">
+                            <span class="seg-time">10:00 - 10:30</span>
+                            <span class="seg-activity">Workshop Content: Chat & Docs</span>
+                        </div>
+                        <div class="schedule-segment">
+                            <span class="seg-time">10:30 - 10:50</span>
+                            <span class="seg-activity">Doubts & Hands-on</span>
+                        </div>
+                        <div class="schedule-segment break">
+                            <span class="seg-time">10:50 - 11:00</span>
+                            <span class="seg-activity">Break</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slot 2 -->
+            <div class="slot-card s2">
+                <div class="slot-time">
+                    <div class="start-time">11:00</div>
+                    <div class="end-time">12:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">Session 2</span>
+                        <div class="slot-title">From Sketch to Reality</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment">
+                            <span class="seg-time">11:00 - 11:30</span>
+                            <span class="seg-activity">Workshop Content: Image & Video</span>
+                        </div>
+                        <div class="schedule-segment">
+                            <span class="seg-time">11:30 - 11:50</span>
+                            <span class="seg-activity">Doubts & Hands-on</span>
+                        </div>
+                        <div class="schedule-segment break">
+                            <span class="seg-time">11:50 - 12:00</span>
+                            <span class="seg-activity">Break</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slot 3 -->
+            <div class="slot-card s3">
+                <div class="slot-time">
+                    <div class="start-time">12:00</div>
+                    <div class="end-time">01:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">Session 3</span>
+                        <div class="slot-title">Build Your Finance AI Agent</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment">
+                            <span class="seg-time">12:00 - 12:30</span>
+                            <span class="seg-activity">Workshop Content: AI Agents</span>
+                        </div>
+                        <div class="schedule-segment">
+                            <span class="seg-time">12:30 - 12:50</span>
+                            <span class="seg-activity">Doubts & Hands-on</span>
+                        </div>
+                        <div class="schedule-segment break">
+                            <span class="seg-time">12:50 - 01:00</span>
+                            <span class="seg-activity">Break</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LUNCH -->
+            <div class="slot-card lunch">
+                <div class="slot-time">
+                    <div class="start-time">01:00</div>
+                    <div class="end-time">02:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">LUNCH</span>
+                        <div class="slot-title">Lunch Break</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment" style="flex:1; background: transparent; border:none; padding:0;">
+                            <span class="seg-activity" style="font-size:10pt;">Refuel & Network 🍕</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slot 4 -->
+            <div class="slot-card s4">
+                <div class="slot-time">
+                    <div class="start-time">02:00</div>
+                    <div class="end-time">03:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">Session 4</span>
+                        <div class="slot-title">Photoshop-Free AI Editing</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment">
+                            <span class="seg-time">02:00 - 02:30</span>
+                            <span class="seg-activity">Workshop Content: GIMP + OpenVINO</span>
+                        </div>
+                        <div class="schedule-segment">
+                            <span class="seg-time">02:30 - 02:50</span>
+                            <span class="seg-activity">Doubts & Hands-on</span>
+                        </div>
+                        <div class="schedule-segment break">
+                            <span class="seg-time">02:50 - 03:00</span>
+                            <span class="seg-activity">Break</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slot 5 -->
+            <div class="slot-card s5">
+                <div class="slot-time">
+                    <div class="start-time">03:00</div>
+                    <div class="end-time">04:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">Session 5</span>
+                        <div class="slot-title">Your AI News Anchor</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment">
+                            <span class="seg-time">03:00 - 03:30</span>
+                            <span class="seg-activity">Workshop Content: Voice AI</span>
+                        </div>
+                        <div class="schedule-segment">
+                            <span class="seg-time">03:30 - 03:50</span>
+                            <span class="seg-activity">Doubts & Hands-on</span>
+                        </div>
+                        <div class="schedule-segment break">
+                            <span class="seg-time">03:50 - 04:00</span>
+                            <span class="seg-activity">Break</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slot 6 -->
+            <div class="slot-card s6">
+                <div class="slot-time">
+                    <div class="start-time">04:00</div>
+                    <div class="end-time">05:00</div>
+                    <div class="duration">60 mins</div>
+                </div>
+                <div class="slot-content">
+                    <div class="slot-header">
+                        <span class="slot-badge">Session 6</span>
+                        <div class="slot-title">IoT Meets AI</div>
+                    </div>
+                    <div class="internal-schedule">
+                        <div class="schedule-segment">
+                            <span class="seg-time">04:00 - 04:30</span>
+                            <span class="seg-activity">Workshop Content: IoT + AI</span>
+                        </div>
+                        <div class="schedule-segment">
+                            <span class="seg-time">04:30 - 04:50</span>
+                            <span class="seg-activity">Doubts & Hands-on</span>
+                        </div>
+                        <div class="schedule-segment break" style="background: #f0fdf4; border-color: #dcfce7;">
+                            <span class="seg-time">04:50 - 05:00</span>
+                            <span class="seg-activity" style="color: #059669;">Final Q&A</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 5mm; color: #888; font-size: 8pt;">
+            Note: Schedule incorporates a logical timeline with breaks between each session for optimal learning
+            retention.
+        </div>
+    </div>
+
+</body>
+
+</html>

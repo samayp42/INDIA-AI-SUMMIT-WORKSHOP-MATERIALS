@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 5 | Voice AI - Hybrid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #EF4444;
+            --primary-light: #FEF2F2;
+            --bg: #FAFCFF;
+            --surface: #FFFFFF;
+            --text-main: #7F1D1D;
+            --code-bg: #450A0A;
+            --shadow-lg: 0 20px 40px -5px rgba(239, 68, 68, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .bg-mesh {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100% 0%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(20px) scale(0.98);
+            padding: 40px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #7F1D1D 0%, #B91C1C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .glass-panel {
+            background: var(--surface);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .code-box {
+            background: var(--code-bg);
+            color: #FECACA;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Audio Waveform */
+        .waveform {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 60px;
+        }
+
+        .bar {
+            width: 6px;
+            background: #EF4444;
+            border-radius: 4px;
+            animation: bounce 1s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                height: 10px;
+            }
+
+            50% {
+                height: 50px;
+            }
+        }
+
+        /* Pipeline Flow */
+        .pipe-step {
+            background: white;
+            border: 2px solid #EF4444;
+            padding: 15px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 700;
+            width: 100%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .pipe-arrow {
+            text-align: center;
+            color: #991B1B;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 100px;
+            display: flex;
+            gap: 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mesh"></div>
+    <div class="slides-container">
+
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div class="badge"><i data-lucide="mic"></i> Session 5</div>
+            <h1>Real-Time Voice AI</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #334155;">Concepts: Latency, VAD, and the Voice
+                Pipeline.</p>
+        </div>
+
+        <!-- Slide 2: Theory - The Pipeline -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="link"></i> Concept</div>
+            <h2>The Voice Pipeline</h2>
+            <div class="content-grid">
+                <div>
+                    <p>Voice AI isn't just one model. It's three models in a trench coat.</p>
+                    <p><strong>Input:</strong> Your Voice.</p>
+                    <p><strong>Output:</strong> AI Voice.</p>
+                </div>
+                <div class="glass-panel" style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="pipe-step">1. Ear (STT)</div>
+                    <div class="pipe-arrow">↓</div>
+                    <div class="pipe-step" style="background: #FEF2F2;">2. Brain (LLM)</div>
+                    <div class="pipe-arrow">↓</div>
+                    <div class="pipe-step">3. Mouth (TTS)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Theory - Latency -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="timer"></i> Concept</div>
+            <h2>The Latency Budget</h2>
+            <div class="content-grid">
+                <div>
+                    <p>Humans expect a reply in <strong>
+                            < 500ms</strong>.</p>
+                    <p>If STT takes 200ms, and LLM takes 500ms, and TTS takes 300ms... that's 1 second. Too slow!</p>
+                    <p>We must optimize every step.</p>
+                </div>
+                <div class="glass-panel">
+                    <p style="text-align: center; margin-bottom: 15px; font-weight: bold;">Total Time: 1000ms</p>
+                    <div style="display: flex; height: 40px; border-radius: 8px; overflow: hidden; width: 100%;">
+                        <div style="width: 20%; background: #3B82F6;">STT</div>
+                        <div style="width: 50%; background: #EF4444;">LLM (Thinking)</div>
+                        <div style="width: 30%; background: #10B981;">TTS</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 5px;">
+                        <span>0ms</span>
+                        <span>1s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Mission Start -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="radio"></i> The Mission</div>
+            <h2>Scenario: The Newsroom</h2>
+            <div class="content-grid">
+                <div>
+                    <p>You are a Producer.</p>
+                    <p><strong>The Task:</strong> Create a lively, fast-talking News Anchor Bot to interview you about
+                        "Tech Trends".</p>
+                    <p><strong>Tools:</strong> Pipecat + Whisper + Llama 3.</p>
+                </div>
+                <div class="glass-panel" style="text-align: center;">
+                    <div class="waveform">
+                        <div class="bar" style="animation-duration: 0.6s;"></div>
+                        <div class="bar" style="animation-duration: 0.8s;"></div>
+                        <div class="bar" style="animation-duration: 1.0s;"></div>
+                        <div class="bar" style="animation-duration: 0.7s;"></div>
+                        <div class="bar" style="animation-duration: 0.9s;"></div>
+                    </div>
+                    <p style="margin-top:20px; font-weight:bold;">News Anchor AI</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Step 1 - Personality -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="user"></i> Step 1</div>
+            <h2>System Prompt</h2>
+            <div class="glass-panel">
+                <p><strong>Goal:</strong> Define the Persona.</p>
+                <div class="code-box">
+                    "You are a fast-paced, witty Tech News Anchor named 'Cyber Sam'.
+                    Keep answers short (under 2 sentences).
+                    Interview the user about the latest AI breakthroughs.
+                    Be energetic!"
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Step 2 - Optimization -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="settings"></i> Step 2</div>
+            <h2>Optimizing for Speed</h2>
+            <div class="glass-panel">
+                <p><strong>Goal:</strong> Reduce Latency.</p>
+                <div class="code-box">
+                    1. STT Model: 'Whisper Tiny' (Fastest)
+                    2. VAD Sensitivity: High (Don't wait for silence)
+                    3. TTS Speed: 1.2x (News Anchors talk fast!)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Step 3 - The Interview -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="mic-2"></i> Step 3</div>
+            <h2>Go Live!</h2>
+            <div class="content-grid">
+                <div>
+                    <p>Start the conversation.</p>
+                    <p>Observe if the AI interrupts you (VAD issue) or if it's too slow (Latency issue).</p>
+                </div>
+                <div class="glass-panel">
+                    <p><strong>You:</strong> "Sam, what do you think about AI Agents?"</p>
+                    <p style="color: #EF4444; margin-top: 10px;"><strong>Sam:</strong> "Agents are the future! But are
+                        they safe? Let's discuss."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Step 4 - Analysis -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="activity"></i> Step 4</div>
+            <h2>Performance Review</h2>
+            <div class="glass-panel">
+                <p>Check the console logs.</p>
+                <div class="code-box">
+                    [INFO] STT: 150ms
+                    [INFO] LLM First Token: 300ms
+                    [INFO] TTS Audio Ready: 100ms
+                    Total Latency: 550ms (Excellent)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Recap -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="check-square"></i> Summary</div>
+            <h2>Key Takeaways</h2>
+            <div class="glass-panel">
+                <ul style="list-style:none; line-height:2.5;">
+                    <li><i data-lucide="mic" style="width:18px; color:#EF4444;"></i> <strong>VAD:</strong> Voice
+                        Activity Detection is crucial for natural turns.</li>
+                    <li><i data-lucide="zap" style="width:18px; color:#EF4444;"></i> <strong>Speed > Quality:</strong>
+                        For voice, we prefer a fast "Dumb" model over a slow "Smart" one.</li>
+                    <li><i data-lucide="cpu" style="width:18px; color:#EF4444;"></i> <strong>Multimodal:</strong>
+                        Combining STT+LLM+TTS is the ultimate test.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" onclick="prevSlide()"><i data-lucide="chevron-left"></i></button>
+        <span id="prog">1 / 9</span>
+        <button class="nav-btn" onclick="nextSlide()"><i data-lucide="chevron-right"></i></button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        let current = 0; const slides = document.querySelectorAll('.slide'); const prog = document.getElementById('prog');
+        function update() { slides.forEach((s, i) => { s.classList.remove('active'); if (i === current) s.classList.add('active'); }); prog.textContent = `${current + 1} / ${slides.length}`; }
+        function nextSlide() { if (current < slides.length - 1) { current++; update(); } }
+        function prevSlide() { if (current > 0) { current--; update(); } }
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+    </script>
+</body>
+
+</html>

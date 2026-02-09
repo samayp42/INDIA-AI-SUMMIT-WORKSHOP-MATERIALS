@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 1 | Student Guide - Concepts & Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0071C5;
+            --primary-light: #E0F2FE;
+            --bg: #FAFCFF;
+            --text-main: #0C4A6E;
+            --text-sub: #334155;
+            --code-bg: #F8FAFC;
+            --tip-bg: #FFF7ED;
+            --tip-border: #FFEDD5;
+            --tip-text: #9A3412;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #0369A1;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-sub);
+        }
+
+        .concept-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .concept-icon {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .scenario-box {
+            background: #ECFEFF;
+            border: 1px solid #CFFAFE;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .resource-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .resource-btn {
+            background: white;
+            border: 1px solid #CBD5E1;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .resource-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt-box {
+            background: var(--code-bg);
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        .prompt-box:hover {
+            border-color: var(--primary);
+            background: #F0F9FF;
+        }
+
+        .prompt-box::after {
+            content: 'Click to Copy';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #94A3B8;
+            font-family: sans-serif;
+        }
+
+        .tip-box {
+            background: var(--tip-bg);
+            border: 1px solid var(--tip-border);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--tip-text);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div
+            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
+            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 1
+        </div>
+
+        <h1>Local AI & RAG Analysis</h1>
+        <p class="lead">Understanding Privacy-First AI and applying it to a Complex Tender Analysis.</p>
+
+        <!-- SECTION 1: CONCEPTS -->
+        <h2>Part 1: Key Concepts</h2>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="shield"></i></div>
+            <div>
+                <h3>Why Local?</h3>
+                <p>When you use ChatGPT, your data leaves the building. When you use <strong>Local AI (Llama 3 on Intel
+                        NPU)</strong>, the data stays on your laptop. This is mandatory for Government, Legal, and
+                    Healthcare work.</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="database"></i></div>
+            <div>
+                <h3>What is RAG?</h3>
+                <p><strong>Retrieval Augmented Generation.</strong> LLMs hallucinate. RAG grounds them in your facts. We
+                    index your PDFs into a "Vector Database" so the AI can find the exact page before answering.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: SCENARIO -->
+        <h2>Part 2: The Lab - "The 500 Cr Tender"</h2>
+
+        <div class="scenario-box">
+            <h3><i data-lucide="briefcase"></i> The Mission</h3>
+            <p>You are the Chief Secretary. You have received a massive RFP (Request for Proposal) for a new Green Data
+                Center, and 3 competing bids.</p>
+            <p><strong>Your Goal:</strong> Use AI to check compliance, calculate costs, and pick a winner in < 20
+                    minutes.</p>
+        </div>
+
+        <h3>The Documents</h3>
+        <p>Ingest these files into AI Playground:</p>
+        <div class="resource-list">
+            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_requirements_GOI_SDC_01.txt"
+                class="resource-btn" download><i data-lucide="file-text" style="color:#EF4444;"></i> RFP (Rules)</a>
+            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_bidder_A_techsolutions.txt"
+                class="resource-btn" download><i data-lucide="file" style="color:#3B82F6;"></i> Bidder A (Apex)</a>
+            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_bidder_B_infratech.txt"
+                class="resource-btn" download><i data-lucide="file" style="color:#3B82F6;"></i> Bidder B (Bharat)</a>
+            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_bidder_C_digisecure.txt"
+                class="resource-btn" download><i data-lucide="file" style="color:#10B981;"></i> Bidder C (Green)</a>
+        </div>
+
+        <!-- SECTION 3: PROMPTS -->
+        <h2>Part 3: The Prompt Library</h2>
+
+        <h3>Level 1: Compliance Shift</h3>
+        <p><strong>Goal:</strong> Find who doesn't meet the harsh criteria.</p>
+        <div class="prompt-box" onclick="copy(this)">Check each bidder against Mandatory Requirements:
+            1. Turnover > 500 Cr
+            2. PUE < 1.5 3. Timeline < 18 Months. Who is disqualified?</div>
+                <div class="tip-box">
+                    <i data-lucide="alert-circle"></i>
+                    <div><strong>Insight:</strong> Bidder B (Bharat) should be flagged because their turnover is only
+                        450 Cr.</div>
+                </div>
+
+                <h3>Level 2: Financial TCO</h3>
+                <p><strong>Goal:</strong> Look beyond the sticker price (Capex).</p>
+                <div class="prompt-box" onclick="copy(this)">Create a 5-Year Total Cost of Ownership (TCO) table.
+                    Formula: Capex + (Annual Power Cost * 5) + (Services * 5).
+                    Which option is cheapest in the long run?</div>
+
+                <h3>Level 3: Technical Deep Dive</h3>
+                <p><strong>Goal:</strong> Compare engineering approaches.</p>
+                <div class="prompt-box" onclick="copy(this)">Compare the 'Cooling Methodology' of GreenFlow
+                    (Underground) vs Apex Cloud (Modular).
+                    List pros and cons for a seismic zone.</div>
+
+                <h3>Level 4: The Loophole</h3>
+                <p><strong>Goal:</strong> Save the startup (GreenFlow) using the "Startup India" clause.</p>
+                <div class="prompt-box" onclick="copy(this)">Bidder C (GreenFlow) is a startup.
+                    Check the RFP 'Eligibility' section - are they exempt from the turnover criteria?</div>
+                <div class="tip-box">
+                    <i data-lucide="check-circle"></i>
+                    <div><strong>Insight:</strong> The AI should find the clause that exempts startups from the 500 Cr
+                        turnover rule.</div>
+                </div>
+
+                <h3>Level 5: Executive Decision</h3>
+                <div class="prompt-box" onclick="copy(this)">You are the Chief Secretary.
+                    Considering the strict 18-month deadline and the 'Green IT' mandate, write a 1-paragraph executive
+                    summary recommending a winner.</div>
+
+                <footer>
+                    AI PC Workshop Series • Session 1
+                </footer>
+        </div>
+
+        <script>
+            lucide.createIcons();
+            function copy(el) {
+                navigator.clipboard.writeText(el.innerText);
+                const original = el.style.borderColor;
+                el.style.borderColor = '#22C55E';
+                el.style.backgroundColor = '#DCFCE7';
+                setTimeout(() => {
+                    el.style.borderColor = original;
+                    el.style.backgroundColor = '';
+                }, 500);
+            }
+        </script>
+</body>
+
+</html>

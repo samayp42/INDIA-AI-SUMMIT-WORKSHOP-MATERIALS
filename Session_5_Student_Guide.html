@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 5 | Student Guide - Voice AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #EF4444;
+            --primary-light: #FEF2F2;
+            --bg: #FAFCFF;
+            --text-main: #7F1D1D;
+            --text-sub: #334155;
+            --code-bg: #FEF2F2;
+            --tip-bg: #FFF7ED;
+            --tip-border: #FFEDD5;
+            --tip-text: #9A3412;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #B91C1C;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-sub);
+        }
+
+        .concept-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .concept-icon {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .scenario-box {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .resource-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .resource-btn {
+            background: white;
+            border: 1px solid #CBD5E1;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .resource-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt-box {
+            background: var(--code-bg);
+            border: 1px solid #FCA5A5;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+            color: #7F1D1D;
+        }
+
+        .prompt-box:hover {
+            border-color: var(--primary);
+            background: #fee2e2;
+        }
+
+        .prompt-box::after {
+            content: 'Click to Copy';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #9A3412;
+            font-family: sans-serif;
+        }
+
+        .tip-box {
+            background: var(--tip-bg);
+            border: 1px solid var(--tip-border);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--tip-text);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div
+            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
+            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 5
+        </div>
+
+        <h1>Voice AI Pipelines</h1>
+        <p class="lead">Building Real-Time Conversational Agents with STT, LLM, and TTS.</p>
+
+        <!-- SECTION 1: CONCEPTS -->
+        <h2>Part 1: Key Concepts</h2>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="mic"></i></div>
+            <div>
+                <h3>STT & TTS</h3>
+                <p><strong>Speech-to-Text (STT):</strong> Converts your voice to text (Whisper).<br>
+                    <strong>Text-to-Speech (TTS):</strong> Converts the AI's answer back to audio.
+                </p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="timer"></i></div>
+            <div>
+                <h3>Latency & VAD</h3>
+                <p><strong>Latency:</strong> The delay between you speaking and the AI answering. Anything over 1 second
+                    feels "laggy".<br>
+                    <strong>VAD (Voice Activity Detection):</strong> How the AI knows when you've stopped talking.
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: SCENARIO -->
+        <h2>Part 2: The Lab - "News Anchor Bot"</h2>
+
+        <div class="scenario-box">
+            <h3><i data-lucide="radio"></i> The Mission</h3>
+            <p>Create a high-energy "News Anchor" personality that can interview you live about technology trends. The
+                goal is to minimize latency so it feels like a real TV interview.</p>
+        </div>
+
+        <h3>Configuration</h3>
+        <p>Set these values in your Config Panel:</p>
+        <div class="code-box"
+            style="background:#450A0A; padding:15px; border-radius:8px; color:#FECACA; font-family:monospace; margin-bottom:20px;">
+            STT Model: "Whisper (Small)"<br>
+            TTS Speed: 1.2x<br>
+            VAD Sensitivity: High
+        </div>
+
+        <!-- SECTION 3: PROMPTS -->
+        <h2>Part 3: The Prompt Library</h2>
+
+        <h3>Level 1: The Persona (System Prompt)</h3>
+        <p><strong>Goal:</strong> Define the character.</p>
+        <div class="prompt-box" onclick="copy(this)">You are "Cyber Sam", a fast-talking, energetic tech news anchor.
+            Keep your responses under 2 sentences.
+            Always ask a follow-up question to keep the interview moving.
+            Be witty and use news jargon like "Breaking News!" or "Back to you!".</div>
+
+        <h3>Level 2: The Interview (Conversation Starters)</h3>
+        <p><strong>Goal:</strong> Test the flow.</p>
+        <div class="tip-box">
+            <i data-lucide="mic"></i>
+            <div><strong>Say this:</strong> "Sam, what's the biggest story in AI today?"</div>
+        </div>
+        <div class="tip-box" style="margin-top:10px;">
+            <i data-lucide="mic"></i>
+            <div><strong>Say this:</strong> "Are robots going to take our jobs?"</div>
+        </div>
+
+        <h3>Level 3: Latency Stress Test</h3>
+        <p><strong>Goal:</strong> Interrupt the AI.</p>
+        <div class="tip-box">
+            <i data-lucide="zap"></i>
+            <div><strong>Try this:</strong> Start speaking <em>while</em> Sam is still talking. Does Sam stop
+                immediately? If not, tune your VAD settings.</div>
+        </div>
+
+        <footer>
+            AI PC Workshop Series • Session 5
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function copy(el) {
+            navigator.clipboard.writeText(el.innerText);
+            const original = el.style.borderColor;
+            el.style.borderColor = '#22C55E';
+            el.style.backgroundColor = '#DCFCE7';
+            setTimeout(() => {
+                el.style.borderColor = original;
+                el.style.backgroundColor = '';
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

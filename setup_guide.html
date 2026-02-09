@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Ultimate Workshop Setup Guide</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            line-height: 1.5;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            a::after {
+                content: " (" attr(href) ")";
+                font-size: 8pt;
+                color: #555;
+            }
+        }
+
+        @media screen {
+            body {
+                background: #f0f0f0;
+                padding: 10mm;
+            }
+
+            .page {
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                margin-bottom: 5mm;
+            }
+        }
+
+        /* UI Components */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 15mm 15mm;
+            margin: 0 auto;
+            background: #fff;
+            position: relative;
+        }
+
+        .header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 5mm;
+            margin-bottom: 8mm;
+        }
+
+        h1 {
+            font-size: 22pt;
+            font-weight: 800;
+            margin-bottom: 2mm;
+        }
+
+        h2 {
+            font-size: 14pt;
+            font-weight: 700;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            border-left: 4px solid #0071c5;
+            padding-left: 3mm;
+        }
+
+        h3 {
+            font-size: 11pt;
+            font-weight: 600;
+            margin-top: 4mm;
+            margin-bottom: 1mm;
+        }
+
+        p {
+            margin-bottom: 3mm;
+            color: #444;
+        }
+
+        .link-btn {
+            display: inline-block;
+            background: #0071c5;
+            color: white;
+            padding: 1mm 3mm;
+            border-radius: 1mm;
+            font-size: 9pt;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .link-btn:hover {
+            background: #005a9e;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 3mm;
+            border-radius: 2mm;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9pt;
+            margin: 3mm 0;
+            white-space: pre-wrap;
+            border-left: 3px solid #0071c5;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 3mm;
+            border-radius: 2mm;
+            margin: 3mm 0;
+            font-size: 9pt;
+        }
+
+        .checkbox-step {
+            display: flex;
+            gap: 3mm;
+            margin-bottom: 4mm;
+            align-items: flex-start;
+        }
+
+        .checkbox {
+            width: 5mm;
+            height: 5mm;
+            border: 1.5px solid #333;
+            border-radius: 1mm;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .save-btn {
+            position: absolute;
+            top: 10mm;
+            right: 10mm;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            padding: 3mm 6mm;
+            border-radius: 2mm;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.print()" class="save-btn no-print">Save as PDF</button>
+
+    <div class="page">
+        <div class="header">
+            <h1>Zero-to-Hero Setup Guide</h1>
+            <p><strong>Mandatory Pre-Workshop Preparation</strong> | Follow these steps exactly.</p>
+            <div class="warning-box">
+                🏁 <strong>Goal:</strong> Arrive with a fully offline-capable AI PC. <br>
+                ⚠️ <strong>Warning:</strong> Total download size is ~20GB. Do NOT do this on mobile data or at the
+                venue.
+            </div>
+            <div class="warning-box" style="background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b;">
+                🚨 <strong>Having Issues?</strong> Verify your <code>7zr.exe</code> and Model Paths. <br>
+                <a href="Troubleshooting_Guide.html"
+                    style="color: #b91c1c; font-weight: bold; text-decoration: underline;">Open Troubleshooting
+                    Guide</a>
+            </div>
+        </div>
+
+        <h2>Phase 1: System Foundation</h2>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>1. Update Intel Drivers</h3>
+                <p>Ensure your NPU and GPU are recognized correctly.</p>
+                <a href="https://www.intel.com/content/www/us/en/support/detect.html" target="_blank"
+                    class="link-btn">Download Intel Driver Assistant</a>
+                <p style="font-size: 9pt; margin-top: 2mm;">Run the assistant -> Install all "Graphics" and "NPU"
+                    updates -> <strong>Restart PC</strong>.</p>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>2. Install Python 3.10</h3>
+                <p>Specific version required for compatibility.</p>
+                <a href="https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe" target="_blank"
+                    class="link-btn">Download Python 3.10 Installer</a>
+                <div class="warning-box" style="background: #e0f2fe; border-color: #bae6fd; color: #0369a1;">
+                    <strong>CRITICAL STEP:</strong> During installation, check the box <strong>"Add Python 3.10 to
+                        PATH"</strong> at the bottom of the first screen.
+                </div>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>3. Install VS Code</h3>
+                <p>We will use this to edit configuration files.</p>
+                <a href="https://code.visualstudio.com/download" target="_blank" class="link-btn">Download VS Code</a>
+            </div>
+        </div>
+
+        <h2>Phase 2: AI Playground (No Code)</h2>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>1. Install AI Playground</h3>
+                <p>The main interface for Chat and Image generation.</p>
+                <a href="https://github.com/intel/ai-playground/releases" target="_blank" class="link-btn">Download
+                    Latest Release (GitHub)</a>
+                <p style="font-size: 9pt; margin-top: 1mm;">Look for the <code>.exe</code> installer in "Assets". Run
+                    and install.</p>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>2. Download Models (In-App)</h3>
+                <p>Open AI Playground application. Go to "Models" or "Manage" tab.</p>
+                <ul>
+                    <li><strong>LLM:</strong> Download <code>Phi-3-mini-4k-instruct</code> (approx 4GB)</li>
+                    <li><strong>Image:</strong> Download <code>SDXL Turbo</code> (approx 6GB)</li>
+                </ul>
+                <p style="font-size: 9pt; margin-top: 2mm;"><em>Tip: Keep the app open until download bars reach
+                        100%.</em></p>
+            </div>
+        </div>
+
+        <h2>Phase 3: Creative Tools</h2>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>1. Install GIMP</h3>
+                <p>The free image editor we will supercharge with AI.</p>
+                <a href="https://www.gimp.org/downloads/" target="_blank" class="link-btn">Download GIMP</a>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>2. Install OpenVINO Plugins</h3>
+                <p>Connects GIMP to your Intel NPU.</p>
+                <a href="https://github.com/intel/openvino-ai-plugins-gimp/releases" target="_blank"
+                    class="link-btn">Download OpenVINO GIMP Installer</a>
+                <p style="font-size: 9pt; margin-top: 1mm;">Download <code>openvino-ai-plugins-gimp-setup.exe</code>.
+                    Run it. It will auto-detect GIMP.</p>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>3. Initialize Plugins</h3>
+                <p>1. Open GIMP.<br>2. Click <code>Layer</code> in top menu -> <code>OpenVINO-AI-Plugins</code>.<br>3.
+                    Select <code>Stable Diffusion</code>.<br>4. Wait for it to download models (This takes time!).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page">
+        <div class="header">
+            <h1>Page 2: Developer Setup</h1>
+            <p><strong>For Advanced Sessions (Agents, Voice, IoT)</strong></p>
+        </div>
+
+        <h2>Phase 4: Developer Environment</h2>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>1. Install Ollama</h3>
+                <p>The local server for running LLMs via API.</p>
+                <a href="https://ollama.com/download/windows" target="_blank" class="link-btn">Download Ollama for
+                    Windows</a>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>2. Pull Ollama Models</h3>
+                <p>Open your Command Prompt (cmd) or PowerShell and run these exact commands one by one:</p>
+                <div class="code-block">ollama pull llama3
+                    ollama pull llava
+                    ollama pull nomic-embed-text</div>
+                <p style="font-size: 9pt;">Wait for each to finish (Success status) before running the next.</p>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>3. Install Python Libraries</h3>
+                <p>We need these for the Voice AI and Agent demos.</p>
+                <div class="code-block">pip install --upgrade pip
+                    pip install pipecat-ai
+                    pip install aiohttp
+                    pip install zerodha_kit
+                    pip install colorama</div>
+            </div>
+        </div>
+
+        <h2>Phase 5: Final Verification (The "Offline Test")</h2>
+
+        <div class="warning-box" style="background: #e8f5e9; border-color: #c8e6c9; color: #1b5e20;">
+            <strong>Pro Tip:</strong> Disconnect your Wi-Fi now to perform these checks. If they work offline, you are
+            ready!
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>Check 1: AI Playground</h3>
+                <p>Open App -> Select "Phi-3" -> Type "Hello, who are you?".<br><strong>Success:</strong> It replies
+                    quickly without internet.</p>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>Check 2: GIMP</h3>
+                <p>Open GIMP -> Layer -> OpenVINO -> Stable Diffusion.<br><strong>Success:</strong> The menu opens and
+                    you can click "Generate".</p>
+            </div>
+        </div>
+
+        <div class="checkbox-step">
+            <div class="checkbox"></div>
+            <div class="step-content">
+                <h3>Check 3: Ollama</h3>
+                <p>Open Terminal -> Type <code>ollama run llama3</code>.<br><strong>Success:</strong> You get a prompt
+                    <code>>>></code> and can chat.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 15mm; text-align: center; color: #888;">
+            <p>Need help? Contact the workshop coordinator at <strong>[Your Email/Discord]</strong></p>
+        </div>
+    </div>
+
+</body>
+
+</html>

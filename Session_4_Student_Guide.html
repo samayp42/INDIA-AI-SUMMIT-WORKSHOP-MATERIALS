@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 4 | Student Guide - AI Editing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #06B6D4;
+            --primary-light: #ECFEFF;
+            --bg: #FAFCFF;
+            --text-main: #164E63;
+            --text-sub: #334155;
+            --code-bg: #F0FDFA;
+            --tip-bg: #FFF7ED;
+            --tip-border: #FFEDD5;
+            --tip-text: #9A3412;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #0891B2;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-sub);
+        }
+
+        .concept-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .concept-icon {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .scenario-box {
+            background: var(--primary-light);
+            border: 1px solid #CFFAFE;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .resource-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .resource-btn {
+            background: white;
+            border: 1px solid #CBD5E1;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .resource-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt-box {
+            background: var(--code-bg);
+            border: 1px solid #CCFBF1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+            color: #115E59;
+        }
+
+        .prompt-box:hover {
+            border-color: var(--primary);
+            background: #E0F2FE;
+        }
+
+        .prompt-box::after {
+            content: 'Click to Copy';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: #94A3B8;
+            font-family: sans-serif;
+        }
+
+        .tip-box {
+            background: var(--tip-bg);
+            border: 1px solid var(--tip-border);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--tip-text);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div
+            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
+            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 4
+        </div>
+
+        <h1>GIMP & OpenVINO</h1>
+        <p class="lead">Professional AI Editing: Inpainting, Masking, and Upscaling.</p>
+
+        <!-- SECTION 1: CONCEPTS -->
+        <h2>Part 1: Key Concepts</h2>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="layers"></i></div>
+            <div>
+                <h3>Inpainting (Masking)</h3>
+                <p>Inpainting is the art of "filling holes". You select an area (the hole/mask), and the AI hallucinates
+                    new content to fit seamlessly, using the surrounding pixels as context.</p>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <div class="concept-icon"><i data-lucide="maximize"></i></div>
+            <div>
+                <h3>Super Resolution</h3>
+                <p>Upscaling a low-res image by 4x. Unlike traditional resizing (which gets blurry), AI Super Resolution
+                    hallucinates new details like skin pores and brick textures to make it sharp.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: SCENARIO -->
+        <h2>Part 2: The Lab - "Photo Rescue"</h2>
+
+        <div class="scenario-box">
+            <h3><i data-lucide="camera"></i> The Mission</h3>
+            <p>A client has given you a damaged, low-resolution vacation photo. Your job is to remove the scratches, add
+                a cool accessory, change the background, and upscale it to 4K for printing.</p>
+        </div>
+
+        <h3>Assets</h3>
+        <p>You can use any image, or the sample provided:</p>
+        <div class="resource-list">
+            <a href="../Workshop_Resources/Session_4/resources/damaged_photo.jpg" class="resource-btn" download><i
+                    data-lucide="image" style="color:#0891B2;"></i> Damaged Photo.jpg</a>
+        </div>
+
+        <!-- SECTION 3: PROMPTS -->
+        <h2>Part 3: The Prompt Library</h2>
+
+        <h3>Level 1: The Repair (Inpaint)</h3>
+        <p><strong>Goal:</strong> Remove the scratch/tear.</p>
+        <div class="prompt-box" onclick="copy(this)">clean background, remove scratch, seamless texture</div>
+        <div class="tip-box">
+            <i data-lucide="info"></i>
+            <div><strong>Tip:</strong> Select slightly <em>more</em> than the scratch to give the AI context.</div>
+        </div>
+
+        <h3>Level 2: The Accessory (Generative Fill)</h3>
+        <p><strong>Goal:</strong> Add sleek sunglasses.</p>
+        <div class="prompt-box" onclick="copy(this)">cool aviator sunglasses, reflection of city, cinematic lighting
+        </div>
+        <div class="tip-box">
+            <i data-lucide="sliders"></i>
+            <div><strong>Tip:</strong> Set 'Denoising Strength' to 0.7 or 0.8. Too low = blurry. Too high = ignores your
+                selection shape.</div>
+        </div>
+
+        <h3>Level 3: The Background Swap</h3>
+        <p><strong>Goal:</strong> Move them to Paris.</p>
+        <div class="prompt-box" onclick="copy(this)">Eiffel tower in background, blurred bokeh, sunny day, paris street,
+            architectural detail</div>
+
+        <h3>Level 4: The Upscale</h3>
+        <p><strong>Goal:</strong> Make it Print-Ready.</p>
+        <div class="prompt-box" style="cursor: default; color: #64748B; background: #F1F5F9;">
+            (No Prompt Needed. Just select 'Super Resolution 4x' in the plugin menu.)
+        </div>
+
+        <footer>
+            AI PC Workshop Series • Session 4
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function copy(el) {
+            if (el.style.cursor === 'default') return;
+            navigator.clipboard.writeText(el.innerText);
+            const original = el.style.borderColor;
+            el.style.borderColor = '#22C55E';
+            el.style.backgroundColor = '#CCFBF1';
+            setTimeout(() => {
+                el.style.borderColor = original;
+                el.style.backgroundColor = '';
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

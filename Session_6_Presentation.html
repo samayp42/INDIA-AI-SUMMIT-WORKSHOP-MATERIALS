@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 6 | IoT + AI - Hybrid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #F97316;
+            --primary-light: #FFEDD5;
+            --bg: #FAFCFF;
+            --surface: #FFFFFF;
+            --text-main: #7C2D12;
+            --code-bg: #431407;
+            --shadow-lg: 0 20px 40px -5px rgba(249, 115, 22, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .bg-mesh {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(20px) scale(0.98);
+            padding: 40px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #7C2D12 0%, #C2410C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .glass-panel {
+            background: var(--surface);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .code-box {
+            background: var(--code-bg);
+            color: #FED7AA;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Pinout Visual */
+        .chip {
+            width: 120px;
+            height: 160px;
+            background: #1E293B;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .pin {
+            width: 40px;
+            height: 10px;
+            background: #94A3B8;
+            position: absolute;
+        }
+
+        .wire {
+            height: 4px;
+            background: #CBD5E1;
+            width: 100px;
+            position: absolute;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 100px;
+            display: flex;
+            gap: 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mesh"></div>
+    <div class="slides-container">
+
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div class="badge"><i data-lucide="cpu"></i> Session 6</div>
+            <h1>IoT + AI Integration</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #334155;">Concepts: ESP32, Sensors, and Real-World
+                Data.</p>
+        </div>
+
+        <!-- Slide 2: Theory - The Stack -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="layers"></i> Concept</div>
+            <h2>From Sensor to Brain</h2>
+            <div class="content-grid">
+                <div>
+                    <p>How does a physical sensor talk to a digital LLM?</p>
+                    <p><strong>1. Hardware:</strong> ESP32 reads voltage.</p>
+                    <p><strong>2. Network:</strong> Sends JSON over WiFi.</p>
+                    <p><strong>3. MCP:</strong> Fetches JSON for the AI.</p>
+                </div>
+                <div class="glass-panel"
+                    style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                    <div style="text-align: center;">
+                        <i data-lucide="thermometer" style="width: 40px; height: 40px; color: #F97316;"></i>
+                        <p>Sensor</p>
+                    </div>
+                    <div>→</div>
+                    <div style="text-align: center;">
+                        <i data-lucide="wifi" style="width: 40px; height: 40px; color: #F97316;"></i>
+                        <p>WiFi</p>
+                    </div>
+                    <div>→</div>
+                    <div style="text-align: center;">
+                        <i data-lucide="brain-circuit" style="width: 40px; height: 40px; color: #EA580C;"></i>
+                        <p>AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Theory - Pinout -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="zap"></i> Concept</div>
+            <h2>Wiring (ESP32)</h2>
+            <div class="content-grid">
+                <div>
+                    <p>We need 3 Wires:</p>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li><span style="color: #EF4444; font-weight: bold;">VCC (Red):</span> Power (3.3V)</li>
+                        <li><span style="color: #1E293B; font-weight: bold;">GND (Black):</span> Ground</li>
+                        <li><span style="color: #EAB308; font-weight: bold;">DATA (Yellow):</span> The Signal (Pin 21)
+                        </li>
+                    </ul>
+                </div>
+                <div class="glass-panel" style="position: relative; height: 300px;">
+                    <div class="chip">ESP32</div>
+                    <!-- Wires Visualization in CSS -->
+                    <div
+                        style="position: absolute; top: 100px; left: 50%; transform: translateX(-50%); text-align: center;">
+                        <div style="width: 4px; height: 50px; background: #EF4444; margin: 0 auto;"></div>
+                        <div style="width: 4px; height: 50px; background: #000000; margin: 0 auto;"></div>
+                        <div style="width: 4px; height: 50px; background: #EAB308; margin: 0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Mission Start -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="activity"></i> The Mission</div>
+            <h2>Scenario: AirOwl</h2>
+            <div class="content-grid">
+                <div>
+                    <p>You are a Smart City Engineer.</p>
+                    <p><strong>The Task:</strong> Deploy an Air Quality Monitor and use AI to advise citizens.</p>
+                    <p><strong>Tools:</strong> ESP32, PMS5003 Sensor, Python MCP.</p>
+                </div>
+                <div class="glass-panel" style="text-align: center;">
+                    <i data-lucide="wind" style="width: 100px; height: 100px; color: #F97316;"></i>
+                    <p style="margin-top:20px; font-weight:bold;">Project AirOwl</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Step 1 - The Data -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="database"></i> Step 1</div>
+            <h2>The Payload</h2>
+            <div class="glass-panel">
+                <p>The sensor sends this JSON every second.</p>
+                <div class="code-box">
+                    {
+                    "device_id": "AirOwl_01",
+                    "pm25": 145,
+                    "humidity": 65,
+                    "status": "online"
+                    }
+                </div>
+                <p><em>(PM2.5 of 145 is very high!)</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Step 2 - The Analysis -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="message-square"></i> Step 2</div>
+            <h2>AI Consultation</h2>
+            <div class="glass-panel">
+                <p>Ask the AI to interpret the raw numbers.</p>
+                <div class="code-box">
+                    "Fetch the sensor data from AirOwl.
+                    Based on the PM2.5 level, is it safe to organize a marathon outdoors today?"
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Step 3 - Automating Action -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="bell"></i> Step 3</div>
+            <h2>Recommendation Engine</h2>
+            <div class="content-grid">
+                <div>
+                    <p>The AI acts as a health expert.</p>
+                </div>
+                <div class="glass-panel">
+                    <div class="code-box">
+                        AI Response:
+                        "The PM2.5 is 145, which is Unhealthy.
+                        Recommendation: Cancel the marathon. Suggest indoor activities. Participants should wear N95
+                        masks."
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Step 4 - Edge Cases -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="alert-triangle"></i> Step 4</div>
+            <h2>Detecting Anomalies</h2>
+            <div class="glass-panel">
+                <p><strong>Goal:</strong> Spot broken sensors.</p>
+                <div class="code-box">
+                    "If PM2.5 is 0 but Humidity is 0, is the sensor working? Debug this."
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Recap -->
+        <div class="slide">
+            <div class="badge"><i data-lucide="check-square"></i> Summary</div>
+            <h2>IoT + AI Power</h2>
+            <div class="glass-panel">
+                <ul style="list-style:none; line-height:2.5;">
+                    <li><i data-lucide="wifi" style="width:18px; color:#F97316;"></i> <strong>Real-Time:</strong> AI
+                        decisions on live physical data.</li>
+                    <li><i data-lucide="cpu" style="width:18px; color:#F97316;"></i> <strong>Edge Computing:</strong>
+                        Process locally, save bandwidth.</li>
+                    <li><i data-lucide="activity" style="width:18px; color:#F97316;"></i> <strong>Actionable:</strong>
+                        Raw numbers -> Health Advice.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" onclick="prevSlide()"><i data-lucide="chevron-left"></i></button>
+        <span id="prog">1 / 9</span>
+        <button class="nav-btn" onclick="nextSlide()"><i data-lucide="chevron-right"></i></button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        let current = 0; const slides = document.querySelectorAll('.slide'); const prog = document.getElementById('prog');
+        function update() { slides.forEach((s, i) => { s.classList.remove('active'); if (i === current) s.classList.add('active'); }); prog.textContent = `${current + 1} / ${slides.length}`; }
+        function nextSlide() { if (current < slides.length - 1) { current++; update(); } }
+        function prevSlide() { if (current > 0) { current--; update(); } }
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+    </script>
+</body>
+
+</html>
