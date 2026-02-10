@@ -99,10 +99,69 @@
             margin-top: 10px;
             font-weight: 500;
         }
+
+        .back-nav {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #FECDD3;
+            border-radius: 100px;
+            color: #be123c;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: #be123c;
+            color: white;
+            border-color: #be123c;
+            box-shadow: 0 4px 16px rgba(190, 18, 60, 0.3);
+            transform: translateX(-4px);
+        }
+
+        .back-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover svg {
+            transform: translateX(-3px);
+        }
+
+        @media print {
+            .back-nav {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <nav class="back-nav no-print">
+        <a href="index.html" class="back-btn" id="back-to-workshop">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5" />
+                <path d="m12 19-7-7 7-7" />
+            </svg>
+            Back to Workshop
+        </a>
+    </nav>
 
     <h1>🚨 Setup Troubleshooter</h1>
     <p class="lead">Fixes for common issues with Intel AI Playground, 7zr.exe, and missing models.</p>
@@ -117,11 +176,13 @@
             <div class="step">1. Download the <strong>7-Zip Extra</strong> package (not the installer) from <a
                     href="https://www.7-zip.org/a/7z2301-extra.7z">7-zip.org</a>.</div>
             <div class="step">2. Extract the file. Inside you will find a file named <code>7za.exe</code> or
-                <code>7zr.exe</code>.</div>
+                <code>7zr.exe</code>.
+            </div>
             <div class="step">3. Rename it to exactly <code>7zr.exe</code> if it isn't already.</div>
             <div class="step">4. Copy this file into the AI Playground installation folder. Usually:
                 <br><code>C:\Users\[YourName]\AppData\Local\Intel\AI-Playground\resources\app\bin\</code> <br><em>(Note:
-                    You might need to hunt for the `bin` folder inside the installation path).</em></div>
+                    You might need to hunt for the `bin` folder inside the installation path).</em>
+            </div>
             <div class="step">5. <strong>Alternative:</strong> Add the folder containing `7zr.exe` to your System PATH
                 environment variable.</div>
             <div class="important">
@@ -139,7 +200,8 @@
             <h3>✅ The Fix: Check Paths & Files</h3>
             <div class="step">1. Open AI Playground -> <strong>Settings (Gear Icon)</strong>.</div>
             <div class="step">2. Look for "Model Path". It usually defaults to:
-                <br><code>C:\Users\[YourName]\AI-Playground\models</code></div>
+                <br><code>C:\Users\[YourName]\AI-Playground\models</code>
+            </div>
             <div class="step">3. Open that folder in File Explorer.</div>
             <div class="step">4. Check the subfolders <code>checkpoints</code> or <code>llm</code>.</div>
             <div class="step">5. <strong>Check File Size:</strong> If you see a file specific to your model (e.g.,

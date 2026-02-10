@@ -215,40 +215,61 @@
             font-weight: bold;
         }
 
-        /* Save Button */
-        .save-btn {
-            position: absolute;
-            top: 10mm;
-            right: 10mm;
-            background: #1a1a1a;
-            color: #fff;
-            border: none;
-            padding: 3mm 6mm;
-            border-radius: 2mm;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
+
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            display: inline-flex;
             align-items: center;
-            gap: 2mm;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 100;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+            border-radius: 100px;
+            color: #0071c5;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background: #0071c5;
+            color: white;
+            border-color: #0071c5;
+            box-shadow: 0 4px 16px rgba(0, 113, 197, 0.3);
+            transform: translateX(-4px);
+        }
+
+        .back-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover svg {
+            transform: translateX(-3px);
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Save Button -->
-    <button onclick="window.print()" class="save-btn no-print">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    <!-- Back Button -->
+    <a href="index.html" class="back-btn no-print" id="back-to-workshop">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <path d="M19 12H5" />
+            <path d="m12 19-7-7 7-7" />
         </svg>
-        Save as PDF
-    </button>
+        Back to Workshop
+    </a>
+
 
     <div class="page">
         <div class="header">
