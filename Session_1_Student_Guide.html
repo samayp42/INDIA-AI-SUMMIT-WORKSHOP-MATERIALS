@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 1 | Student Guide - Concepts & Practice</title>
+    <title>Session 1 | Student Guide - Local RAG</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #0071C5;
-            --primary-light: #E0F2FE;
+            --primary: #2563EB;
+            --primary-light: #EFF6FF;
             --bg: #FAFCFF;
-            --text-main: #0C4A6E;
+            --text-main: #1E293B;
             --text-sub: #334155;
-            --code-bg: #F8FAFC;
+            --code-bg: #F1F5F9;
             --tip-bg: #FFF7ED;
             --tip-border: #FFEDD5;
             --tip-text: #9A3412;
@@ -61,7 +61,7 @@
             font-weight: 600;
             margin-top: 25px;
             margin-bottom: 10px;
-            color: #0369A1;
+            color: #1D4ED8;
         }
 
         p {
@@ -89,8 +89,8 @@
         }
 
         .scenario-box {
-            background: #ECFEFF;
-            border: 1px solid #CFFAFE;
+            background: #EFF6FF;
+            border: 1px solid #DBEAFE;
             padding: 20px;
             border-radius: 12px;
             margin-top: 30px;
@@ -126,7 +126,7 @@
 
         .prompt-box {
             background: var(--code-bg);
-            border: 1px solid #E2E8F0;
+            border: 1px solid #CBD5E1;
             padding: 20px;
             border-radius: 8px;
             font-family: monospace;
@@ -139,7 +139,7 @@
 
         .prompt-box:hover {
             border-color: var(--primary);
-            background: #F0F9FF;
+            background: #EFF6FF;
         }
 
         .prompt-box::after {
@@ -182,8 +182,8 @@
             <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 1
         </div>
 
-        <h1>Local AI & RAG Analysis</h1>
-        <p class="lead">Understanding Privacy-First AI and applying it to a Complex Tender Analysis.</p>
+        <h1>Local RAG & Privacy</h1>
+        <p class="lead">Using Intel AI Playground to securely analyze confidential documents.</p>
 
         <!-- SECTION 1: CONCEPTS -->
         <h2>Part 1: Key Concepts</h2>
@@ -191,105 +191,84 @@
         <div class="concept-card">
             <div class="concept-icon"><i data-lucide="shield"></i></div>
             <div>
-                <h3>Why Local?</h3>
-                <p>When you use ChatGPT, your data leaves the building. When you use <strong>Local AI (Llama 3 on Intel
-                        NPU)</strong>, the data stays on your laptop. This is mandatory for Government, Legal, and
-                    Healthcare work.</p>
+                <h3>The Privacy Problem</h3>
+                <p>Cloud AI (ChatGPT) stores your data. For government, legal, or health documents, this is
+                    unacceptable. <strong>Local AI</strong> runs 100% on your laptop's NPU, ensuring zero data leakage.
+                </p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="database"></i></div>
+            <div class="concept-icon"><i data-lucide="file-search"></i></div>
             <div>
-                <h3>What is RAG?</h3>
-                <p><strong>Retrieval Augmented Generation.</strong> LLMs hallucinate. RAG grounds them in your facts. We
-                    index your PDFs into a "Vector Database" so the AI can find the exact page before answering.</p>
+                <h3>What is RAG? (Retrieval Augmented Generation)</h3>
+                <p>Standard AI hallucinates facts. <strong>RAG</strong> forces the AI to read <em>your specific PDF</em>
+                    first, then answer based <em>only</em> on that document. It's like an open-book exam.</p>
             </div>
         </div>
 
         <!-- SECTION 2: SCENARIO -->
-        <h2>Part 2: The Lab - "The 500 Cr Tender"</h2>
+        <h2>Part 2: The Lab - "The 500Cr Tender"</h2>
 
         <div class="scenario-box">
             <h3><i data-lucide="briefcase"></i> The Mission</h3>
-            <p>You are the Chief Secretary. You have received a massive RFP (Request for Proposal) for a new Green Data
-                Center, and 3 competing bids.</p>
-            <p><strong>Your Goal:</strong> Use AI to check compliance, calculate costs, and pick a winner in < 20
-                    minutes.</p>
+            <p>You are a Bureaucrat. You have received a massive, confidential "Smart City RFP" document. You need to
+                summarize it and check for compliance risks in 10 minutes without uploading it to the cloud.</p>
         </div>
 
-        <h3>The Documents</h3>
-        <p>Ingest these files into AI Playground:</p>
+        <h3>The Evidence</h3>
+        <p>Download the dummy tender document:</p>
         <div class="resource-list">
-            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_requirements_GOI_SDC_01.txt"
-                class="resource-btn" download><i data-lucide="file-text" style="color:#EF4444;"></i> RFP (Rules)</a>
-            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_bidder_A_techsolutions.txt"
-                class="resource-btn" download><i data-lucide="file" style="color:#3B82F6;"></i> Bidder A (Apex)</a>
-            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_bidder_B_infratech.txt"
-                class="resource-btn" download><i data-lucide="file" style="color:#3B82F6;"></i> Bidder B (Bharat)</a>
-            <a href="../Workshop_Resources/Session_1/resources/scenarios/tender_bidder_C_digisecure.txt"
-                class="resource-btn" download><i data-lucide="file" style="color:#10B981;"></i> Bidder C (Green)</a>
+            <a href="../Workshop_Resources/Session_1/resources/Tender_Document_Secret.pdf" class="resource-btn"
+                download><i data-lucide="file-text" style="color:#2563EB;"></i> Tender_Document_Secret.pdf</a>
         </div>
 
         <!-- SECTION 3: PROMPTS -->
         <h2>Part 3: The Prompt Library</h2>
 
-        <h3>Level 1: Compliance Shift</h3>
-        <p><strong>Goal:</strong> Find who doesn't meet the harsh criteria.</p>
-        <div class="prompt-box" onclick="copy(this)">Check each bidder against Mandatory Requirements:
-            1. Turnover > 500 Cr
-            2. PUE < 1.5 3. Timeline < 18 Months. Who is disqualified?</div>
-                <div class="tip-box">
-                    <i data-lucide="alert-circle"></i>
-                    <div><strong>Insight:</strong> Bidder B (Bharat) should be flagged because their turnover is only
-                        450 Cr.</div>
-                </div>
+        <h3>Level 1: The Executive Summary</h3>
+        <p><strong>Goal:</strong> Get the big picture instantly.</p>
+        <div class="prompt-box" onclick="copy(this)">Summarize this tender document. What is the primary objective of
+            the project and what is the estimated budget?</div>
 
-                <h3>Level 2: Financial TCO</h3>
-                <p><strong>Goal:</strong> Look beyond the sticker price (Capex).</p>
-                <div class="prompt-box" onclick="copy(this)">Create a 5-Year Total Cost of Ownership (TCO) table.
-                    Formula: Capex + (Annual Power Cost * 5) + (Services * 5).
-                    Which option is cheapest in the long run?</div>
+        <h3>Level 2: The Technical Deep Dive</h3>
+        <p><strong>Goal:</strong> Extract specific technical requirements.</p>
+        <div class="prompt-box" onclick="copy(this)">List all the mandatory IoT sensor requirements mentioned in the
+            Technical Specifications section. Bullet points please.</div>
 
-                <h3>Level 3: Technical Deep Dive</h3>
-                <p><strong>Goal:</strong> Compare engineering approaches.</p>
-                <div class="prompt-box" onclick="copy(this)">Compare the 'Cooling Methodology' of GreenFlow
-                    (Underground) vs Apex Cloud (Modular).
-                    List pros and cons for a seismic zone.</div>
-
-                <h3>Level 4: The Loophole</h3>
-                <p><strong>Goal:</strong> Save the startup (GreenFlow) using the "Startup India" clause.</p>
-                <div class="prompt-box" onclick="copy(this)">Bidder C (GreenFlow) is a startup.
-                    Check the RFP 'Eligibility' section - are they exempt from the turnover criteria?</div>
-                <div class="tip-box">
-                    <i data-lucide="check-circle"></i>
-                    <div><strong>Insight:</strong> The AI should find the clause that exempts startups from the 500 Cr
-                        turnover rule.</div>
-                </div>
-
-                <h3>Level 5: Executive Decision</h3>
-                <div class="prompt-box" onclick="copy(this)">You are the Chief Secretary.
-                    Considering the strict 18-month deadline and the 'Green IT' mandate, write a 1-paragraph executive
-                    summary recommending a winner.</div>
-
-                <footer>
-                    AI PC Workshop Series • Session 1
-                </footer>
+        <h3>Level 3: The Compliance Trap (Risk Check)</h3>
+        <p><strong>Goal:</strong> Find the hidden clause.</p>
+        <div class="prompt-box" onclick="copy(this)">Check the 'Data Localization' clause. Does the tender require all
+            data to be stored within India? Quote the exact text.</div>
+        <div class="tip-box">
+            <i data-lucide="check-circle"></i>
+            <div><strong>Verification:</strong> The AI should cite the page number (e.g. [Page 12]). Click the number to
+                verify the source text yourself!</div>
         </div>
 
-        <script>
-            lucide.createIcons();
-            function copy(el) {
-                navigator.clipboard.writeText(el.innerText);
-                const original = el.style.borderColor;
-                el.style.borderColor = '#22C55E';
-                el.style.backgroundColor = '#DCFCE7';
-                setTimeout(() => {
-                    el.style.borderColor = original;
-                    el.style.backgroundColor = '';
-                }, 500);
-            }
-        </script>
+        <h3>Level 4: The Penalty Clause</h3>
+        <p><strong>Goal:</strong> Financial risk assessment.</p>
+        <div class="prompt-box" onclick="copy(this)">What represent the penalties for delaying the project by more than
+            3 months? Is there a force majeure clause?</div>
+
+        <footer>
+            AI PC Workshop Series • Session 1
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function copy(el) {
+            navigator.clipboard.writeText(el.innerText);
+            const original = el.style.borderColor;
+            el.style.borderColor = '#22C55E';
+            el.style.backgroundColor = '#DCFCE7';
+            setTimeout(() => {
+                el.style.borderColor = original;
+                el.style.backgroundColor = '';
+            }, 500);
+        }
+    </script>
 </body>
 
 </html>

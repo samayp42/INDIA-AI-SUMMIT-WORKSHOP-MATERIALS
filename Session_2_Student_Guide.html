@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 2 | Student Guide - Creative AI</title>
+    <title>Session 2 | Student Guide - Creative AI Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #D946EF;
-            --primary-light: #FAE8FF;
-            --bg: #FAFCFF;
+            --primary: #8B5CF6;
+            --primary-light: #F5F3FF;
+            --pink: #EC4899;
+            --pink-light: #FDF2F8;
+            --blue: #3B82F6;
+            --blue-light: #EFF6FF;
+            --bg: #FAFAFF;
             --text-main: #0F172A;
             --text-sub: #334155;
             --code-bg: #F8FAFC;
@@ -44,7 +48,10 @@
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 5px;
-            color: var(--primary);
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         h2 {
@@ -61,12 +68,18 @@
             font-weight: 600;
             margin-top: 25px;
             margin-bottom: 10px;
-            color: #C026D3;
+            color: #7C3AED;
         }
 
         p {
             margin-bottom: 15px;
             color: var(--text-sub);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            margin-bottom: 30px;
         }
 
         .concept-card {
@@ -88,68 +101,61 @@
             flex-shrink: 0;
         }
 
+        .concept-icon.pink {
+            background: var(--pink-light);
+            color: var(--pink);
+        }
+
+        .concept-icon.blue {
+            background: var(--blue-light);
+            color: var(--blue);
+        }
+
         .scenario-box {
-            background: #FDF4FF;
-            border: 1px solid #FAE8FF;
+            background: var(--primary-light);
+            border: 1px solid #E9D5FF;
             padding: 20px;
             border-radius: 12px;
             margin-top: 30px;
             margin-bottom: 30px;
         }
 
-        .resource-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .resource-btn {
-            background: white;
-            border: 1px solid #CBD5E1;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-sub);
+        .scenario-box h3 {
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .resource-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            gap: 8px;
+            margin-top: 0;
         }
 
         .prompt-box {
             background: var(--code-bg);
-            border: 1px solid #E2E8F0;
+            border: 1px solid #CBD5E1;
             padding: 20px;
             border-radius: 8px;
-            font-family: monospace;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
             position: relative;
             cursor: pointer;
             transition: all 0.2s;
             margin-bottom: 10px;
             color: #334155;
+            line-height: 1.7;
         }
 
         .prompt-box:hover {
             border-color: var(--primary);
-            background: #FDF4FF;
+            background: var(--primary-light);
         }
 
         .prompt-box::after {
-            content: 'Click to Copy';
+            content: '📋 Click to Copy';
             position: absolute;
             top: 10px;
             right: 10px;
             font-size: 0.7rem;
             color: #94A3B8;
-            font-family: sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .tip-box {
@@ -162,6 +168,90 @@
             display: flex;
             gap: 10px;
             align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .success-box {
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            padding: 15px;
+            border-radius: 8px;
+            color: #065F46;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .asset-preview {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .asset-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .asset-caption {
+            padding: 12px 16px;
+            font-size: 0.82rem;
+            color: #94A3B8;
+            text-align: center;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .anatomy-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .anatomy-tag {
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .anatomy-arrow {
+            color: #94A3B8;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .setting-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        .setting-card strong {
+            display: block;
+            font-size: 0.82rem;
+            color: #7C3AED;
+            margin-bottom: 4px;
+        }
+
+        .setting-card span {
+            font-size: 0.85rem;
+            color: var(--text-sub);
         }
 
         footer {
@@ -172,6 +262,16 @@
             border-top: 1px solid #E2E8F0;
             padding-top: 20px;
         }
+
+        @media print {
+            body {
+                padding: 20px;
+            }
+
+            .prompt-box::after {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -179,93 +279,266 @@
     <div class="container">
         <div
             style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
-            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 2
+            <i data-lucide="palette"></i> WORKSHOP GUIDE — SESSION 2
         </div>
 
-        <h1>AI Design Studio</h1>
-        <p class="lead">Mastering Stable Diffusion for Commercial & Architectural Work.</p>
+        <h1>Creative AI Studio</h1>
+        <p class="lead">Generate professional images, transform sketches into photorealistic renders, and create AI
+            videos — all locally on your Intel AI PC, at zero cost.</p>
 
-        <!-- SECTION 1: CONCEPTS -->
+        <!-- ═══════════════ PART 1: CONCEPTS ═══════════════ -->
         <h2>Part 1: Key Concepts</h2>
 
         <div class="concept-card">
             <div class="concept-icon"><i data-lucide="sparkles"></i></div>
             <div>
-                <h3>Latent Space</h3>
-                <p>Think of it as the AI's "Imagination". It starts with static noise and gradually "denoises" it into
-                    an image based on your text prompt.</p>
+                <h3>What is a Diffusion Model?</h3>
+                <p>Diffusion models start with <strong>random noise</strong> and gradually refine it into a coherent
+                    image through ~50 "denoising" steps, guided by your text prompt. Think of it like sculpting —
+                    starting with a rough block and carving details with each pass.</p>
+                <p style="margin-bottom:0;"><strong>Key takeaway:</strong> The entire model runs on your GPU/NPU. No
+                    cloud API. No per-image fees. Unlimited generations.</p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="anchor"></i></div>
+            <div class="concept-icon pink"><i data-lucide="image"></i></div>
             <div>
-                <h3>ControlNet</h3>
-                <p>We force the AI to respect line art or depth maps. This is crucial for architects who need the AI to
-                    "paint over" a specific sketch without changing the walls.</p>
+                <h3>Text-to-Image vs Image-to-Image</h3>
+                <p><strong>Text-to-Image:</strong> You describe what you want in words and the AI creates it from
+                    scratch. Great for product shots, concept art, and marketing visuals.</p>
+                <p style="margin-bottom:0;"><strong>Image-to-Image (Img2Img):</strong> You upload a reference image
+                    (sketch, photo) and the AI transforms it while keeping the original structure. Perfect for
+                    converting sketches into photorealistic renders.</p>
             </div>
         </div>
 
-        <!-- SECTION 2: SCENARIO -->
-        <h2>Part 2: The Lab - "The 10-Minute Render"</h2>
+        <div class="concept-card">
+            <div class="concept-icon blue"><i data-lucide="video"></i></div>
+            <div>
+                <h3>AI Video Generation</h3>
+                <p style="margin-bottom:0;">Same principle as image generation, but extended to create short 4-second
+                    video clips. Describe a scene, and the AI generates a video with motion, lighting, and camera
+                    angles. Ideal for product reveals, social media content, and concept videos.</p>
+            </div>
+        </div>
+
+        <!-- ═══════════════ PART 2: PROMPT ANATOMY ═══════════════ -->
+        <h2>Part 2: The Anatomy of a Perfect Prompt</h2>
+
+        <p>The quality of your output is directly proportional to the quality of your prompt. Follow this formula:</p>
+
+        <div class="anatomy-row">
+            <div class="anatomy-tag" style="background:#DBEAFE; color:#1D4ED8;">📦 Subject</div>
+            <div class="anatomy-arrow">→</div>
+            <div class="anatomy-tag" style="background:#E0E7FF; color:#4338CA;">🏠 Setting</div>
+            <div class="anatomy-arrow">→</div>
+            <div class="anatomy-tag" style="background:#FEF3C7; color:#92400E;">💡 Lighting</div>
+            <div class="anatomy-arrow">→</div>
+            <div class="anatomy-tag" style="background:#FCE7F3; color:#9D174D;">🎨 Style</div>
+            <div class="anatomy-arrow">→</div>
+            <div class="anatomy-tag" style="background:#ECFDF5; color:#065F46;">✨ Quality</div>
+        </div>
+
+        <div class="tip-box">
+            <i data-lucide="lightbulb"></i>
+            <div><strong>Pro Tip:</strong> Always include a <strong>negative prompt</strong> to tell the AI what to
+                avoid: <em>"blurry, low quality, watermark, text, distorted, extra fingers"</em></div>
+        </div>
+
+        <!-- ═══════════════ PART 3: LAB 1 — TEXT TO IMAGE ═══════════════ -->
+        <h2>Part 3: Lab 1 — Text → Image (Product Photography)</h2>
+
+        <div class="scenario-box">
+            <h3><i data-lucide="shopping-bag"></i> The Mission</h3>
+            <p>You're launching a new product on Amazon India. You need 3 professional product shots. Budget: ₹0. Time:
+                5 minutes.</p>
+        </div>
+
+        <div class="asset-preview">
+            <img src="assets/earphone.png" alt="AI-generated earphone product photography">
+            <div class="asset-caption">Example: AI-generated product photography — created entirely on an AI PC</div>
+        </div>
+
+        <h3>Shot 1 — Hero Image</h3>
+        <p><strong>Goal:</strong> The main product listing photo.</p>
+        <div class="prompt-box" onclick="copy(this)">Premium wireless earbuds on white marble surface, soft studio
+            lighting, subtle shadow, e-commerce product photography, Apple style, 4K, ultra detailed, professional</div>
+
+        <h3>Shot 2 — Lifestyle Shot</h3>
+        <p><strong>Goal:</strong> Show the product in use.</p>
+        <div class="prompt-box" onclick="copy(this)">Person wearing wireless earbuds while jogging in a park, morning
+            golden hour sunlight, bokeh background, fitness lifestyle photography, energetic mood, 4K</div>
+
+        <h3>Shot 3 — Close-up Detail</h3>
+        <p><strong>Goal:</strong> Highlight build quality.</p>
+        <div class="prompt-box" onclick="copy(this)">Extreme close-up of premium wireless earbuds showing texture and
+            build quality, macro photography, studio lighting, dark background, reflections, 8K detail</div>
+
+        <h3>Negative Prompt (use for all)</h3>
+        <div class="prompt-box" onclick="copy(this)">blurry, low quality, watermark, text, bad anatomy, distorted, extra
+            objects, dark, gloomy, jpeg artifacts</div>
+
+        <div class="settings-grid">
+            <div class="setting-card">
+                <strong>Model</strong>
+                <span>Stable Diffusion XL</span>
+            </div>
+            <div class="setting-card">
+                <strong>Steps</strong>
+                <span>25-30 recommended</span>
+            </div>
+            <div class="setting-card">
+                <strong>Resolution</strong>
+                <span>1024 × 1024</span>
+            </div>
+            <div class="setting-card">
+                <strong>Guidance Scale</strong>
+                <span>7.0 (default)</span>
+            </div>
+        </div>
+
+        <!-- ═══════════════ PART 4: LAB 2 — SKETCH TO REALITY ═══════════════ -->
+        <h2>Part 4: Lab 2 — Sketch → Reality (Architecture Render)</h2>
 
         <div class="scenario-box">
             <h3><i data-lucide="pen-tool"></i> The Mission</h3>
             <p>A client has sent a rough napkin sketch of a living room. They want to see 3 style variations (Modern,
-                Industrial, Cyberpunk) in high resolution immediately.</p>
+                Scandinavian, Industrial) before committing to a ₹15 Lakh renovation. You have 10 minutes.</p>
         </div>
 
-        <h3>The Assets</h3>
-        <p>Download the sketch:</p>
-        <div class="resource-list">
-            <a href="../Workshop_Resources/Session_2/resources/living_room_sketch.png" class="resource-btn" download><i
-                    data-lucide="image" style="color:#D946EF;"></i> Living Room Sketch.png</a>
+        <div class="asset-preview">
+            <img src="assets/sketch.png" alt="Sketch to reality transformation">
+            <div class="asset-caption">Example: Hand-drawn sketch transformed into a photorealistic interior render
+            </div>
         </div>
 
-        <!-- SECTION 3: PROMPTS -->
-        <h2>Part 3: The Prompt Library</h2>
+        <div class="success-box">
+            <i data-lucide="info"></i>
+            <div><strong>How to switch:</strong> In AI Playground, change the mode to <strong>"Image to Image"</strong>
+                and upload your sketch file (JPG/PNG).</div>
+        </div>
 
-        <h3>Level 1: The Modern Base</h3>
-        <p><strong>Goal:</strong> Establish a realistic baseline.</p>
-        <div class="prompt-box" onclick="copy(this)">Modern luxury living room, floor to ceiling windows, overlooking
-            forest, soft morning light, architectural digest style, 8k, photorealistic, cinematic lighting.</div>
+        <h3>Level 1: Modern Minimalist</h3>
+        <p><strong>Goal:</strong> Clean contemporary design.</p>
+        <div class="prompt-box" onclick="copy(this)">Transform this living room sketch into a photorealistic modern
+            minimalist interior, natural lighting through large windows, premium furniture, light wooden flooring, white
+            walls, indoor plants, architectural visualization, 4K</div>
 
-        <h3>Level 2: The Trash Filter (Negative)</h3>
-        <p><strong>Goal:</strong> Remove artifacts.</p>
+        <h3>Level 2: Scandinavian Hygge</h3>
+        <p><strong>Goal:</strong> Warm Nordic atmosphere.</p>
+        <div class="prompt-box" onclick="copy(this)">Transform this living room sketch into a cozy Scandinavian
+            interior, warm wood tones, soft textured throws, sheepskin rug, pendant lighting, hygge atmosphere, muted
+            earth tones, architectural photography, 4K</div>
+
+        <h3>Negative Prompt</h3>
         <div class="prompt-box" onclick="copy(this)">text, watermark, bad anatomy, distorted perspective, extra
             furniture, dark, gloomy, low quality, jpeg artifacts, blur</div>
 
-        <h3>Level 3: The Industrial Variant</h3>
+        <h3>Level 3: Industrial Loft</h3>
         <p><strong>Goal:</strong> Change materials (Brick & Steel).</p>
         <div class="prompt-box" onclick="copy(this)">Industrial loft apartment, exposed brick walls, steel beams, edison
-            bulbs, leather sofa, concrete floor, warehouse conversion style, dramatic shadows.</div>
+            bulb lighting, concrete floor, leather sofa, open plan, warm moody lighting, magazine quality interior
+            photography, 8K</div>
 
-        <h3>Level 4: The Cyberpunk Pivot</h3>
-        <p><strong>Goal:</strong> Total style change while keeping layout.</p>
-        <div class="prompt-box" onclick="copy(this)">Cyberpunk apartment interior, neon lights, holographic screens,
-            rain on window, blade runner aesthetic, dark atmosphere, purple and blue lighting.</div>
+        <div class="settings-grid">
+            <div class="setting-card">
+                <strong>Mode</strong>
+                <span>Image-to-Image</span>
+            </div>
+            <div class="setting-card">
+                <strong>Strength</strong>
+                <span>0.6 – 0.8 (key setting!)</span>
+            </div>
+            <div class="setting-card">
+                <strong>Steps</strong>
+                <span>30</span>
+            </div>
+            <div class="setting-card">
+                <strong>Guidance Scale</strong>
+                <span>7.5</span>
+            </div>
+        </div>
+
         <div class="tip-box">
+            <i data-lucide="sliders"></i>
+            <div><strong>Strength slider explained:</strong> Lower values (0.3–0.5) keep the image closer to your
+                original sketch. Higher values (0.7–0.9) give the AI more creative freedom. Start at
+                <strong>0.7</strong> and adjust.</div>
+        </div>
+
+        <!-- ═══════════════ PART 5: LAB 3 — VIDEO GENERATION ═══════════════ -->
+        <h2>Part 5: Lab 3 — AI Video Generation</h2>
+
+        <div class="scenario-box">
+            <h3><i data-lucide="video"></i> The Mission</h3>
+            <p>Create a 4-second product reveal video for a social media campaign. No camera crew, no editing software,
+                no budget.</p>
+        </div>
+
+        <h3>Video Prompt 1 — Car Showroom</h3>
+        <div class="prompt-box" onclick="copy(this)">Smooth camera orbit around a luxury sports car in a dark showroom,
+            dramatic spotlight lighting, reflections on polished floor, cinematic, commercial quality</div>
+
+        <h3>Video Prompt 2 — Coffee Commercial</h3>
+        <div class="prompt-box" onclick="copy(this)">Coffee being poured into a premium ceramic cup, steam rising
+            elegantly, slow motion, warm cafe lighting with bokeh, commercial quality, cozy atmosphere</div>
+
+        <h3>Video Prompt 3 — Product Reveal</h3>
+        <div class="prompt-box" onclick="copy(this)">Product reveal: modern smartphone emerging from elegant white
+            packaging, subtle light effects, clean white background, tech commercial style, Apple aesthetic</div>
+
+        <div class="tip-box">
+            <i data-lucide="clock"></i>
+            <div><strong>Note:</strong> Video generation takes longer than image generation (~2-5 minutes per clip). The
+                output is a 4-second video clip. For longer videos, generate multiple clips and stitch them together.
+            </div>
+        </div>
+
+        <!-- ═══════════════ PART 6: BONUS PROMPTS ═══════════════ -->
+        <h2>Part 6: Bonus Prompt Library</h2>
+
+        <h3>🏠 Architecture Exterior</h3>
+        <div class="prompt-box" onclick="copy(this)">Transform this house sketch into a photorealistic modern villa,
+            glass facades, infinity pool, landscaped garden, golden hour lighting, 8K architectural visualization</div>
+
+        <h3>💅 Beauty Product</h3>
+        <div class="prompt-box" onclick="copy(this)">Luxury perfume bottle on reflective black surface, dramatic studio
+            lighting, smoke effects, premium advertisement aesthetic, dark moody background, 4K</div>
+
+        <h3>🍽️ Food Photography</h3>
+        <div class="prompt-box" onclick="copy(this)">Gourmet butter chicken in premium ceramic bowl, garnished with
+            fresh cilantro, steam rising, warm restaurant lighting, top-down food photography, Zomato style, 4K</div>
+
+        <h3>👗 Fashion</h3>
+        <div class="prompt-box" onclick="copy(this)">Indian ethnic wear, elegant lehenga on mannequin, rich embroidery
+            details, soft studio lighting, e-commerce product photography, white background, 4K</div>
+
+        <div class="success-box">
             <i data-lucide="check-circle"></i>
-            <div><strong>ControlNet Tip:</strong> Set ControlNet to "Canny" with weight 1.0 to preserve the sketch lines
-                perfectly.</div>
+            <div><strong>What you achieved today:</strong> You generated unlimited professional images, transformed
+                rough sketches into photorealistic renders, and created AI video clips — all locally on your AI PC with
+                zero cloud costs and complete privacy.</div>
         </div>
 
         <footer>
-            AI PC Workshop Series • Session 2
+            AI PC Workshop Series • Session 2 — Creative AI Studio
         </footer>
     </div>
 
     <script>
         lucide.createIcons();
         function copy(el) {
-            navigator.clipboard.writeText(el.innerText);
-            const original = el.style.borderColor;
+            const text = el.innerText.replace('📋 Click to Copy', '').trim();
+            navigator.clipboard.writeText(text);
+            const origBorder = el.style.borderColor;
+            const origBg = el.style.backgroundColor;
             el.style.borderColor = '#22C55E';
             el.style.backgroundColor = '#DCFCE7';
             setTimeout(() => {
-                el.style.borderColor = original;
-                el.style.backgroundColor = '';
-            }, 500);
+                el.style.borderColor = origBorder;
+                el.style.backgroundColor = origBg;
+            }, 600);
         }
     </script>
 </body>
