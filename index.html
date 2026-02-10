@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI PC Workshop Series | India AI Summit</title>
-    <meta name="description"
-        content="6-session hands-on AI workshop powered by Intel AI PCs. Local AI, zero cloud, absolute privacy.">
+    <title>AI PC Playground | India AI Summit</title>
+    <meta name="description" content="6-session hands-on AI PC Playground. Local AI, zero cloud, absolute privacy.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
@@ -507,6 +506,32 @@
         .hero>*:nth-child(4) {
             animation-delay: 0.4s;
         }
+
+        .hero>*:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        /* Register CTA */
+        .cta-register {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            color: #FFFFFF;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .cta-register:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 40px rgba(37, 99, 235, 0.35);
+        }
     </style>
 </head>
 
@@ -525,13 +550,13 @@
             </div>
 
             <h1 class="hero-title">
-                Build with AI.<br>
-                <span class="gradient">Locally.</span>
+                AI PC
+                <span class="gradient">Playground.</span>
             </h1>
 
             <p class="hero-subtitle">
                 6 hands-on sessions. From confidential document analysis to AI-generated art to voice bots — all running
-                entirely on your Intel AI PC. Zero cloud. Zero cost.
+                entirely on your AI PC. Zero cloud. Zero cost.
             </p>
 
             <div class="stats-strip">
@@ -552,11 +577,15 @@
                     <div class="stat-label">Generations</div>
                 </div>
             </div>
+
+            <a href="register.html" class="cta-register" id="register-now-btn">
+                Register Now →
+            </a>
         </header>
 
         <!-- ═══════════════ SESSION GRID ═══════════════ -->
         <section class="grid-section">
-            <div class="section-label">Workshop Sessions</div>
+            <div class="section-label">Sessions</div>
             <div class="session-grid">
 
                 <!-- Session 1 -->
@@ -790,9 +819,9 @@
 
         <!-- ═══════════════ FOOTER ═══════════════ -->
         <footer class="site-footer">
-            <p>Powered by <a href="https://github.com/intel/AI-Playground" target="_blank">Intel AI Playground</a> •
+            <p>Powered by <a href="https://github.com/intel/AI-Playground" target="_blank">AI PC Playground</a> •
                 India AI Summit 2026</p>
-            <p style="margin-top:6px; opacity:0.6;">All AI processing runs 100% locally on Intel AI PCs. Zero data
+            <p style="margin-top:6px; opacity:0.6;">All AI processing runs 100% locally on AI PCs. Zero data
                 leaves your device.</p>
         </footer>
 

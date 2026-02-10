@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | AI PC Playground — India AI Summit</title>
+    <meta name="description"
+        content="Register for the 6-session hands-on AI PC Playground at the India AI Summit 2026.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           DESIGN SYSTEM (inherited from index)
+           ═══════════════════════════════════════════ */
+        :root {
+            --bg: #FAFBFF;
+            --surface: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #94A3B8;
+            --border: #E2E8F0;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+            --accent: #2563EB;
+            --accent-light: #DBEAFE;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Dot grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(#CBD5E1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ambient blobs */
+        .ambient {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-1 {
+            background: #DBEAFE;
+            top: -300px;
+            right: -200px;
+        }
+
+        .ambient-2 {
+            background: #E0E7FF;
+            bottom: -300px;
+            left: -200px;
+        }
+
+        /* ═══════════════════════════════════════════
+           PAGE LAYOUT
+           ═══════════════════════════════════════════ */
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Page header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .page-header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #22C55E;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .page-header h1 .gradient {
+            background: linear-gradient(135deg, #2563EB, #7C3AED, #EC4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════
+           STEP PROGRESS
+           ═══════════════════════════════════════════ */
+        .step-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            font-weight: 800;
+            border: 2px solid var(--border);
+            color: var(--text-tertiary);
+            background: var(--surface);
+            transition: all 0.4s ease;
+        }
+
+        .step-circle.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+        }
+
+        .step-circle.done {
+            border-color: #22C55E;
+            background: #22C55E;
+            color: #fff;
+        }
+
+        .step-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            transition: color 0.3s;
+        }
+
+        .step-label.active {
+            color: var(--accent);
+        }
+
+        .step-label.done {
+            color: #22C55E;
+        }
+
+        .step-line {
+            width: 48px;
+            height: 2px;
+            background: var(--border);
+            margin: 0 12px;
+            transition: background 0.4s;
+        }
+
+        .step-line.done {
+            background: #22C55E;
+        }
+
+        /* ═══════════════════════════════════════════
+           CARDS / PANELS
+           ═══════════════════════════════════════════ */
+        .step-panel {
+            display: none;
+            animation: fadeSlideIn 0.5s ease;
+        }
+
+        .step-panel.visible {
+            display: block;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .panel-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* ═══════════════════════════════════════════
+           STEP 1: DATE SELECTOR
+           ═══════════════════════════════════════════ */
+        .date-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .date-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .date-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .date-option label {
+            display: flex;
+            flex-direction: column;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--surface);
+        }
+
+        .date-option label:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+        }
+
+        .date-option input:checked+label {
+            border-color: var(--accent);
+            background: #EFF6FF;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
+        }
+
+        .date-option .date-day {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .date-option .date-month {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .date-option .date-weekday {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-top: 8px;
+        }
+
+        /* ═══════════════════════════════════════════
+           STEP 2: SESSION ROSTER (tabs + cards)
+           ═══════════════════════════════════════════ */
+        .selected-date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .selected-date-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .session-pick-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .session-pick-card {
+            position: relative;
+            background: #fff;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: left;
+        }
+
+        .session-pick-card:hover {
+            border-color: #94A3B8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .session-pick-card .spc-accent {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .session-pick-card .spc-num {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+        }
+
+        .session-pick-card .spc-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+
+        .session-pick-card .spc-time {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+        }
+
+        .session-pick-card .spc-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: 8px;
+        }
+
+        .session-pick-card .spc-audience {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        .session-pick-card .spc-audience .aud-for {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--text-tertiary);
+            margin-right: 2px;
+        }
+
+        .session-pick-card .spc-audience .pill {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: #F1F5F9;
+            color: #475569;
+        }
+
+        /* Step back button */
+        .step-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 16px;
+            transition: color 0.2s;
+        }
+
+        .step-back-btn:hover {
+            color: var(--accent);
+        }
+
+        .step-back-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ═══════════════════════════════════════════
+           STEP 3: CONTACT FORM
+           ═══════════════════════════════════════════ */
+        .chosen-summary {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .chosen-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: #EFF6FF;
+            color: var(--accent);
+            border: 1px solid #BFDBFE;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group label .optional {
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background: var(--surface);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-input.error {
+            border-color: #EF4444;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+        }
+
+        .error-msg {
+            font-size: 0.75rem;
+            color: #EF4444;
+            font-weight: 600;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-msg.visible {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            color: #fff;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
+        }
+
+        .submit-btn.loading .btn-text {
+            display: none;
+        }
+
+        .submit-btn.loading .spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           STEP 4: SUCCESS
+           ═══════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════
+           STEP 4: SUCCESS (PREMIUM TICKET UI)
+           ═══════════════════════════════════════════ */
+        .success-panel {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        /* TICKET CONTAINER */
+        .ticket {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+            animation: ticket-entry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transform-origin: center bottom;
+        }
+
+        @keyframes ticket-entry {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9) rotateX(10deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0);
+            }
+        }
+
+        /* TICKET HEADER */
+        .ticket-header {
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            padding: 32px 24px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* HOLOGRAPHIC SHINE EFFECT */
+        .ticket-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 60%);
+            animation: shine 4s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-30%) translateY(-30%);
+            }
+
+            100% {
+                transform: translateX(30%) translateY(30%);
+            }
+        }
+
+        .success-icon-lg {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            animation: bounce-in 0.6s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ticket-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-subtitle {
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* RIP/PERFORATION */
+        .ticket-rip {
+            height: 20px;
+            background: #fff;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rip-circle-left,
+        .rip-circle-right {
+            width: 20px;
+            height: 20px;
+            background: #F8FAFC;
+            /* Matches page bg */
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+        }
+
+        .rip-circle-left {
+            left: -10px;
+            box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .rip-circle-right {
+            right: -10px;
+            box-shadow: inset 2px 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .rip-line {
+            width: 100%;
+            height: 0;
+            border-top: 2px dashed #E2E8F0;
+            margin: 0 24px;
+        }
+
+        /* TICKET BODY */
+        .ticket-body {
+            padding: 32px 24px;
+        }
+
+        .ticket-row {
+            margin-bottom: 24px;
+        }
+
+        .ticket-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .ticket-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .ticket-value.highlight {
+            color: #2563EB;
+        }
+
+        /* QR AREA */
+        .ticket-footer-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Space between QR and button */
+            gap: 20px;
+            margin-top: 10px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .qr-placeholder {
+            width: 64px;
+            height: 64px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h30v30h-30z M60 10h30v30h-30z M10 60h30v30h-30z M60 60h10v10h-10z M80 60h10v10h-10z M60 80h10v10h-10z M80 80h10v10h-10z' fill='%231E293B'/%3E%3C/svg%3E");
+            background-size: cover;
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        .home-btn {
+            flex-grow: 1;
+            /* Button takes remaining space */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            /* Softer radius */
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: #F1F5F9;
+            color: #1E293B;
+            transition: all 0.2s ease;
+        }
+
+        .home-btn:hover {
+            background: #E2E8F0;
+            transform: translateY(-1px);
+        }
+
+        /* CONFETTI (Simple CSS implementation) */
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 16px;
+            background: #ffd300;
+            top: -20px;
+            opacity: 0;
+            animation: fall 3s ease-in-out infinite;
+        }
+
+        .confetti-piece:nth-child(2n) {
+            background: #17d3ff;
+        }
+
+        .confetti-piece:nth-child(3n) {
+            background: #ff4e91;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                top: -20px;
+                transform: rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                top: 100%;
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .site-footer {
+            text-align: center;
+            padding: 20px 40px 40px;
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+        }
+
+        .site-footer a {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════ */
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            .page {
+                padding: 24px 16px 60px;
+            }
+
+            .page-header {
+                margin-bottom: 32px;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+                letter-spacing: -1px;
+            }
+
+            .page-header p {
+                font-size: 0.92rem;
+            }
+
+            .panel-card {
+                padding: 24px 20px;
+            }
+
+            .date-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .session-pick-grid {
+                gap: 10px;
+            }
+
+            .session-pick-card {
+                padding: 14px 12px;
+            }
+
+            .session-pick-card .spc-title {
+                font-size: 0.88rem;
+            }
+
+            .session-pick-card .spc-desc {
+                font-size: 0.74rem;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .page {
+                padding: 16px 12px 48px;
+            }
+
+            .back-link {
+                margin-bottom: 20px;
+                font-size: 0.78rem;
+            }
+
+            .page-header {
+                margin-bottom: 24px;
+            }
+
+            .page-header .badge {
+                font-size: 0.65rem;
+                padding: 5px 12px;
+                letter-spacing: 1.5px;
+                margin-bottom: 14px;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+                letter-spacing: -0.8px;
+            }
+
+            .page-header p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+
+            /* Step progress: hide labels, compact circles */
+            .step-label {
+                display: none;
+            }
+
+            .step-circle {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+            }
+
+            .step-line {
+                width: 20px;
+                margin: 0 4px;
+            }
+
+            .step-progress {
+                margin-bottom: 24px;
+            }
+
+            /* Date grid: 2 columns */
+            .date-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .date-option label {
+                padding: 14px 10px;
+            }
+
+            .date-option .date-day {
+                font-size: 1.6rem;
+            }
+
+            .date-option .date-month {
+                font-size: 0.72rem;
+            }
+
+            .date-option .date-weekday {
+                font-size: 0.62rem;
+                margin-top: 6px;
+            }
+
+            /* Panel cards */
+            .panel-card {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+
+            .panel-title {
+                font-size: 1.1rem;
+            }
+
+            .panel-subtitle {
+                font-size: 0.82rem;
+            }
+
+            /* Session pick grid: single column on mobile */
+            .session-pick-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .session-pick-card {
+                padding: 14px 14px;
+            }
+
+            .session-pick-card .spc-title {
+                font-size: 0.9rem;
+            }
+
+            .session-pick-card .spc-desc {
+                font-size: 0.75rem;
+            }
+
+            /* Date badge */
+            .selected-date-badge {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+                margin-bottom: 16px;
+            }
+
+            /* Chosen summary chips */
+            .chosen-chip {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+            }
+
+            /* Form */
+            .form-group label {
+                font-size: 0.8rem;
+            }
+
+            .form-input {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+
+            .submit-btn {
+                padding: 14px;
+                font-size: 0.88rem;
+                border-radius: 10px;
+            }
+
+            /* Ticket (success screen) */
+            .ticket {
+                max-width: 100%;
+                border-radius: 16px;
+            }
+
+            .ticket-header {
+                padding: 24px 18px;
+            }
+
+            .ticket-title {
+                font-size: 1.5rem;
+            }
+
+            .ticket-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .success-icon-lg {
+                font-size: 2.5rem;
+            }
+
+            .ticket-body {
+                padding: 24px 18px;
+            }
+
+            .ticket-row {
+                margin-bottom: 18px;
+            }
+
+            .ticket-label {
+                font-size: 0.68rem;
+            }
+
+            .ticket-value {
+                font-size: 1rem;
+            }
+
+            .ticket-footer-area {
+                gap: 12px;
+            }
+
+            .qr-placeholder {
+                width: 48px;
+                height: 48px;
+            }
+
+            .home-btn {
+                padding: 10px 16px;
+                font-size: 0.82rem;
+                border-radius: 10px;
+            }
+
+            /* Footer */
+            .site-footer {
+                padding: 16px 16px 32px;
+                font-size: 0.72rem;
+            }
+        }
+
+        /* Very small phones (iPhone SE, etc.) */
+        @media (max-width: 360px) {
+            .page-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .date-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .date-option label {
+                padding: 12px 8px;
+            }
+
+            .session-pick-card {
+                padding: 12px 10px;
+            }
+
+            .session-pick-card .spc-title {
+                font-size: 0.82rem;
+            }
+
+            .ticket-header {
+                padding: 20px 14px;
+            }
+
+            .ticket-body {
+                padding: 20px 14px;
+            }
+
+            .ticket-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           PREMIUM TICKET UI (OVERRIDES)
+           ═══════════════════════════════════════════ */
+        .success-panel {
+            padding: 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            perspective: 1000px;
+            background: transparent !important;
+            /* Remove card bg if any */
+        }
+
+        /* TICKET CONTAINER */
+        .ticket {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+            animation: ticket-entry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transform-origin: center bottom;
+        }
+
+        @keyframes ticket-entry {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9) rotateX(10deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0);
+            }
+        }
+
+        /* TICKET HEADER */
+        .ticket-header {
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            padding: 32px 24px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* HOLOGRAPHIC SHINE EFFECT */
+        .ticket-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 60%);
+            animation: shine 4s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-30%) translateY(-30%);
+            }
+
+            100% {
+                transform: translateX(30%) translateY(30%);
+            }
+        }
+
+        .success-icon-lg {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            animation: bounce-in 0.6s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ticket-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-subtitle {
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* RIP/PERFORATION */
+        .ticket-rip {
+            height: 20px;
+            background: #fff;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rip-circle-left,
+        .rip-circle-right {
+            width: 20px;
+            height: 20px;
+            background: #FAFBFF;
+            /* Matches page bg */
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+        }
+
+        .rip-circle-left {
+            left: -10px;
+            box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .rip-circle-right {
+            right: -10px;
+            box-shadow: inset 2px 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .rip-line {
+            width: 100%;
+            height: 0;
+            border-top: 2px dashed #E2E8F0;
+            margin: 0 24px;
+        }
+
+        /* TICKET BODY */
+        .ticket-body {
+            padding: 32px 24px;
+        }
+
+        .ticket-row {
+            margin-bottom: 24px;
+        }
+
+        .ticket-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .ticket-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .ticket-value.highlight {
+            color: #2563EB;
+        }
+
+        /* QR AREA */
+        .ticket-footer-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Space between QR and button */
+            gap: 20px;
+            margin-top: 10px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .qr-placeholder {
+            width: 64px;
+            height: 64px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h30v30h-30z M60 10h30v30h-30z M10 60h30v30h-30z M60 60h10v10h-10z M80 60h10v10h-10z M60 80h10v10h-10z M80 80h10v10h-10z' fill='%231E293B'/%3E%3C/svg%3E");
+            background-size: cover;
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        .home-btn {
+            flex-grow: 1;
+            /* Button takes remaining space */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            /* Softer radius */
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: #F1F5F9;
+            color: #1E293B;
+            transition: all 0.2s ease;
+        }
+
+        .home-btn:hover {
+            background: #E2E8F0;
+            transform: translateY(-1px);
+        }
+
+        /* CONFETTI (Simple CSS implementation) */
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 16px;
+            background: #ffd300;
+            top: -20px;
+            opacity: 0;
+            animation: fall 3s ease-in-out infinite;
+        }
+
+        .confetti-piece:nth-child(2n) {
+            background: #17d3ff;
+        }
+
+        .confetti-piece:nth-child(3n) {
+            background: #ff4e91;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                top: -20px;
+                transform: rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                top: 100%;
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+
+    <div class="page">
+
+        <!-- Back link -->
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Back to AI PC Playground
+        </a>
+
+        <!-- Header -->
+        <div class="page-header">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Registration Open
+            </div>
+            <h1>Register for <span class="gradient">AI PC Playground</span></h1>
+        </div>
+
+        <!-- Step Progress -->
+        <div class="step-progress">
+            <div class="step-indicator">
+                <div class="step-circle active" id="step-circle-1">1</div>
+                <span class="step-label active" id="step-label-1">Date</span>
+            </div>
+            <div class="step-line" id="step-line-1"></div>
+            <div class="step-indicator">
+                <div class="step-circle" id="step-circle-2">2</div>
+                <span class="step-label" id="step-label-2">Session</span>
+            </div>
+            <div class="step-line" id="step-line-2"></div>
+            <div class="step-indicator">
+                <div class="step-circle" id="step-circle-3">3</div>
+                <span class="step-label" id="step-label-3">Details</span>
+            </div>
+        </div>
+
+        <!-- ════════════ STEP 1: DATE ════════════ -->
+        <div class="step-panel visible" id="panel-1">
+            <div class="panel-card">
+                <div class="panel-title">Select Date</div>
+                <div class="panel-subtitle">Choose the day that works best for you.</div>
+                <div class="date-grid" id="date-grid">
+                    <!-- Dates will be injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════ STEP 2: SESSION ════════════ -->
+        <div class="step-panel" id="panel-2">
+            <div class="panel-card">
+                <button class="step-back-btn" onclick="goToStep(1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Change Date
+                </button>
+                <div class="selected-date-badge" id="selected-date-display">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    <span id="date-badge-text"></span>
+                </div>
+                <div class="panel-title">Pick Your Session</div>
+                <div class="panel-subtitle">Tap the session you'd like to attend.</div>
+
+                <div class="session-pick-grid">
+                    <div class="session-pick-card"
+                        onclick="selectSession(1, 'Chat Smarter, Stay Private', '10:00 AM – 11:00 AM')">
+                        <div class="spc-num"><span class="spc-accent" style="background:#2563EB"></span>Session 1 • RAG
+                        </div>
+                        <div class="spc-title">Chat Smarter, Stay Private</div>
+                        <div class="spc-time">10:00 AM – 11:00 AM</div>
+                        <div class="spc-desc">Securely analyze documents — tenders, legal briefs, reports — 100%
+                            offline.</div>
+                        <div class="spc-audience">
+                            <span class="aud-for">👥 For:</span>
+                            <span class="pill">Students</span>
+                            <span class="pill">Healthcare</span>
+                            <span class="pill">Legal Teams</span>
+                            <span class="pill">Researchers</span>
+                        </div>
+                    </div>
+
+                    <div class="session-pick-card"
+                        onclick="selectSession(2, 'From Sketch to Reality', '11:00 AM – 12:00 PM')">
+                        <div class="spc-num"><span class="spc-accent" style="background:#8B5CF6"></span>Session 2 •
+                            Creative</div>
+                        <div class="spc-title">From Sketch to Reality</div>
+                        <div class="spc-time">11:00 AM – 12:00 PM</div>
+                        <div class="spc-desc">Generate product photos, sketch-to-render, AI videos — all locally free.
+                        </div>
+                        <div class="spc-audience">
+                            <span class="aud-for">👥 For:</span>
+                            <span class="pill">Students</span>
+                            <span class="pill">Architects</span>
+                            <span class="pill">Marketing</span>
+                            <span class="pill">Creators</span>
+                        </div>
+                    </div>
+
+                    <div class="session-pick-card"
+                        onclick="selectSession(3, 'Build Your Finance AI Agent', '12:00 PM – 01:00 PM')">
+                        <div class="spc-num"><span class="spc-accent" style="background:#10B981"></span>Session 3 •
+                            Agents</div>
+                        <div class="spc-title">Finance AI Agent</div>
+                        <div class="spc-time">12:00 PM – 01:00 PM</div>
+                        <div class="spc-desc">Build an AI Agent with MCP for live stock data and technical analysis.
+                        </div>
+                        <div class="spc-audience">
+                            <span class="aud-for">👥 For:</span>
+                            <span class="pill">Developers</span>
+                            <span class="pill">Fintech</span>
+                            <span class="pill">Analysts</span>
+                            <span class="pill">Data Scientists</span>
+                        </div>
+                    </div>
+
+                    <div class="session-pick-card"
+                        onclick="selectSession(4, 'Photoshop-Free AI Editing', '02:00 PM – 03:00 PM')">
+                        <div class="spc-num"><span class="spc-accent" style="background:#06B6D4"></span>Session 4 •
+                            Editing</div>
+                        <div class="spc-title">Photoshop-Free Editing</div>
+                        <div class="spc-time">02:00 PM – 03:00 PM</div>
+                        <div class="spc-desc">Remove defects, upscale photos, erase objects — GIMP + OpenVINO AI.</div>
+                        <div class="spc-audience">
+                            <span class="aud-for">👥 For:</span>
+                            <span class="pill">Photographers</span>
+                            <span class="pill">Designers</span>
+                            <span class="pill">SMBs</span>
+                            <span class="pill">Creators</span>
+                        </div>
+                    </div>
+
+                    <div class="session-pick-card"
+                        onclick="selectSession(5, 'Your AI News Anchor', '03:00 PM – 04:00 PM')">
+                        <div class="spc-num"><span class="spc-accent" style="background:#EF4444"></span>Session 5 •
+                            Voice</div>
+                        <div class="spc-title">AI News Anchor</div>
+                        <div class="spc-time">03:00 PM – 04:00 PM</div>
+                        <div class="spc-desc">Build a witty voice AI host. Full STT → LLM → TTS pipeline.</div>
+                        <div class="spc-audience">
+                            <span class="aud-for">👥 For:</span>
+                            <span class="pill">Developers</span>
+                            <span class="pill">Students</span>
+                            <span class="pill">Tech Enthusiasts</span>
+                            <span class="pill">Founders</span>
+                        </div>
+                    </div>
+
+                    <div class="session-pick-card" onclick="selectSession(6, 'IoT Meets AI', '04:00 PM – 05:00 PM')">
+                        <div class="spc-num"><span class="spc-accent" style="background:#F59E0B"></span>Session 6 • IoT
+                        </div>
+                        <div class="spc-title">IoT Meets AI</div>
+                        <div class="spc-time">04:00 PM – 05:00 PM</div>
+                        <div class="spc-desc">Connect ESP32 sensors to AI for real-time monitoring and alerts.</div>
+                        <div class="spc-audience">
+                            <span class="aud-for">👥 For:</span>
+                            <span class="pill">IoT Devs</span>
+                            <span class="pill">Students</span>
+                            <span class="pill">Engineers</span>
+                            <span class="pill">Smart Home</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════ STEP 3: CONTACT FORM ════════════ -->
+        <div class="step-panel" id="panel-3">
+            <div class="panel-card">
+                <button class="step-back-btn" onclick="goToStep(2)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Change Session
+                </button>
+                <div class="chosen-summary" id="chosen-summary">
+                    <!-- Chips injected by JS -->
+                </div>
+                <div class="panel-title">Your Details</div>
+                <div class="panel-subtitle">We just need a few details to confirm your spot.</div>
+
+                <form id="registration-form" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="full-name">Full Name *</label>
+                        <input type="text" id="full-name" class="form-input" placeholder="e.g. Aarav Sharma" required
+                            autocomplete="name">
+                        <div class="error-msg" id="name-error">Please enter your full name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number *</label>
+                        <input type="tel" id="mobile" class="form-input" placeholder="e.g. 98765 43210" required
+                            autocomplete="tel" pattern="[0-9]{10}" maxlength="10">
+                        <div class="error-msg" id="mobile-error">Please enter a valid 10-digit mobile number</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="optional">(optional)</span></label>
+                        <input type="email" id="email" class="form-input" placeholder="e.g. aarav@example.com"
+                            autocomplete="email">
+                    </div>
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span class="btn-text">Register Now →</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ════════════ STEP 4: SUCCESS ════════════ -->
+        <!-- ════════════ STEP 4: SUCCESS ════════════ -->
+        <div class="step-panel" id="panel-4">
+            <div class="success-panel">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>Powered by <a href="https://github.com/intel/AI-Playground" target="_blank">AI PC Playground</a> •
+            India AI Summit 2026</p>
+    </footer>
+
+    <script>
+        // ═══════════════════════════════════════════
+        // CONFIG: Update these
+        // ═══════════════════════════════════════════
+
+        // Google Apps Script Web App URL — replace with your deployed URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxP1ZPtn0YhxdiaFJhxXODMWGHSdGul7RwfT3PPvx6Kc6lZ14hcRL6itvUjczdKzBds-g/exec';
+
+        // Event dates — add/edit as needed
+        const EVENT_DATES = [
+            { day: '16', month: 'Feb 2026', weekday: 'Monday' },
+            { day: '17', month: 'Feb 2026', weekday: 'Tuesday' },
+            { day: '18', month: 'Feb 2026', weekday: 'Wednesday' },
+            { day: '19', month: 'Feb 2026', weekday: 'Thursday' },
+            { day: '20', month: 'Feb 2026', weekday: 'Friday' },
+        ];
+
+        // ═══════════════════════════════════════════
+        // STATE
+        // ═══════════════════════════════════════════
+        let state = {
+            currentStep: 1,
+            selectedDate: null,
+            selectedSession: null,
+            sessionTitle: null,
+            sessionTime: null,
+        };
+
+        // ═══════════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════════
+        function init() {
+            const grid = document.getElementById('date-grid');
+            EVENT_DATES.forEach((d, i) => {
+                grid.innerHTML += `
+                    <div class="date-option">
+                        <input type="radio" name="date" id="date-${i}" value="${d.day} ${d.month}" onchange="selectDate('${d.day} ${d.month}', '${d.weekday}')">
+                        <label for="date-${i}">
+                            <span class="date-day">${d.day}</span>
+                            <span class="date-month">${d.month}</span>
+                            <span class="date-weekday">${d.weekday}</span>
+                        </label>
+                    </div>
+                `;
+            });
+        }
+
+        // ═══════════════════════════════════════════
+        // STEP NAVIGATION
+        // ═══════════════════════════════════════════
+        function goToStep(step) {
+            // Hide all panels
+            document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('visible'));
+            // Show target
+            document.getElementById(`panel-${step}`).classList.add('visible');
+
+            // Update circles
+            for (let i = 1; i <= 3; i++) {
+                const circle = document.getElementById(`step-circle-${i}`);
+                const label = document.getElementById(`step-label-${i}`);
+                circle.classList.remove('active', 'done');
+                label.classList.remove('active', 'done');
+                if (i < step) {
+                    circle.classList.add('done');
+                    circle.innerHTML = '✓';
+                    label.classList.add('done');
+                } else if (i === step) {
+                    circle.classList.add('active');
+                    circle.innerHTML = i;
+                    label.classList.add('active');
+                } else {
+                    circle.innerHTML = i;
+                }
+            }
+
+            // Update lines
+            document.getElementById('step-line-1').classList.toggle('done', step > 1);
+            document.getElementById('step-line-2').classList.toggle('done', step > 2);
+
+            state.currentStep = step;
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ═══════════════════════════════════════════
+        // STEP 1: DATE SELECTION
+        // ═══════════════════════════════════════════
+        function selectDate(dateStr, weekday) {
+            state.selectedDate = dateStr;
+            document.getElementById('date-badge-text').textContent = `${weekday}, ${dateStr}`;
+            // Auto-advance after small delay
+            setTimeout(() => goToStep(2), 300);
+        }
+
+        // ═══════════════════════════════════════════
+        // STEP 2: SESSION PICK (card grid — no tabs)
+        // ═══════════════════════════════════════════
+
+        function selectSession(num, title, time) {
+            state.selectedSession = num;
+            state.sessionTitle = title;
+            state.sessionTime = time;
+
+            // Build summary chips
+            const summary = document.getElementById('chosen-summary');
+            summary.innerHTML = `
+                <span class="chosen-chip">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    ${state.selectedDate}
+                </span>
+                <span class="chosen-chip">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Session ${num} • ${time}
+                </span>
+            `;
+
+            goToStep(3);
+        }
+
+        // ═══════════════════════════════════════════
+        // STEP 3: FORM SUBMISSION
+        // ═══════════════════════════════════════════
+        function submitForm(e) {
+            e.preventDefault();
+
+            const nameEl = document.getElementById('full-name');
+            const mobileEl = document.getElementById('mobile');
+            const emailEl = document.getElementById('email');
+            const btn = document.getElementById('submit-btn');
+
+            // Reset errors
+            nameEl.classList.remove('error');
+            mobileEl.classList.remove('error');
+            document.getElementById('name-error').classList.remove('visible');
+            document.getElementById('mobile-error').classList.remove('visible');
+
+            let valid = true;
+
+            if (!nameEl.value.trim()) {
+                nameEl.classList.add('error');
+                document.getElementById('name-error').classList.add('visible');
+                valid = false;
+            }
+
+            if (!/^\d{10}$/.test(mobileEl.value.replace(/\s/g, ''))) {
+                mobileEl.classList.add('error');
+                document.getElementById('mobile-error').classList.add('visible');
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            // Build payload
+            const payload = {
+                timestamp: new Date().toISOString(),
+                date: state.selectedDate,
+                session: `Session ${state.selectedSession}`,
+                sessionTitle: state.sessionTitle,
+                sessionTime: state.sessionTime,
+                fullName: nameEl.value.trim(),
+                mobile: mobileEl.value.replace(/\s/g, ''),
+                email: emailEl.value.trim() || '—',
+            };
+
+            // Loading state
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            // Send to Google Sheets via Apps Script
+            if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                })
+                    .then(() => showSuccess(payload))
+                    .catch(() => showSuccess(payload)); // Still show success — no-cors won't give response
+            } else {
+                // No script URL configured — just show success (for local dev / demo)
+                console.log('Registration data (no Apps Script URL configured):', payload);
+                setTimeout(() => showSuccess(payload), 800);
+            }
+        }
+
+        function showSuccess(data) {
+            const panel = document.querySelector('.success-panel');
+
+            // Build the Premium Ticket UI
+            panel.innerHTML = `
+                <!-- Confetti particles -->
+                <div class="confetti-piece" style="left: 10%; animation-delay: 0s;"></div>
+                <div class="confetti-piece" style="left: 30%; animation-delay: 0.5s;"></div>
+                <div class="confetti-piece" style="left: 50%; animation-delay: 0.2s;"></div>
+                <div class="confetti-piece" style="left: 70%; animation-delay: 0.7s;"></div>
+                <div class="confetti-piece" style="left: 90%; animation-delay: 0.4s;"></div>
+
+                <div class="ticket">
+                    <div class="ticket-header">
+                        <div class="success-icon-lg">🎉</div>
+                        <div class="ticket-title">Thank You!</div>
+                        <div class="ticket-subtitle">Our team will contact you with further details.</div>
+                    </div>
+                    
+                    <div class="ticket-rip">
+                        <div class="rip-circle-left"></div>
+                        <div class="rip-line"></div>
+                        <div class="rip-circle-right"></div>
+                    </div>
+                    
+                    <div class="ticket-body">
+                        <!-- Attendee -->
+                        <div class="ticket-row">
+                            <div class="ticket-label">Attendee</div>
+                            <div class="ticket-value">${data.fullName}</div>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="ticket-row">
+                            <div class="ticket-label">Date</div>
+                            <div class="ticket-value highlight">${data.date}</div>
+                        </div>
+
+                        <!-- Session -->
+                        <div class="ticket-row">
+                            <div class="ticket-label">Session</div>
+                            <div class="ticket-value">${data.session} — ${data.sessionTitle}</div>
+                            <div style="font-size: 0.85rem; color: #64748B; margin-top: 4px;">${data.sessionTime}</div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="ticket-footer-area">
+                            <div class="qr-placeholder"></div>
+                            <a href="index.html" class="home-btn">
+                                Return Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Hide progress bar
+            document.querySelector('.step-progress').style.display = 'none';
+
+            // Show panel 4
+            document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('visible'));
+            document.getElementById('panel-4').classList.add('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ═══════════════════════════════════════════
+        // BOOT
+        // ═══════════════════════════════════════════
+        init();
+    </script>
+</body>
+
+</html>
