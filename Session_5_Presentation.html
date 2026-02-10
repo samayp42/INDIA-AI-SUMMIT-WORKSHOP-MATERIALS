@@ -4,19 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 5 | Voice AI - Hybrid</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    <title>Session 5 | AI News Anchor — Voice Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* ═══════════════════════════════════════════
+           DESIGN SYSTEM — VOICE CORAL / RED
+           ═══════════════════════════════════════════ */
         :root {
-            --primary: #EF4444;
-            --primary-light: #FEF2F2;
-            --bg: #FAFCFF;
+            --bg: #FFFAFA;
             --surface: #FFFFFF;
-            --text-main: #7F1D1D;
-            --code-bg: #450A0A;
-            --shadow-lg: 0 20px 40px -5px rgba(239, 68, 68, 0.15);
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #94A3B8;
+            --accent: #E11D48;
+            --accent-light: #FFF1F2;
+            --accent-glow: rgba(225, 29, 72, 0.15);
+            --blue: #2563EB;
+            --blue-light: #EFF6FF;
+            --green: #059669;
+            --green-light: #ECFDF5;
+            --purple: #7C3AED;
+            --purple-light: #F5F3FF;
+            --orange: #F59E0B;
+            --orange-light: #FFFBEB;
+            --cyan: #0891B2;
+            --cyan-light: #ECFEFF;
+            --border: #E2E8F0;
+            --radius: 20px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+            --shadow-glow: 0 0 40px var(--accent-glow);
         }
 
         * {
@@ -26,357 +45,1242 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg);
-            color: var(--text-main);
+            color: var(--text-primary);
             overflow: hidden;
             width: 100vw;
             height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .bg-mesh {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 100% 0%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
-            z-index: -1;
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(#CBD5E1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .slides-container {
+        .ambient {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ambient-1 {
+            background: #FECDD3;
+            top: -200px;
+            right: -100px;
+        }
+
+        .ambient-2 {
+            background: #DBEAFE;
+            bottom: -200px;
+            left: -100px;
+        }
+
+        /* ═══════════════════════════════════════════
+           SLIDE ENGINE
+           ═══════════════════════════════════════════ */
+        .deck {
             position: relative;
             width: 100%;
             height: 100%;
-            perspective: 1000px;
+            z-index: 1;
         }
 
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform: translateY(20px) scale(0.98);
-            padding: 40px 80px;
+            inset: 0;
+            padding: 48px 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            overflow: hidden;
         }
 
         .slide.active {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        .badge {
+        .slide.active .a {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .slide .a {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .slide.active .a:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .slide.active .a:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .slide.active .a:nth-child(3) {
+            animation-delay: 0.35s;
+        }
+
+        .slide.active .a:nth-child(4) {
+            animation-delay: 0.5s;
+        }
+
+        .slide.active .a:nth-child(5) {
+            animation-delay: 0.65s;
+        }
+
+        .slide.active .a:nth-child(6) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           TYPOGRAPHY
+           ═══════════════════════════════════════════ */
+        .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 100px;
+            font-size: 0.8rem;
             font-weight: 700;
-            font-size: 0.9rem;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #7F1D1D 0%, #B91C1C 100%);
+        .eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(135deg, #E11D48, #7C3AED);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 24px;
-            font-weight: 700;
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
         }
 
-        .content-grid {
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 520px;
+        }
+
+        /* ═══════════════════════════════════════════
+           LAYOUTS
+           ═══════════════════════════════════════════ */
+        .split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            height: 100%;
+            flex: 1;
         }
 
-        .glass-panel {
+        .stats-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-card {
             background: var(--surface);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--shadow-lg);
-            height: 100%;
-            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 24px;
+            flex: 1;
+            box-shadow: var(--shadow-sm);
         }
 
-        .code-box {
-            background: var(--code-bg);
-            color: #FECACA;
-            padding: 20px;
-            border-radius: 12px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border-left: 4px solid var(--primary);
-            margin-bottom: 20px;
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
         }
 
-        /* Audio Waveform */
-        .waveform {
+        .stat-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           CARDS & FEATURES
+           ═══════════════════════════════════════════ */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            height: 60px;
+            margin: 0 auto 14px;
+            font-size: 1.6rem;
         }
 
-        .bar {
-            width: 6px;
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .bullet-list li {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .bullet-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bullet-icon svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .code-block {
+            background: #0F172A;
+            color: #E2E8F0;
+            padding: 22px;
+            border-radius: 16px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.78rem;
+            line-height: 1.6;
+            position: relative;
+            border: 1px solid #1E293B;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            width: 8px;
+            height: 8px;
             background: #EF4444;
-            border-radius: 4px;
-            animation: bounce 1s infinite ease-in-out;
+            border-radius: 50%;
+            box-shadow: 14px 0 0 #FBBF24, 28px 0 0 #22C55E;
         }
 
-        @keyframes bounce {
+        .code-block pre {
+            margin-top: 12px;
+            white-space: pre-wrap;
+        }
+
+        .c-accent {
+            color: #FDA4AF;
+        }
+
+        .c-string {
+            color: #86EFAC;
+        }
+
+        .c-comment {
+            color: #64748B;
+        }
+
+        .c-blue {
+            color: #93C5FD;
+        }
+
+        .c-orange {
+            color: #FCD34D;
+        }
+
+        .c-purple {
+            color: #C4B5FD;
+        }
+
+        /* PIPELINE */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .pipe-node {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            text-align: center;
+            min-width: 110px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pipe-node.active-node {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .pipe-node svg {
+            margin-bottom: 6px;
+        }
+
+        .pipe-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pipe-sub {
+            font-size: 0.62rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .pipe-connector {
+            width: 28px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+            position: relative;
+        }
+
+        .pipe-connector::after {
+            content: '›';
+            position: absolute;
+            right: -4px;
+            top: -10px;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        /* LATENCY BAR */
+        .latency-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .latency-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            min-width: 90px;
+            color: var(--text-secondary);
+        }
+
+        .latency-bar {
+            flex: 1;
+            height: 24px;
+            border-radius: 6px;
+            background: #F1F5F9;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .latency-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .latency-total {
+            font-size: 0.72rem;
+            font-weight: 800;
+            min-width: 55px;
+            text-align: right;
+        }
+
+        /* COMPARE */
+        .compare-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .compare-card.bad {
+            border-color: #FECACA;
+            background: #FEF2F2;
+        }
+
+        .compare-card.good {
+            border-color: #A7F3D0;
+            background: #ECFDF5;
+        }
+
+        .compare-label {
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .compare-card h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .compare-list {
+            list-style: none;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .compare-list li::before {
+            content: '✗ ';
+            color: #EF4444;
+            font-weight: 700;
+        }
+
+        .compare-card.good .compare-list li::before {
+            content: '✓ ';
+            color: #059669;
+        }
+
+        /* WAVEFORM animation */
+        .waveform {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 36px;
+        }
+
+        .wave-bar {
+            width: 4px;
+            border-radius: 2px;
+            background: var(--accent);
+            animation: wave 1.2s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) {
+            height: 12px;
+            animation-delay: 0s;
+        }
+
+        .wave-bar:nth-child(2) {
+            height: 24px;
+            animation-delay: 0.1s;
+        }
+
+        .wave-bar:nth-child(3) {
+            height: 36px;
+            animation-delay: 0.2s;
+        }
+
+        .wave-bar:nth-child(4) {
+            height: 20px;
+            animation-delay: 0.3s;
+        }
+
+        .wave-bar:nth-child(5) {
+            height: 30px;
+            animation-delay: 0.4s;
+        }
+
+        .wave-bar:nth-child(6) {
+            height: 16px;
+            animation-delay: 0.5s;
+        }
+
+        .wave-bar:nth-child(7) {
+            height: 28px;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes wave {
 
             0%,
             100% {
-                height: 10px;
+                transform: scaleY(0.4);
             }
 
             50% {
-                height: 50px;
+                transform: scaleY(1);
             }
         }
 
-        /* Pipeline Flow */
-        .pipe-step {
-            background: white;
-            border: 2px solid #EF4444;
-            padding: 15px;
-            border-radius: 50px;
-            text-align: center;
-            font-weight: 700;
-            width: 100%;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .pipe-arrow {
-            text-align: center;
-            color: #991B1B;
-            font-size: 1.5rem;
-            margin: 10px 0;
-        }
-
-        .controls {
+        /* NAV */
+        .nav {
             position: fixed;
-            bottom: 30px;
-            right: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 12px 24px;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
             border-radius: 100px;
+            padding: 10px 20px;
             display: flex;
-            gap: 20px;
-            box-shadow: var(--shadow-lg);
+            align-items: center;
+            gap: 16px;
             z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-progress {
+            width: 120px;
+            height: 3px;
+            background: #F1F5F9;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .nav-progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 100px;
+            transition: width 0.5s ease;
         }
 
         .nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
             background: none;
-            border: none;
             cursor: pointer;
-            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .nav-counter {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .nav-btn svg {
+            width: 18px;
+            height: 18px;
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-mesh"></div>
-    <div class="slides-container">
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
 
-        <!-- Slide 1: Cover -->
+    <div class="deck">
+
+        <!-- ════════════════ SLIDE 1: COVER ════════════════ -->
         <div class="slide active">
-            <div class="badge"><i data-lucide="mic"></i> Session 5</div>
-            <h1>Real-Time Voice AI</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #334155;">Concepts: Latency, VAD, and the Voice
-                Pipeline.</p>
-        </div>
-
-        <!-- Slide 2: Theory - The Pipeline -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="link"></i> Concept</div>
-            <h2>The Voice Pipeline</h2>
-            <div class="content-grid">
+            <div class="split" style="gap:60px;">
                 <div>
-                    <p>Voice AI isn't just one model. It's three models in a trench coat.</p>
-                    <p><strong>Input:</strong> Your Voice.</p>
-                    <p><strong>Output:</strong> AI Voice.</p>
-                </div>
-                <div class="glass-panel" style="display: flex; flex-direction: column; align-items: center;">
-                    <div class="pipe-step">1. Ear (STT)</div>
-                    <div class="pipe-arrow">↓</div>
-                    <div class="pipe-step" style="background: #FEF2F2;">2. Brain (LLM)</div>
-                    <div class="pipe-arrow">↓</div>
-                    <div class="pipe-step">3. Mouth (TTS)</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3: Theory - Latency -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="timer"></i> Concept</div>
-            <h2>The Latency Budget</h2>
-            <div class="content-grid">
-                <div>
-                    <p>Humans expect a reply in <strong>
-                            < 500ms</strong>.</p>
-                    <p>If STT takes 200ms, and LLM takes 500ms, and TTS takes 300ms... that's 1 second. Too slow!</p>
-                    <p>We must optimize every step.</p>
-                </div>
-                <div class="glass-panel">
-                    <p style="text-align: center; margin-bottom: 15px; font-weight: bold;">Total Time: 1000ms</p>
-                    <div style="display: flex; height: 40px; border-radius: 8px; overflow: hidden; width: 100%;">
-                        <div style="width: 20%; background: #3B82F6;">STT</div>
-                        <div style="width: 50%; background: #EF4444;">LLM (Thinking)</div>
-                        <div style="width: 30%; background: #10B981;">TTS</div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 5px;">
-                        <span>0ms</span>
-                        <span>1s</span>
+                    <div class="a eyebrow"><span class="dot"></span> India AI Summit Workshop</div>
+                    <h1 class="a hero-title">
+                        Speak.<br>
+                        Listen.<br>
+                        <span class="gradient">No Cloud.</span>
+                    </h1>
+                    <p class="a subtitle" style="margin-top: 24px;">
+                        Session 5 — Build a voice-to-voice AI News Anchor using Pipecat. All services run locally.
+                        Sub-2-second latency. Zero API fees.
+                    </p>
+                    <div class="a stats-row" style="max-width: 500px; margin-top: 40px;">
+                        <div class="stat-card">
+                            <div class="stat-number">&lt;2s</div>
+                            <div class="stat-label">Latency</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" style="color:var(--blue);">3</div>
+                            <div class="stat-label">Local services</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" style="color:var(--green);">$0</div>
+                            <div class="stat-label">API cost</div>
+                        </div>
                     </div>
                 </div>
+                <div class="a" style="display:flex; align-items:center; justify-content:center;">
+                    <img src="assets/hero5.jpeg" alt="AI News Anchor"
+                        style="width:100%; max-width:460px; height:auto; border-radius:20px; box-shadow:0 24px 80px rgba(225,29,72,0.12); object-fit:contain;">
+                </div>
             </div>
         </div>
 
-        <!-- Slide 4: Mission Start -->
+        <!-- ════════════════ SLIDE 2: WHY VOICE? ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="radio"></i> The Mission</div>
-            <h2>Scenario: The Newsroom</h2>
-            <div class="content-grid">
+            <div class="split">
                 <div>
-                    <p>You are a Producer.</p>
-                    <p><strong>The Task:</strong> Create a lively, fast-talking News Anchor Bot to interview you about
-                        "Tech Trends".</p>
-                    <p><strong>Tools:</strong> Pipecat + Whisper + Llama 3.</p>
-                </div>
-                <div class="glass-panel" style="text-align: center;">
-                    <div class="waveform">
-                        <div class="bar" style="animation-duration: 0.6s;"></div>
-                        <div class="bar" style="animation-duration: 0.8s;"></div>
-                        <div class="bar" style="animation-duration: 1.0s;"></div>
-                        <div class="bar" style="animation-duration: 0.7s;"></div>
-                        <div class="bar" style="animation-duration: 0.9s;"></div>
+                    <div class="a eyebrow"><span class="dot" style="background:var(--accent);"></span> The Shift</div>
+                    <h2 class="a slide-title">Text is powerful.<br>Voice is <em>natural.</em></h2>
+                    <p class="a subtitle" style="margin-bottom: 20px;">Every session so far used keyboards and screens.
+                        Session 5 is different — you <strong>speak</strong> and the AI <strong>speaks back.</strong></p>
+                    <div class="a" style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+                        <div class="compare-card bad" style="padding:18px;">
+                            <div class="compare-label" style="color:#EF4444;">Sessions 1-4</div>
+                            <h3 style="font-size:0.95rem;">Type → Read</h3>
+                            <ul class="compare-list" style="font-size:0.78rem;">
+                                <li>Keyboard input</li>
+                                <li>Screen output</li>
+                                <li>Hands required</li>
+                            </ul>
+                        </div>
+                        <div class="compare-card good" style="padding:18px;">
+                            <div class="compare-label" style="color:#059669;">Session 5</div>
+                            <h3 style="font-size:0.95rem;">Speak → Listen</h3>
+                            <ul class="compare-list" style="font-size:0.78rem;">
+                                <li>Voice input</li>
+                                <li>Audio output</li>
+                                <li>Hands-free</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p style="margin-top:20px; font-weight:bold;">News Anchor AI</p>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; align-items:center; gap:24px;">
+                    <div class="waveform" style="gap:5px;">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                    <div
+                        style="padding:16px; background:var(--accent-light); border:1.5px solid #FECDD3; border-radius:14px; max-width:400px; text-align:center;">
+                        <div
+                            style="font-size:0.72rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                            🎤 You say</div>
+                        <div style="font-size:1.1rem; font-weight:600; color:var(--text-primary); font-style:italic;">
+                            "What are the top headlines today?"</div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#94A3B8" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                    <div
+                        style="padding:16px; background:var(--blue-light); border:1.5px solid #BFDBFE; border-radius:14px; max-width:400px; text-align:center;">
+                        <div
+                            style="font-size:0.72rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                            🔊 AI responds</div>
+                        <div style="font-size:1.1rem; font-weight:600; color:var(--text-primary); font-style:italic;">
+                            "Here are today's top stories. First, India's GDP grew 8.2%..."</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: Step 1 - Personality -->
+        <!-- ════════════════ SLIDE 3: WHAT IS PIPECAT? ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="user"></i> Step 1</div>
-            <h2>System Prompt</h2>
-            <div class="glass-panel">
-                <p><strong>Goal:</strong> Define the Persona.</p>
-                <div class="code-box">
-                    "You are a fast-paced, witty Tech News Anchor named 'Cyber Sam'.
-                    Keep answers short (under 2 sentences).
-                    Interview the user about the latest AI breakthroughs.
-                    Be energetic!"
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Step 2 - Optimization -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="settings"></i> Step 2</div>
-            <h2>Optimizing for Speed</h2>
-            <div class="glass-panel">
-                <p><strong>Goal:</strong> Reduce Latency.</p>
-                <div class="code-box">
-                    1. STT Model: 'Whisper Tiny' (Fastest)
-                    2. VAD Sensitivity: High (Don't wait for silence)
-                    3. TTS Speed: 1.2x (News Anchors talk fast!)
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Step 3 - The Interview -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="mic-2"></i> Step 3</div>
-            <h2>Go Live!</h2>
-            <div class="content-grid">
+            <div class="split">
                 <div>
-                    <p>Start the conversation.</p>
-                    <p>Observe if the AI interrupts you (VAD issue) or if it's too slow (Latency issue).</p>
+                    <div class="a eyebrow"><span class="dot" style="background:var(--purple);"></span> Framework</div>
+                    <h2 class="a slide-title">What is<br>Pipecat?</h2>
+                    <p class="a subtitle" style="margin-bottom: 20px;">An open-source Python framework for building
+                        voice and multimodal AI agents. Think of it as <strong>Express.js but for voice
+                            pipelines.</strong></p>
+                    <ul class="a bullet-list">
+                        <li>
+                            <div class="bullet-icon" style="background:var(--purple-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED"
+                                    stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div>
+                            <div><strong>Pipeline architecture</strong> — Chain services like LEGO blocks: STT → LLM →
+                                TTS.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background:var(--purple-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED"
+                                    stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div>
+                            <div><strong>Modular & swappable</strong> — Replace any service without touching the rest.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background:var(--purple-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED"
+                                    stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div>
+                            <div><strong>Real-time streaming</strong> — Audio frames flow through the pipeline with
+                                minimal latency.</div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="glass-panel">
-                    <p><strong>You:</strong> "Sam, what do you think about AI Agents?"</p>
-                    <p style="color: #EF4444; margin-top: 10px;"><strong>Sam:</strong> "Agents are the future! But are
-                        they safe? Let's discuss."</p>
+                <div class="a code-block">
+                    <pre><span class="c-comment"># Pipecat — Voice AI in ~20 lines</span>
+
+<span class="c-blue">from</span> pipecat.pipeline <span class="c-blue">import</span> Pipeline
+<span class="c-blue">from</span> pipecat.services <span class="c-blue">import</span> (
+    <span class="c-accent">WhisperSTT</span>,      <span class="c-comment"># Speech → Text</span>
+    <span class="c-accent">OllamaLLM</span>,       <span class="c-comment"># Local LLM</span>
+    <span class="c-accent">KokoroTTS</span>,       <span class="c-comment"># Text → Speech</span>
+)
+
+<span class="c-comment"># Build the pipeline</span>
+pipeline = Pipeline([
+    <span class="c-accent">WhisperSTT</span>(model=<span class="c-string">"base"</span>),
+    <span class="c-accent">OllamaLLM</span>(model=<span class="c-string">"llama3.2"</span>),
+    <span class="c-accent">KokoroTTS</span>(voice=<span class="c-string">"af_heart"</span>),
+])
+
+<span class="c-comment"># Run — that's it!</span>
+pipeline.<span class="c-orange">run</span>()</pre>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: Step 4 - Analysis -->
+        <!-- ════════════════ SLIDE 4: THE PIPELINE ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="activity"></i> Step 4</div>
-            <h2>Performance Review</h2>
-            <div class="glass-panel">
-                <p>Check the console logs.</p>
-                <div class="code-box">
-                    [INFO] STT: 150ms
-                    [INFO] LLM First Token: 300ms
-                    [INFO] TTS Audio Ready: 100ms
-                    Total Latency: 550ms (Excellent)
+            <div class="a eyebrow" style="justify-content:center; display:flex;"><span class="dot"></span> Architecture
+            </div>
+            <h2 class="a slide-title" style="text-align:center;">The Voice AI Pipeline</h2>
+            <p class="a subtitle" style="text-align:center; margin:0 auto 36px; max-width:600px;">Your voice flows
+                through three services — each running locally on your AI PC. No cloud round-trips.</p>
+            <div class="a pipeline">
+                <div class="pipe-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                        stroke="#475569" stroke-width="2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        <line x1="12" y1="19" x2="12" y2="23" />
+                    </svg>
+                    <div class="pipe-label">Your Voice</div>
+                    <div class="pipe-sub">Microphone input</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node active-node" style="border-color:var(--blue); background:var(--blue-light);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                        stroke="#2563EB" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                    </svg>
+                    <div class="pipe-label" style="color:var(--blue);">Whisper STT</div>
+                    <div class="pipe-sub">Speech → Text</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node active-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                        stroke="#E11D48" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4" />
+                    </svg>
+                    <div class="pipe-label" style="color:var(--accent);">Local LLM</div>
+                    <div class="pipe-sub">Think + Reason</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node active-node" style="border-color:var(--green); background:var(--green-light);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                        stroke="#059669" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                    </svg>
+                    <div class="pipe-label" style="color:var(--green);">Kokoro TTS</div>
+                    <div class="pipe-sub">Text → Speech</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                        stroke="#475569" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                    </svg>
+                    <div class="pipe-label">Speaker</div>
+                    <div class="pipe-sub">AI responds</div>
+                </div>
+            </div>
+            <div class="a" style="display:flex; justify-content:center; gap:16px; margin-top:32px;">
+                <div
+                    style="padding:10px 20px; background:var(--blue-light); border:1px solid #BFDBFE; border-radius:10px; font-size:0.75rem; color:#1E40AF; font-weight:600;">
+                    🎧 Whisper — Open-source STT by OpenAI</div>
+                <div
+                    style="padding:10px 20px; background:var(--accent-light); border:1px solid #FECDD3; border-radius:10px; font-size:0.75rem; color:#9F1239; font-weight:600;">
+                    🧠 Ollama — Run any LLM locally</div>
+                <div
+                    style="padding:10px 20px; background:var(--green-light); border:1px solid #A7F3D0; border-radius:10px; font-size:0.75rem; color:#065F46; font-weight:600;">
+                    🔊 Kokoro — Fast local TTS engine</div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 5: THE THREE SERVICES ════════════════ -->
+        <div class="slide">
+            <div class="a eyebrow" style="justify-content:center; display:flex;"><span class="dot"
+                    style="background:var(--blue);"></span> Open Source Stack</div>
+            <h2 class="a slide-title" style="text-align:center;">Three Services. All Local. All Free.</h2>
+            <p class="a subtitle" style="text-align:center; margin: 0 auto 32px; max-width:550px;">Each service runs as
+                a separate process. Pipecat orchestrates data flow between them.</p>
+            <div class="a feature-grid">
+                <div class="feature-card" style="text-align:left; padding:22px;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+                        <div
+                            style="width:40px; height:40px; border-radius:10px; background:var(--blue-light); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                            🎧</div>
+                        <div>
+                            <div
+                                style="font-size:0.68rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1px;">
+                                Speech-to-Text</div>
+                            <div style="font-size:1.1rem; font-weight:800;">Whisper</div>
+                        </div>
+                    </div>
+                    <ul style="list-style:none; font-size:0.78rem; color:var(--text-secondary); line-height:2;">
+                        <li>✓ By OpenAI (open-sourced)</li>
+                        <li>✓ Multi-language support</li>
+                        <li>✓ GPU-accelerated on Intel</li>
+                        <li>✓ ~200ms transcription</li>
+                    </ul>
+                </div>
+                <div class="feature-card"
+                    style="text-align:left; padding:22px; border-color:var(--accent); box-shadow:var(--shadow-glow);">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+                        <div
+                            style="width:40px; height:40px; border-radius:10px; background:var(--accent-light); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                            🧠</div>
+                        <div>
+                            <div
+                                style="font-size:0.68rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">
+                                Language Model</div>
+                            <div style="font-size:1.1rem; font-weight:800;">Ollama (LLM)</div>
+                        </div>
+                    </div>
+                    <ul style="list-style:none; font-size:0.78rem; color:var(--text-secondary); line-height:2;">
+                        <li>✓ Llama 3.2 / Mistral / Phi</li>
+                        <li>✓ Understands intent & context</li>
+                        <li>✓ GPU/NPU accelerated</li>
+                        <li>✓ ~800ms first token</li>
+                    </ul>
+                </div>
+                <div class="feature-card" style="text-align:left; padding:22px;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+                        <div
+                            style="width:40px; height:40px; border-radius:10px; background:var(--green-light); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+                            🔊</div>
+                        <div>
+                            <div
+                                style="font-size:0.68rem; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:1px;">
+                                Text-to-Speech</div>
+                            <div style="font-size:1.1rem; font-weight:800;">Kokoro TTS</div>
+                        </div>
+                    </div>
+                    <ul style="list-style:none; font-size:0.78rem; color:var(--text-secondary); line-height:2;">
+                        <li>✓ Natural-sounding voices</li>
+                        <li>✓ Multiple voice styles</li>
+                        <li>✓ Streaming output</li>
+                        <li>✓ ~400ms to first audio</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 9: Recap -->
+        <!-- ════════════════ SLIDE 6: LATENCY BREAKDOWN ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="check-square"></i> Summary</div>
-            <h2>Key Takeaways</h2>
-            <div class="glass-panel">
-                <ul style="list-style:none; line-height:2.5;">
-                    <li><i data-lucide="mic" style="width:18px; color:#EF4444;"></i> <strong>VAD:</strong> Voice
-                        Activity Detection is crucial for natural turns.</li>
-                    <li><i data-lucide="zap" style="width:18px; color:#EF4444;"></i> <strong>Speed > Quality:</strong>
-                        For voice, we prefer a fast "Dumb" model over a slow "Smart" one.</li>
-                    <li><i data-lucide="cpu" style="width:18px; color:#EF4444;"></i> <strong>Multimodal:</strong>
-                        Combining STT+LLM+TTS is the ultimate test.</li>
-                </ul>
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot" style="background:var(--green);"></span> Performance</div>
+                    <h2 class="a slide-title">Under 2 Seconds.<br>End to End.</h2>
+                    <p class="a subtitle" style="margin-bottom: 20px;">You speak → AI thinks → AI speaks back. The
+                        entire round-trip happens in under 2 seconds locally. Cloud services add 3-5x more latency.</p>
+                    <div class="a"
+                        style="padding:14px; background:var(--green-light); border:1px solid #A7F3D0; border-radius:12px; font-size:0.82rem; color:#065F46;">
+                        <strong>🚀 Key insight:</strong> Pipecat uses <strong>streaming</strong> — TTS starts speaking
+                        while the LLM is still generating tokens. This overlaps latencies.
+                    </div>
+                    <div class="a"
+                        style="margin-top:16px; padding:14px; background:var(--orange-light); border:1px solid #FDE68A; border-radius:12px; font-size:0.82rem; color:#92400E;">
+                        <strong>💡 Why so fast?</strong> No network round-trip to cloud servers. All three services are
+                        talking to each other on localhost (127.0.0.1).
+                    </div>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; gap:10px;">
+                    <div
+                        style="font-size:0.72rem; font-weight:800; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+                        Latency Breakdown (Local)</div>
+                    <div class="latency-row">
+                        <div class="latency-label">🎧 STT</div>
+                        <div class="latency-bar">
+                            <div class="latency-fill" style="width:15%; background:var(--blue);">200ms</div>
+                        </div>
+                        <div class="latency-total" style="color:var(--blue);">~200ms</div>
+                    </div>
+                    <div class="latency-row">
+                        <div class="latency-label">🧠 LLM</div>
+                        <div class="latency-bar">
+                            <div class="latency-fill" style="width:55%; background:var(--accent);">800ms</div>
+                        </div>
+                        <div class="latency-total" style="color:var(--accent);">~800ms</div>
+                    </div>
+                    <div class="latency-row">
+                        <div class="latency-label">🔊 TTS</div>
+                        <div class="latency-bar">
+                            <div class="latency-fill" style="width:30%; background:var(--green);">400ms</div>
+                        </div>
+                        <div class="latency-total" style="color:var(--green);">~400ms</div>
+                    </div>
+                    <div style="border-top:2px solid var(--border); padding-top:10px; margin-top:4px;">
+                        <div class="latency-row">
+                            <div class="latency-label" style="font-weight:900; color:var(--text-primary);">⚡ Total</div>
+                            <div class="latency-bar">
+                                <div class="latency-fill"
+                                    style="width:92%; background:linear-gradient(90deg, var(--blue), var(--accent), var(--green));">
+                                    ~1.4s</div>
+                            </div>
+                            <div class="latency-total" style="color:var(--accent); font-size:0.85rem;">~1.4s</div>
+                        </div>
+                    </div>
+                    <div style="border-top:1px dashed var(--border); padding-top:10px; margin-top:8px;">
+                        <div
+                            style="font-size:0.68rem; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; margin-bottom:6px;">
+                            vs Cloud (for comparison)</div>
+                        <div class="latency-row">
+                            <div class="latency-label" style="font-size:0.68rem;">☁️ Cloud</div>
+                            <div class="latency-bar">
+                                <div class="latency-fill" style="width:100%; background:#94A3B8;">3-6 seconds</div>
+                            </div>
+                            <div class="latency-total" style="color:#94A3B8;">3-6s</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 7: CLOUD VS LOCAL COST ════════════════ -->
+        <div class="slide">
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot" style="background:#EF4444;"></span> Cost Comparison</div>
+                    <h2 class="a slide-title">Cloud charges<br>per minute.</h2>
+                    <p class="a subtitle" style="margin-bottom: 20px;">Every major cloud voice AI service charges per
+                        minute of audio or per character of text. Running locally? Unlimited. Forever. Free.</p>
+                    <div class="a code-block">
+                        <pre><span class="c-comment"># Cloud costs for 1 hour of voice AI:</span>
+
+<span class="c-accent">Google Cloud Speech:</span>  <span class="c-orange">$0.024/min</span>
+<span class="c-accent">OpenAI Whisper API:</span>  <span class="c-orange">$0.006/min</span>
+<span class="c-accent">Cloud TTS:</span>           <span class="c-orange">$4-16/1M chars</span>
+<span class="c-accent">GPT-4 API:</span>           <span class="c-orange">$0.03/1K tokens</span>
+
+<span class="c-comment"># 1 hour of voice conversation ≈</span>
+<span class="c-accent">Cloud total:</span>  <span class="c-orange">~$2-5 per hour</span>
+<span class="c-accent">Local total:</span>  <span class="c-string">$0. Always. 🎉</span></pre>
+                    </div>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; gap:16px;">
+                    <div class="compare-card bad" style="padding:20px;">
+                        <div class="compare-label" style="color:#EF4444;">❌ Cloud Voice AI</div>
+                        <h3>Pay-per-use pricing</h3>
+                        <ul class="compare-list">
+                            <li>Each API call costs money</li>
+                            <li>Voice data sent to servers</li>
+                            <li>Network latency added</li>
+                            <li>Rate limits apply</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card good" style="padding:20px;">
+                        <div class="compare-label" style="color:#059669;">✅ Local Pipecat</div>
+                        <h3>$0 unlimited usage</h3>
+                        <ul class="compare-list">
+                            <li>No API costs ever</li>
+                            <li>Voice stays on device</li>
+                            <li>Sub-2s local latency</li>
+                            <li>No rate limits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 8: LIVE DEMO ════════════════ -->
+        <div class="slide">
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot"></span> Live Demo</div>
+                    <h2 class="a slide-title">Talk to Your<br>News Anchor</h2>
+                    <p class="a subtitle" style="margin-bottom: 20px;">Speak naturally. The AI fetches real-time news
+                        and talks back. Try these conversations:</p>
+                    <div class="a" style="display:flex; flex-direction:column; gap:10px;">
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <div
+                                style="width:28px; height:28px; background:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:var(--accent);">
+                                1</div>
+                            <div style="font-size:0.88rem; color:var(--text-secondary); font-style:italic;">"Hello, are
+                                you there?"</div>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <div
+                                style="width:28px; height:28px; background:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:var(--accent);">
+                                2</div>
+                            <div style="font-size:0.88rem; color:var(--text-secondary); font-style:italic;">"What are
+                                the top headlines today?"</div>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <div
+                                style="width:28px; height:28px; background:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:var(--accent);">
+                                3</div>
+                            <div style="font-size:0.88rem; color:var(--text-secondary); font-style:italic;">"Tell me
+                                about technology news."</div>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <div
+                                style="width:28px; height:28px; background:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:var(--accent);">
+                                4</div>
+                            <div style="font-size:0.88rem; color:var(--text-secondary); font-style:italic;">"How are the
+                                markets doing?"</div>
+                        </div>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <div
+                                style="width:28px; height:28px; background:var(--accent-light); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:var(--accent);">
+                                5</div>
+                            <div style="font-size:0.88rem; color:var(--text-secondary); font-style:italic;">"Tell me
+                                more about that first story."</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; gap:16px;">
+                    <img src="assets/voice_demo.jpeg" alt="Voice AI Demo"
+                        style="width:100%; border-radius:16px; box-shadow:0 12px 40px rgba(225,29,72,0.1);">
+                    <div
+                        style="padding:14px; background:var(--accent-light); border:1px solid #FECDD3; border-radius:12px; font-size:0.82rem; color:#9F1239;">
+                        <strong>🎤 Pro tip:</strong> Speak naturally — no need to talk slowly or loudly. The AI handles
+                        natural conversation pace.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 9: USE CASES ════════════════ -->
+        <div class="slide">
+            <div class="a eyebrow" style="justify-content:center; display:flex;"><span class="dot"
+                    style="background:var(--orange);"></span> Beyond News</div>
+            <h2 class="a slide-title" style="text-align:center;">Voice AI Use Cases</h2>
+            <p class="a subtitle" style="text-align:center; margin:0 auto 32px; max-width:550px;">The same Pipecat
+                pipeline pattern works for any voice agent — just swap the LLM prompt and data source.</p>
+            <div class="a" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--accent-light);">📰</div>
+                    <h3>News Anchor</h3>
+                    <p>Real-time news briefings via voice</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--purple-light);">🏥</div>
+                    <h3>Healthcare</h3>
+                    <p>Voice-based patient triage and reminders</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--blue-light);">🎓</div>
+                    <h3>Education</h3>
+                    <p>Interactive voice tutors for students</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--green-light);">🏠</div>
+                    <h3>Smart Home</h3>
+                    <p>Private voice assistant — no Alexa</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--orange-light);">🛎️</div>
+                    <h3>Customer Support</h3>
+                    <p>AI phone agents for businesses</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--cyan-light);">♿</div>
+                    <h3>Accessibility</h3>
+                    <p>Voice UI for visually impaired users</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--accent-light);">🚗</div>
+                    <h3>Automotive</h3>
+                    <p>In-car voice assistants</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background:var(--purple-light);">🧸</div>
+                    <h3>Toys & Companions</h3>
+                    <p>AI-powered interactive characters</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 10: RECAP ════════════════ -->
+        <div class="slide">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <div class="a eyebrow" style="justify-content:center;"><span class="dot"
+                        style="background:var(--accent);"></span> Session Complete</div>
+                <h2 class="a slide-title">What You Learned</h2>
+                <p class="a subtitle" style="margin: 0 auto 36px; text-align: center; max-width: 500px;">
+                    A complete voice AI agent — built with open-source tools, running locally, with sub-2s latency.
+                </p>
+                <div class="a feature-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--purple-light);">🔌</div>
+                        <h3>Pipecat Framework</h3>
+                        <p>Pipeline architecture for voice AI agents</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--blue-light);">🎧</div>
+                        <h3>STT → LLM → TTS</h3>
+                        <p>Three-service pipeline, all running locally</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--green-light);">⚡</div>
+                        <h3>&lt;2s Latency</h3>
+                        <p>Streaming + local = real-time conversation</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--accent-light);">🔒</div>
+                        <h3>100% Private</h3>
+                        <p>Your voice never leaves your device</p>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <div class="controls">
-        <button class="nav-btn" onclick="prevSlide()"><i data-lucide="chevron-left"></i></button>
-        <span id="prog">1 / 9</span>
-        <button class="nav-btn" onclick="nextSlide()"><i data-lucide="chevron-right"></i></button>
+    <!-- Nav -->
+    <div class="nav">
+        <button class="nav-btn" onclick="go(-1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        </button>
+        <div class="nav-progress">
+            <div class="nav-progress-fill" id="prog"></div>
+        </div>
+        <span class="nav-counter" id="counter">1 / 10</span>
+        <button class="nav-btn" onclick="go(1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
     </div>
 
     <script>
-        lucide.createIcons();
-        let current = 0; const slides = document.querySelectorAll('.slide'); const prog = document.getElementById('prog');
-        function update() { slides.forEach((s, i) => { s.classList.remove('active'); if (i === current) s.classList.add('active'); }); prog.textContent = `${current + 1} / ${slides.length}`; }
-        function nextSlide() { if (current < slides.length - 1) { current++; update(); } }
-        function prevSlide() { if (current > 0) { current--; update(); } }
-        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+        const slides = document.querySelectorAll('.slide');
+        let cur = 0;
+        function go(d) {
+            slides[cur].classList.remove('active');
+            cur = Math.max(0, Math.min(slides.length - 1, cur + d));
+            slides[cur].classList.add('active');
+            document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
+            document.getElementById('prog').style.width = `${((cur + 1) / slides.length) * 100}%`;
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+            if (e.key === 'ArrowLeft') go(-1);
+        });
+        document.getElementById('prog').style.width = `${(1 / slides.length) * 100}%`;
     </script>
 </body>
 

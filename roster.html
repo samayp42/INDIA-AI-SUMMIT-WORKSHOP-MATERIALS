@@ -250,6 +250,70 @@
             color: #fff;
         }
 
+        /* Target Audience */
+        .slot-audience {
+            margin-top: 2mm;
+            display: flex;
+            align-items: flex-start;
+            gap: 2mm;
+        }
+
+        .audience-label {
+            font-size: 7pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            white-space: nowrap;
+            padding-top: 0.8mm;
+        }
+
+        .audience-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5mm;
+        }
+
+        .audience-pill {
+            font-size: 7pt;
+            font-weight: 500;
+            padding: 0.8mm 2.5mm;
+            border-radius: 4mm;
+            background: #f3f4f6;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .s1 .audience-pill {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .s2 .audience-pill {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        .s3 .audience-pill {
+            background: #dcfce7;
+            color: #059669;
+        }
+
+        .s4 .audience-pill {
+            background: #ffedd5;
+            color: #ea580c;
+        }
+
+        .s5 .audience-pill {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .s6 .audience-pill {
+            background: #ccfbf1;
+            color: #0d9488;
+        }
+
         /* Print Styles */
         @media print {
             .no-print {
@@ -282,30 +346,6 @@
 <body>
 
     <div class="page">
-        <div style="position: absolute; top: 10mm; right: 10mm;" class="no-print">
-            <button onclick="window.print()" style="
-                background: #1a1a1a; 
-                color: #fff; 
-                border: none; 
-                padding: 3mm 6mm; 
-                border-radius: 2mm; 
-                font-family: inherit; 
-                font-weight: 600; 
-                cursor: pointer;
-                display: flex; 
-                align-items: center; 
-                gap: 2mm;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            ">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Save as PDF
-            </button>
-        </div>
 
         <div class="header">
             <h1>Daily Workshop Roster</h1>
@@ -341,6 +381,16 @@
                             <span class="seg-activity">Break</span>
                         </div>
                     </div>
+                    <div class="slot-audience">
+                        <span class="audience-label">👥 For:</span>
+                        <div class="audience-pills">
+                            <span class="audience-pill">Students</span>
+                            <span class="audience-pill">Healthcare</span>
+                            <span class="audience-pill">Legal Teams</span>
+                            <span class="audience-pill">Researchers</span>
+                            <span class="audience-pill">Business Analysts</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -370,6 +420,16 @@
                             <span class="seg-activity">Break</span>
                         </div>
                     </div>
+                    <div class="slot-audience">
+                        <span class="audience-label">👥 For:</span>
+                        <div class="audience-pills">
+                            <span class="audience-pill">Students</span>
+                            <span class="audience-pill">Architects</span>
+                            <span class="audience-pill">Marketing Teams</span>
+                            <span class="audience-pill">E-commerce Sellers</span>
+                            <span class="audience-pill">Content Creators</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -397,6 +457,17 @@
                         <div class="schedule-segment break">
                             <span class="seg-time">12:50 - 01:00</span>
                             <span class="seg-activity">Break</span>
+                        </div>
+                    </div>
+                    <div class="slot-audience">
+                        <span class="audience-label">👥 For:</span>
+                        <div class="audience-pills">
+                            <span class="audience-pill">Students</span>
+                            <span class="audience-pill">Developers</span>
+                            <span class="audience-pill">Fintech</span>
+                            <span class="audience-pill">Financial Analysts</span>
+                            <span class="audience-pill">Data Scientists</span>
+                            <span class="audience-pill">Startup Founders</span>
                         </div>
                     </div>
                 </div>
@@ -448,6 +519,16 @@
                             <span class="seg-activity">Break</span>
                         </div>
                     </div>
+                    <div class="slot-audience">
+                        <span class="audience-label">👥 For:</span>
+                        <div class="audience-pills">
+                            <span class="audience-pill">Students</span>
+                            <span class="audience-pill">Photographers</span>
+                            <span class="audience-pill">Graphic Designers</span>
+                            <span class="audience-pill">Small Business Owners</span>
+                            <span class="audience-pill">Content Creators</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -477,6 +558,16 @@
                             <span class="seg-activity">Break</span>
                         </div>
                     </div>
+                    <div class="slot-audience">
+                        <span class="audience-label">👥 For:</span>
+                        <div class="audience-pills">
+                            <span class="audience-pill">Developers</span>
+                            <span class="audience-pill">Students</span>
+                            <span class="audience-pill">Tech Enthusiasts</span>
+                            <span class="audience-pill">Startup Founders</span>
+                            <span class="audience-pill">Accessibility Advocates</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -504,6 +595,15 @@
                         <div class="schedule-segment break" style="background: #f0fdf4; border-color: #dcfce7;">
                             <span class="seg-time">04:50 - 05:00</span>
                             <span class="seg-activity" style="color: #059669;">Final Q&A</span>
+                        </div>
+                    </div>
+                    <div class="slot-audience">
+                        <span class="audience-label">👥 For:</span>
+                        <div class="audience-pills">
+                            <span class="audience-pill">IoT Developers</span>
+                            <span class="audience-pill">Students</span>
+                            <span class="audience-pill">Engineers</span>
+                            <span class="audience-pill">Smart Home Enthusiasts</span>
                         </div>
                     </div>
                 </div>

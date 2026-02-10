@@ -4,19 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 3 | AI Agents - Hybrid</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    <title>Session 3 | MCP Finance Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* ═══════════════════════════════════════════
+           DESIGN SYSTEM — FINANCE GREEN
+           ═══════════════════════════════════════════ */
         :root {
-            --primary: #10B981;
-            --primary-light: #ECFDF5;
-            --bg: #FAFCFF;
+            --bg: #FAFDFB;
             --surface: #FFFFFF;
-            --text-main: #064E3B;
-            --code-bg: #064E3B;
-            --shadow-lg: 0 20px 40px -5px rgba(16, 185, 129, 0.15);
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #94A3B8;
+            --accent: #059669;
+            --accent-light: #ECFDF5;
+            --accent-glow: rgba(5, 150, 105, 0.15);
+            --danger: #EF4444;
+            --danger-light: #FEF2F2;
+            --blue: #2563EB;
+            --blue-light: #EFF6FF;
+            --purple: #7C3AED;
+            --purple-light: #F5F3FF;
+            --orange: #F59E0B;
+            --orange-light: #FFFBEB;
+            --border: #E2E8F0;
+            --radius: 20px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+            --shadow-glow: 0 0 40px var(--accent-glow);
         }
 
         * {
@@ -26,336 +43,1128 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg);
-            color: var(--text-main);
+            color: var(--text-primary);
             overflow: hidden;
             width: 100vw;
             height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .bg-mesh {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
-            z-index: -1;
+        /* Dot grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(#CBD5E1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .slides-container {
+        /* Ambient blobs */
+        .ambient {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ambient-1 {
+            background: #D1FAE5;
+            top: -200px;
+            right: -100px;
+        }
+
+        .ambient-2 {
+            background: #DBEAFE;
+            bottom: -200px;
+            left: -100px;
+        }
+
+        /* ═══════════════════════════════════════════
+           SLIDE ENGINE
+           ═══════════════════════════════════════════ */
+        .deck {
             position: relative;
             width: 100%;
             height: 100%;
-            perspective: 1000px;
+            z-index: 1;
         }
 
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform: translateY(20px) scale(0.98);
-            padding: 40px 80px;
+            inset: 0;
+            padding: 48px 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            overflow: hidden;
         }
 
         .slide.active {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
-        .badge {
+        /* Staggered entrance */
+        .slide.active .a {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .slide .a {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .slide.active .a:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .slide.active .a:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .slide.active .a:nth-child(3) {
+            animation-delay: 0.35s;
+        }
+
+        .slide.active .a:nth-child(4) {
+            animation-delay: 0.5s;
+        }
+
+        .slide.active .a:nth-child(5) {
+            animation-delay: 0.65s;
+        }
+
+        .slide.active .a:nth-child(6) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════
+           TYPOGRAPHY
+           ═══════════════════════════════════════════ */
+        .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 100px;
+            font-size: 0.8rem;
             font-weight: 700;
-            font-size: 0.9rem;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #064E3B 0%, #047857 100%);
+        .eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(135deg, #059669, #2563EB);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 24px;
-            font-weight: 700;
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
         }
 
-        .content-grid {
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 520px;
+        }
+
+        /* ═══════════════════════════════════════════
+           LAYOUTS
+           ═══════════════════════════════════════════ */
+        .split {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            height: 100%;
+            flex: 1;
         }
 
-        .glass-panel {
+        .split-wide {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: center;
+            flex: 1;
+        }
+
+        /* ═══════════════════════════════════════════
+           STATS ROW
+           ═══════════════════════════════════════════ */
+        .stats-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-card {
             background: var(--surface);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--shadow-lg);
-            height: 100%;
-            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 24px;
+            flex: 1;
+            box-shadow: var(--shadow-sm);
         }
 
-        .code-box {
-            background: var(--code-bg);
-            color: #6EE7B7;
-            padding: 20px;
-            border-radius: 12px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border-left: 4px solid var(--primary);
-            margin-bottom: 20px;
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
         }
 
-        /* Agent Flowchart */
-        .agent-step {
-            background: white;
-            border: 2px solid #10B981;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
+        .stat-label {
+            font-size: 0.72rem;
             font-weight: 600;
-            width: 100%;
-            margin-bottom: 10px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           CARDS & PANELS
+           ═══════════════════════════════════════════ */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .visual-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 360px;
+        }
+
+        .code-block {
+            background: #0F172A;
+            color: #E2E8F0;
+            padding: 22px;
+            border-radius: 16px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.78rem;
+            line-height: 1.6;
+            position: relative;
+            border: 1px solid #1E293B;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            width: 8px;
+            height: 8px;
+            background: #EF4444;
+            border-radius: 50%;
+            box-shadow: 14px 0 0 #FBBF24, 28px 0 0 #22C55E;
+        }
+
+        .code-block pre {
+            margin-top: 12px;
+            white-space: pre-wrap;
+        }
+
+        .c-accent {
+            color: #6EE7B7;
+        }
+
+        .c-string {
+            color: #86EFAC;
+        }
+
+        .c-comment {
+            color: #64748B;
+        }
+
+        .c-blue {
+            color: #93C5FD;
+        }
+
+        .c-orange {
+            color: #FCD34D;
+        }
+
+        /* ═══════════════════════════════════════════
+           FEATURE GRID
+           ═══════════════════════════════════════════ */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════════
+           BULLET LISTS
+           ═══════════════════════════════════════════ */
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .bullet-list li {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .bullet-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bullet-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ═══════════════════════════════════════════
+           PIPELINE
+           ═══════════════════════════════════════════ */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .pipe-node {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            text-align: center;
+            min-width: 110px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pipe-node.active-node {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .pipe-node svg {
+            margin-bottom: 8px;
+        }
+
+        .pipe-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pipe-sub {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .pipe-connector {
+            width: 28px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
             position: relative;
         }
 
-        .agent-line {
-            height: 20px;
-            border-left: 2px dashed #10B981;
-            margin-left: 50%;
+        .pipe-connector::after {
+            content: '›';
+            position: absolute;
+            right: -4px;
+            top: -10px;
+            font-size: 1.2rem;
+            color: var(--accent);
         }
 
-        .controls {
+        /* ═══════════════════════════════════════════
+           COMPARISON TABLE
+           ═══════════════════════════════════════════ */
+        .compare-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .compare-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+        }
+
+        .compare-card.bad {
+            border-color: #FECACA;
+            background: #FEF2F2;
+        }
+
+        .compare-card.good {
+            border-color: #A7F3D0;
+            background: #ECFDF5;
+        }
+
+        .compare-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .compare-card h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .compare-list {
+            list-style: none;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .compare-list li::before {
+            content: '✗ ';
+            color: #EF4444;
+            font-weight: 700;
+        }
+
+        .compare-card.good .compare-list li::before {
+            content: '✓ ';
+            color: #059669;
+        }
+
+        /* ═══════════════════════════════════════════
+           NAV
+           ═══════════════════════════════════════════ */
+        .nav {
             position: fixed;
-            bottom: 30px;
-            right: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 12px 24px;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
             border-radius: 100px;
+            padding: 10px 20px;
             display: flex;
-            gap: 20px;
-            box-shadow: var(--shadow-lg);
+            align-items: center;
+            gap: 16px;
             z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-progress {
+            width: 120px;
+            height: 3px;
+            background: #F1F5F9;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .nav-progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 100px;
+            transition: width 0.5s ease;
         }
 
         .nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
             background: none;
-            border: none;
             cursor: pointer;
-            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .nav-counter {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .nav-btn svg {
+            width: 18px;
+            height: 18px;
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-mesh"></div>
-    <div class="slides-container">
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
 
-        <!-- Slide 1: Cover -->
+    <div class="deck">
+
+        <!-- ════════════════ SLIDE 1: COVER ════════════════ -->
         <div class="slide active">
-            <div class="badge"><i data-lucide="bot"></i> Session 3</div>
-            <h1>Building AI Agents</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #334155;">Concepts: MCP, Tools, and Reasoning
-                Loops.</p>
-        </div>
-
-        <!-- Slide 2: Theory - Agents -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="brain-circuit"></i> Concept</div>
-            <h2>What is an Agent?</h2>
-            <div class="content-grid">
+            <div class="split" style="gap:60px;">
                 <div>
-                    <p>A Chatbot (LLM) is just a <strong>brain in a jar</strong>. It can think, but cannot act.</p>
-                    <p><strong>An Agent</strong> is a Brain with <strong>Hands (Tools)</strong>.</p>
-                </div>
-                <div class="glass-panel"
-                    style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-                    <div style="text-align: center;">
-                        <i data-lucide="brain" style="width: 80px; height: 80px; color: #10B981;"></i>
-                        <p style="font-weight:bold;">LLM</p>
-                    </div>
-                    <div style="font-size: 2rem;">+</div>
-                    <div style="text-align: center;">
-                        <div style="border: 2px dashed #10B981; padding: 15px; border-radius: 8px;">
-                            <i data-lucide="wrench" style="width: 30px; height: 30px;"></i> Tools
+                    <div class="a eyebrow"><span class="dot"></span> India AI Summit Workshop</div>
+                    <h1 class="a hero-title">
+                        Your Money.<br>
+                        Your AI.<br>
+                        <span class="gradient">Your Control.</span>
+                    </h1>
+                    <p class="a subtitle" style="margin-top: 24px;">
+                        Session 3 — Build an AI Finance Agent that connects to Zerodha via MCP. Live data. Local models.
+                        Zero exposure.
+                    </p>
+                    <div class="a stats-row" style="max-width: 500px; margin-top: 40px;">
+                        <div class="stat-card">
+                            <div class="stat-number">$0</div>
+                            <div class="stat-label">API fees</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" style="color:var(--blue);">Live</div>
+                            <div class="stat-label">Market data</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" style="color:#EF4444;">0</div>
+                            <div class="stat-label">Data shared</div>
                         </div>
                     </div>
-                    <div style="font-size: 2rem;">=</div>
-                    <div style="text-align: center;">
-                        <i data-lucide="bot" style="width: 80px; height: 80px; color: #059669;"></i>
-                        <p style="font-weight:bold;">Agent</p>
+                </div>
+                <div class="a" style="display:flex; align-items:center; justify-content:center;">
+                    <img src="assets/hero3.jpeg" alt="MCP Finance Agent"
+                        style="width:100%; max-width:460px; height:auto; border-radius:20px; box-shadow:0 24px 80px rgba(5,150,105,0.12); object-fit:contain;">
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 2: THE PROBLEM ════════════════ -->
+        <div class="slide">
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot" style="background:#EF4444;"></span> The Problem</div>
+                    <h2 class="a slide-title">Your portfolio.<br>Their servers.</h2>
+                    <ul class="a bullet-list" style="margin-top: 24px;">
+                        <li>
+                            <div class="bullet-icon" style="background: var(--danger-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#EF4444"
+                                    stroke-width="2">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                    <line x1="12" y1="9" x2="12" y2="13" />
+                                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                                </svg></div>
+                            <div><strong>Cloud AI sees your entire portfolio</strong> — holdings, positions, P&L,
+                                trading patterns.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background: var(--danger-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#EF4444"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="15" y1="9" x2="9" y2="15" />
+                                    <line x1="9" y1="9" x2="15" y2="15" />
+                                </svg></div>
+                            <div><strong>Financial data is the most sensitive data.</strong> Sharing it with 3rd party
+                                AI is a compliance nightmare.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background: var(--danger-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#EF4444"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg></div>
+                            <div>Every prompt to ChatGPT/Gemini is stored, logged, and <strong>potentially used for
+                                    training.</strong></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="a">
+                    <div class="compare-row" style="grid-template-columns: 1fr;">
+                        <div class="compare-card bad">
+                            <div class="compare-label" style="color:#EF4444;">❌ What happens today</div>
+                            <h3>You → ChatGPT → "Analyze my portfolio"</h3>
+                            <ul class="compare-list">
+                                <li>Your holdings sent to OpenAI servers</li>
+                                <li>Your P&L data stored in their logs</li>
+                                <li>Your trading strategy exposed</li>
+                                <li>No control over data retention</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 3: Theory - The Loop -->
+        <!-- ════════════════ SLIDE 3: THE SOLUTION ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="refresh-cw"></i> Concept</div>
-            <h2>The Agent Loop (ReAct)</h2>
-            <div class="content-grid">
+            <div class="split">
                 <div>
-                    <p>Reason → Act → Observe.</p>
-                    <p>The AI talks to itself before answering you.</p>
+                    <div class="a eyebrow"><span class="dot" style="background:#059669;"></span> The Solution</div>
+                    <h2 class="a slide-title">Run the AI<br>on <em>your</em> machine.</h2>
+                    <p class="a subtitle">Use Intel AI Superbuilder with a local LLM + Zerodha MCP to get live market
+                        data without sending a single byte to the cloud.</p>
+                    <ul class="a bullet-list" style="margin-top: 28px;">
+                        <li>
+                            <div class="bullet-icon" style="background: var(--accent-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669"
+                                    stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div>
+                            <div><strong>100% Local LLM</strong> — Your AI runs on your device's NPU/GPU.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background: var(--accent-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669"
+                                    stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div>
+                            <div><strong>Direct API connection</strong> — MCP talks to Zerodha, not a middleman.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background: var(--accent-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669"
+                                    stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div>
+                            <div><strong>Zero data leakage</strong> — Financial data never leaves your PC.</div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="glass-panel" style="display: flex; flex-direction: column; align-items: center;">
-                    <div class="agent-step">User: "What's Apple's Price?"</div>
-                    <div class="agent-line"></div>
-                    <div class="agent-step" style="border-style: dashed; background: #ECFDF5;">Thought: "I need stock
-                        data."</div>
-                    <div class="agent-line"></div>
-                    <div class="agent-step" style="background: #064E3B; color: #6EE7B7;">Action: get_stock("AAPL")</div>
-                    <div class="agent-line"></div>
-                    <div class="agent-step">Result: $185.50</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 4: Mission Start -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="trending-up"></i> The Mission</div>
-            <h2>Scenario: Hedge Fund</h2>
-            <div class="content-grid">
-                <div>
-                    <p>You are a Quantitative Analyst.</p>
-                    <p><strong>The Task:</strong> Build an AI that can fetch LIVE stock data and perform technical
-                        analysis.</p>
-                    <p><strong>Tools:</strong> Python, YFinance API, MCP Server.</p>
-                </div>
-                <div class="glass-panel" style="text-align: center;">
-                    <i data-lucide="bar-chart-2" style="width: 100px; height: 100px; color: #10B981;"></i>
-                    <p style="margin-top:20px; font-weight:bold;">The Financial Analyst Bot</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Step 1 - Tool Definition -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="settings"></i> Step 1</div>
-            <h2>Defining the Tool</h2>
-            <div class="glass-panel">
-                <p>We need to tell the AI <em>how</em> to get prices.</p>
-                <div class="code-box">
-                    {
-                    "name": "get_stock_price",
-                    "description": "Fetch current stock price for a ticker symbol",
-                    "parameters": {
-                    "type": "object",
-                    "properties": {
-                    "ticker": { "type": "string" }
-                    }
-                    }
-                    }
-                </div>
-                <p><em>(This is the JSON Schema the LLM reads)</em></p>
-            </div>
-        </div>
-
-        <!-- Slide 6: Step 2 - The Analysis -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="activity"></i> Step 2</div>
-            <h2>Running the Analysis</h2>
-            <div class="glass-panel">
-                <p>Now, ask the Agent to do work.</p>
-                <div class="code-box">
-                    "Compare the performance of Apple (AAPL) and Microsoft (MSFT) over the last 5 days. Which one is
-                    more volatile?"
-                </div>
-                <p><em>Watch the 'Thoughts' panel to see it call the tool twice!</em></p>
-            </div>
-        </div>
-
-        <!-- Slide 7: Step 3 - The "Crash" (Debugging) -->
-        <div class="slide">
-            <div class="badge"><i data-lucide="alert-octagon"></i> Step 3</div>
-            <h2>Handling Errors</h2>
-            <div class="content-grid">
-                <div>
-                    <p>What if the API fails?</p>
-                    <p>A good Agent sees the error and tries again or apologizes.</p>
-                </div>
-                <div class="glass-panel">
-                    <div class="code-box">
-                        Action: get_stock("GOGLE")
-                        Error: Ticker not found.
-                        Thought: "Ah, I made a typo. It should be GOOGL."
-                        Action: get_stock("GOOGL")
+                <div class="a">
+                    <div class="compare-card good">
+                        <div class="compare-label" style="color:#059669;">✅ What we're building</div>
+                        <h3>You → Local LLM → MCP → Zerodha API</h3>
+                        <ul class="compare-list">
+                            <li>AI runs entirely on your AI PC</li>
+                            <li>MCP connects directly to Zerodha Kite</li>
+                            <li>Live prices, positions, P&L — all local</li>
+                            <li>Your data stays on your device</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: Step 4 - Advanced Logic -->
+        <!-- ════════════════ SLIDE 4: WHAT IS AN AGENT? ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="pie-chart"></i> Step 4</div>
-            <h2>Investment Memo</h2>
-            <div class="glass-panel">
-                <p><strong>Goal:</strong> Synthesis.</p>
-                <div class="code-box">
-                    "Based on the prices you just fetched, write a brief investment memo for a conservative investor.
-                    Mention the P/E ratio if available."
+            <div class="a eyebrow"><span class="dot" style="background:var(--blue);"></span> Key Concept</div>
+            <h2 class="a slide-title">What is an AI Agent?</h2>
+            <p class="a subtitle" style="margin-bottom: 40px;">A chatbot can only <em>think</em>. An Agent can
+                <strong>think AND act.</strong>
+            </p>
+            <div class="a feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--danger-light);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="#EF4444" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </div>
+                    <h3>Chatbot (LLM)</h3>
+                    <p>Brain in a jar. Can answer questions but <strong>cannot do anything</strong> in the real world.
+                    </p>
+                </div>
+                <div class="feature-card" style="border-color: var(--accent); box-shadow: var(--shadow-glow);">
+                    <div class="feature-icon" style="background: var(--accent-light);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="#059669" stroke-width="2">
+                            <circle cx="12" cy="12" r="3" />
+                            <path
+                                d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                        </svg>
+                    </div>
+                    <h3>AI Agent</h3>
+                    <p>Brain + <strong>hands</strong>. Can reason, plan, and <strong>take actions</strong> via tools
+                        (APIs, databases, etc).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--blue-light);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="#2563EB" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
+                    </div>
+                    <h3>Our Finance Agent</h3>
+                    <p>LLM + Zerodha MCP. Reasons about finance, then <strong>fetches live data</strong> to answer you.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 9: Recap -->
+        <!-- ════════════════ SLIDE 5: WHAT IS MCP? ════════════════ -->
         <div class="slide">
-            <div class="badge"><i data-lucide="check-square"></i> Summary</div>
-            <h2>MCP Architecture</h2>
-            <div class="glass-panel">
-                <ul style="list-style:none; line-height:2.5;">
-                    <li><i data-lucide="server" style="width:18px; color:#10B981;"></i> <strong>Standardized:</strong>
-                        One protocol for all tools.</li>
-                    <li><i data-lucide="shield" style="width:18px; color:#10B981;"></i> <strong>Secure:</strong> You
-                        control the API keys.</li>
-                    <li><i data-lucide="cpu" style="width:18px; color:#10B981;"></i> <strong>Local:</strong> The Agent
-                        logic runs on your NPU.</li>
-                </ul>
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot" style="background:var(--purple);"></span> Key Concept</div>
+                    <h2 class="a slide-title">What is MCP?</h2>
+                    <p class="a subtitle" style="margin-bottom: 24px;">Model Context Protocol — the universal adapter
+                        that lets AI talk to external services.</p>
+                    <ul class="a bullet-list">
+                        <li>
+                            <div class="bullet-icon" style="background: var(--purple-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED"
+                                    stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                    <path d="M2 17l10 5 10-5" />
+                                    <path d="M2 12l10 5 10-5" />
+                                </svg></div>
+                            <div><strong>Open standard</strong> — Created by Anthropic, adopted industry-wide.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background: var(--purple-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED"
+                                    stroke-width="2">
+                                    <path d="M18 20V10" />
+                                    <path d="M12 20V4" />
+                                    <path d="M6 20v-6" />
+                                </svg></div>
+                            <div><strong>Plug & Play</strong> — Connect to APIs, databases, files. No custom code.</div>
+                        </li>
+                        <li>
+                            <div class="bullet-icon" style="background: var(--purple-light);"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED"
+                                    stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg></div>
+                            <div><strong>Secure</strong> — Data flows directly between your LLM and the API. No
+                                middleman.</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; gap:16px;">
+                    <div class="code-block">
+                        <pre><span class="c-comment">// Think of MCP like USB-C</span>
+<span class="c-comment">// One standard port. Many devices.</span>
+
+<span class="c-accent">AI Superbuilder</span>
+  └─ <span class="c-blue">MCP</span> → Zerodha (stocks)
+  └─ <span class="c-blue">MCP</span> → Gmail (emails)
+  └─ <span class="c-blue">MCP</span> → Google Drive (files)
+  └─ <span class="c-blue">MCP</span> → Slack (messages)
+  └─ <span class="c-blue">MCP</span> → <span class="c-orange">Any API...</span></pre>
+                    </div>
+                    <div
+                        style="padding:14px; background:var(--accent-light); border:1px solid #A7F3D0; border-radius:12px; font-size:0.82rem; color:#065F46;">
+                        <strong>💡 Analogy:</strong> MCP is like USB-C for AI. One universal connector, every tool.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 6: HOW IT WORKS — PIPELINE ════════════════ -->
+        <div class="slide">
+            <div class="a eyebrow" style="justify-content:center; display:flex;"><span class="dot"></span> Architecture
+            </div>
+            <h2 class="a slide-title" style="text-align:center;">How It Works</h2>
+            <p class="a subtitle" style="text-align:center; margin:0 auto 40px; max-width:600px;">You ask a question in
+                English. The Agent figures out what API to call, fetches live data, and explains the answer.</p>
+            <div class="a pipeline">
+                <div class="pipe-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="#475569" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <div class="pipe-label">You</div>
+                    <div class="pipe-sub">"What's TCS at?"</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node active-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="#059669" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4" />
+                    </svg>
+                    <div class="pipe-label">Local LLM</div>
+                    <div class="pipe-sub">Understands intent</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node active-node" style="border-color:var(--purple); background:var(--purple-light);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="#7C3AED" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5" />
+                        <path d="M2 12l10 5 10-5" />
+                    </svg>
+                    <div class="pipe-label">MCP</div>
+                    <div class="pipe-sub">Routes to API</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="#475569" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                    <div class="pipe-label">Zerodha</div>
+                    <div class="pipe-sub">Live market data</div>
+                </div>
+                <div class="pipe-connector"></div>
+                <div class="pipe-node">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="#059669" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    <div class="pipe-label">Answer</div>
+                    <div class="pipe-sub">"TCS: ₹3,872 ↑1.2%"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 7: THE AGENT LOOP ════════════════ -->
+        <div class="slide">
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot" style="background:var(--orange);"></span> Deep Dive</div>
+                    <h2 class="a slide-title">The Agent Loop<br><em>(ReAct Pattern)</em></h2>
+                    <p class="a subtitle">The Agent doesn't just answer. It <strong>Reasons → Acts → Observes →
+                            Repeats</strong> until it has the full picture.</p>
+                    <div class="a"
+                        style="margin-top:24px; padding:16px; background:var(--orange-light); border:1px solid #FDE68A; border-radius:12px; font-size:0.85rem; color:#92400E;">
+                        <strong>🔁 ReAct = Reasoning + Acting.</strong> The LLM decides which tool to use, calls it,
+                        reads the result, and decides what to do next.
+                    </div>
+                </div>
+                <div class="a code-block">
+                    <pre><span class="c-comment">// User asks a complex question:</span>
+<span class="c-string">"Compare RELIANCE and TCS — which is
+more volatile this week?"</span>
+
+<span class="c-accent">Step 1 — Reason:</span>
+<span class="c-comment">  "I need prices for both stocks"</span>
+
+<span class="c-accent">Step 2 — Act:</span>
+<span class="c-blue">  → call get_quote("RELIANCE")</span>
+<span class="c-blue">  → call get_quote("TCS")</span>
+
+<span class="c-accent">Step 3 — Observe:</span>
+<span class="c-comment">  "RELIANCE: ₹2,845 (±3.2%)"</span>
+<span class="c-comment">  "TCS: ₹3,872 (±1.1%)"</span>
+
+<span class="c-accent">Step 4 — Answer:</span>
+<span class="c-string">"RELIANCE is more volatile at ±3.2%
+vs TCS at ±1.1% this week."</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 8: DEMO — LIVE QUERIES ════════════════ -->
+        <div class="slide">
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot"></span> Live Demo</div>
+                    <h2 class="a slide-title">Ask Your<br>Finance Agent</h2>
+                    <p class="a subtitle" style="margin-bottom: 24px;">Type natural language queries. The Agent decides
+                        which Zerodha API to call, fetches live data, and explains.</p>
+                    <div class="a code-block">
+                        <pre><span class="c-comment">// Try these prompts:</span>
+
+<span class="c-accent">Level 1 — Single stock:</span>
+<span class="c-string">"What is TCS trading at right now?"</span>
+
+<span class="c-accent">Level 2 — Comparison:</span>
+<span class="c-string">"Compare INFY, TCS, and WIPRO.
+Which has the highest volume today?"</span>
+
+<span class="c-accent">Level 3 — Analysis:</span>
+<span class="c-string">"Show me NIFTY 50 and Bank NIFTY.
+Are we in a bullish or bearish trend?"</span>
+
+<span class="c-accent">Level 4 — Portfolio:</span>
+<span class="c-string">"Show my portfolio positions and
+calculate my total unrealized P&L"</span></pre>
+                    </div>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; gap:20px;">
+                    <div class="visual-panel" style="padding:0; min-height:auto;">
+                        <img src="assets/mcp.jpeg" alt="Finance Agent Demo"
+                            style="width:100%; height:auto; object-fit:contain;">
+                    </div>
+                    <div
+                        style="padding:14px; background:var(--accent-light); border:1px solid #A7F3D0; border-radius:12px; font-size:0.82rem; color:#065F46;">
+                        <strong>🔍 Watch the Thoughts panel</strong> — you'll see the LLM reasoning step-by-step before
+                        calling each Zerodha API.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 9: SCENARIO — HEDGE FUND ANALYST ════════════════ -->
+        <div class="slide">
+            <div class="split">
+                <div>
+                    <div class="a eyebrow"><span class="dot" style="background:var(--orange);"></span> Live Scenario
+                    </div>
+                    <h2 class="a slide-title">The Morning<br>Market Brief</h2>
+                    <p class="a subtitle" style="margin-bottom: 24px;">You're a fund manager. It's 9:30 AM. You need a
+                        quick overview of your portfolio + market sentiment before your first client call at 10 AM.</p>
+                    <div class="a code-block">
+                        <pre><span class="c-comment">// Morning Brief Prompt</span>
+
+<span class="c-string">"Good morning. Give me:
+1. Current NIFTY 50 and SENSEX levels
+2. My top 5 holdings with today's change
+3. Which sector is performing best today
+4. Any stock in my portfolio that dropped
+   more than 2% — flag it as a risk"</span>
+
+<span class="c-comment">// The Agent will:</span>
+<span class="c-blue">  → Fetch indices via MCP</span>
+<span class="c-blue">  → Pull portfolio positions</span>
+<span class="c-blue">  → Analyze sector performance</span>
+<span class="c-blue">  → Flag risks automatically</span></pre>
+                    </div>
+                </div>
+                <div class="a" style="display:flex; flex-direction:column; gap:16px;">
+                    <div class="feature-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="feature-card" style="text-align:left; padding:20px;">
+                            <div
+                                style="font-size:0.7rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                                NIFTY 50</div>
+                            <div style="font-size:1.5rem; font-weight:900;">22,456</div>
+                            <div style="font-size:0.82rem; color:#059669; font-weight:700;">↑ +0.8%</div>
+                        </div>
+                        <div class="feature-card" style="text-align:left; padding:20px;">
+                            <div
+                                style="font-size:0.7rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                                SENSEX</div>
+                            <div style="font-size:1.5rem; font-weight:900;">73,891</div>
+                            <div style="font-size:0.82rem; color:#059669; font-weight:700;">↑ +0.6%</div>
+                        </div>
+                        <div class="feature-card" style="text-align:left; padding:20px;">
+                            <div
+                                style="font-size:0.7rem; font-weight:700; color:var(--purple); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                                RELIANCE</div>
+                            <div style="font-size:1.5rem; font-weight:900;">₹2,845</div>
+                            <div style="font-size:0.82rem; color:#059669; font-weight:700;">↑ +1.2%</div>
+                        </div>
+                        <div class="feature-card" style="text-align:left; padding:20px; border-color:#FECACA;">
+                            <div
+                                style="font-size:0.7rem; font-weight:700; color:#EF4444; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+                                ⚠ HDFC BANK</div>
+                            <div style="font-size:1.5rem; font-weight:900;">₹1,621</div>
+                            <div style="font-size:0.82rem; color:#EF4444; font-weight:700;">↓ -2.4%</div>
+                        </div>
+                    </div>
+                    <div
+                        style="padding:14px; background:var(--danger-light); border:1px solid #FECACA; border-radius:12px; font-size:0.82rem; color:#991B1B;">
+                        <strong>🚨 AI Alert:</strong> HDFC Bank dropped 2.4% — review before client call.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════ SLIDE 10: RECAP ════════════════ -->
+        <div class="slide">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <div class="a eyebrow" style="justify-content:center;"><span class="dot"
+                        style="background:#059669;"></span> Session Complete</div>
+                <h2 class="a slide-title">What You Learned</h2>
+                <p class="a subtitle" style="margin: 0 auto 40px; text-align: center; max-width: 500px;">
+                    You built an AI Finance Agent that acts on real-world data — all locally.
+                </p>
+                <div class="a feature-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--accent-light);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#059669" stroke-width="2">
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4" />
+                            </svg>
+                        </div>
+                        <h3>AI Agents</h3>
+                        <p>LLMs that reason and act via tools</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--purple-light);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#7C3AED" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                <path d="M2 17l10 5 10-5" />
+                                <path d="M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <h3>MCP Protocol</h3>
+                        <p>USB-C for AI — one standard, every tool</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--blue-light);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#2563EB" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        <h3>Live Market Data</h3>
+                        <p>Zerodha Kite quotes via natural language</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background:var(--danger-light);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#EF4444" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+                        <h3>Financial Privacy</h3>
+                        <p>Zero portfolio data leaves your device</p>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <div class="controls">
-        <button class="nav-btn" onclick="prevSlide()"><i data-lucide="chevron-left"></i></button>
-        <span id="prog">1 / 9</span>
-        <button class="nav-btn" onclick="nextSlide()"><i data-lucide="chevron-right"></i></button>
+    <!-- Nav -->
+    <div class="nav">
+        <button class="nav-btn" onclick="go(-1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        </button>
+        <div class="nav-progress">
+            <div class="nav-progress-fill" id="prog"></div>
+        </div>
+        <span class="nav-counter" id="counter">1 / 10</span>
+        <button class="nav-btn" onclick="go(1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
     </div>
 
     <script>
-        lucide.createIcons();
-        let current = 0; const slides = document.querySelectorAll('.slide'); const prog = document.getElementById('prog');
-        function update() { slides.forEach((s, i) => { s.classList.remove('active'); if (i === current) s.classList.add('active'); }); prog.textContent = `${current + 1} / ${slides.length}`; }
-        function nextSlide() { if (current < slides.length - 1) { current++; update(); } }
-        function prevSlide() { if (current > 0) { current--; update(); } }
-        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+        const slides = document.querySelectorAll('.slide');
+        let cur = 0;
+        function go(d) {
+            slides[cur].classList.remove('active');
+            cur = Math.max(0, Math.min(slides.length - 1, cur + d));
+            slides[cur].classList.add('active');
+            document.getElementById('counter').textContent = `${cur + 1} / ${slides.length}`;
+            document.getElementById('prog').style.width = `${((cur + 1) / slides.length) * 100}%`;
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+            if (e.key === 'ArrowLeft') go(-1);
+        });
+        document.getElementById('prog').style.width = `${(1 / slides.length) * 100}%`;
     </script>
 </body>
 
