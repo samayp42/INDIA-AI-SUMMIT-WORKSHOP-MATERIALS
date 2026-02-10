@@ -4,153 +4,799 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI PC Workshop | Master Index</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    <title>AI PC Workshop Series | India AI Summit</title>
+    <meta name="description"
+        content="6-session hands-on AI workshop powered by Intel AI PCs. Local AI, zero cloud, absolute privacy.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* ═══════════════════════════════════════════
+           DESIGN SYSTEM
+           ═══════════════════════════════════════════ */
+        :root {
+            --bg: #FAFBFF;
+            --surface: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #94A3B8;
+            --border: #E2E8F0;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #FAFCFF;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Dot grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(#CBD5E1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ambient blobs */
+        .ambient {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-1 {
+            background: #DBEAFE;
+            top: -300px;
+            right: -200px;
+        }
+
+        .ambient-2 {
+            background: #E0E7FF;
+            bottom: -300px;
+            left: -200px;
+        }
+
+        .ambient-3 {
+            background: #FBCFE8;
+            top: 40%;
+            left: 30%;
+            width: 400px;
+            height: 400px;
+            opacity: 0.15;
+        }
+
+        /* ═══════════════════════════════════════════
+           LAYOUT
+           ═══════════════════════════════════════════ */
+        .page {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 40px 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #22C55E;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.08;
+            letter-spacing: -2.5px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(135deg, #2563EB, #7C3AED, #EC4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Stats strip */
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .stat-value.blue {
+            color: #2563EB;
+        }
+
+        .stat-value.purple {
+            color: #7C3AED;
+        }
+
+        .stat-value.pink {
+            color: #EC4899;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           SESSION GRID
+           ═══════════════════════════════════════════ */
+        .grid-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 40px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+            padding-left: 4px;
+        }
+
+        .session-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .session-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .session-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .session-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .session-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .session-card:hover .card-accent {
+            opacity: 1;
+        }
+
+        .session-card:hover .card-icon-wrap {
+            transform: scale(1.1);
+        }
+
+        .card-accent {
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-lg);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-top {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon-wrap {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-body {
+            padding: 0 28px 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-session-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-session-tag .tag-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 20px;
+        }
+
+        .card-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-dark {
+            background: #0F172A;
+            color: #FFFFFF;
+        }
+
+        .btn-dark:hover {
+            background: #1E293B;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-light {
+            border: 1.5px solid var(--border);
+            color: var(--text-secondary);
+            background: var(--surface);
+        }
+
+        .btn-light:hover {
+            border-color: var(--text-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* ═══════════════════════════════════════════
+           RESOURCES BAR
+           ═══════════════════════════════════════════ */
+        .resources-section {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 0 40px 80px;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 800px) {
+            .resource-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .resource-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            border-color: #2563EB;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .resource-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .resource-card .r-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .resource-card .r-desc {
+            font-size: 0.72rem;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .site-footer {
+            text-align: center;
+            padding: 20px 40px 40px;
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+        }
+
+        .site-footer a {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════
+           ENTRANCE ANIMATION
+           ═══════════════════════════════════════════ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeInUp 0.7s ease forwards;
+        }
+
+        .fade-in:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .fade-in:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .fade-in:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .fade-in:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero children stagger */
+        .hero>* {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.7s ease forwards;
+        }
+
+        .hero>*:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .hero>*:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .hero>*:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .hero>*:nth-child(4) {
+            animation-delay: 0.4s;
         }
     </style>
 </head>
 
-<body class="text-slate-900 min-h-screen p-10">
+<body>
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+    <div class="ambient ambient-3"></div>
 
-    <header class="max-w-6xl mx-auto mb-16 text-center">
-        <h1 class="text-5xl font-extrabold text-slate-900 mb-4 pb-2">AI PC Workshop Series</h1>
-        <p class="text-xl text-slate-500">6 Sessions • Mission-Based Labs •</p>
-    </header>
+    <div class="page">
 
-    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <!-- Session 1 -->
-        <div
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="h-32 bg-blue-50 flex items-center justify-center p-6 border-b border-blue-100">
-                <i data-lucide="briefcase" class="w-12 h-12 text-blue-600"></i>
+        <!-- ═══════════════ HERO ═══════════════ -->
+        <header class="hero">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                India AI Summit 2026
             </div>
-            <div class="p-8">
-                <div class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Session 1 | RAG</div>
-                <h3 class="text-2xl font-bold mb-2">Govt Tender Analysis</h3>
-                <p class="text-slate-500 mb-6 text-sm">Use Local RAG to analyze a confidential 500Cr RFP and select a
-                    winner securely.</p>
-                <div class="flex gap-3">
-                    <a href="Session_1_Presentation.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors">Slides</a>
-                    <a href="Session_1_Student_Guide.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-blue-50 text-blue-700 font-semibold text-sm hover:bg-blue-100 transition-colors">Guide</a>
+
+            <h1 class="hero-title">
+                Build with AI.<br>
+                <span class="gradient">Locally.</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                6 hands-on sessions. From confidential document analysis to AI-generated art to voice bots — all running
+                entirely on your Intel AI PC. Zero cloud. Zero cost.
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-item">
+                    <div class="stat-value blue">6</div>
+                    <div class="stat-label">Sessions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value purple">$0</div>
+                    <div class="stat-label">Cloud Cost</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value pink">100%</div>
+                    <div class="stat-label">Local & Private</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color:#10B981;">∞</div>
+                    <div class="stat-label">Generations</div>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- Session 2 -->
-        <div
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="h-32 bg-pink-50 flex items-center justify-center p-6 border-b border-pink-100">
-                <i data-lucide="pen-tool" class="w-12 h-12 text-pink-600"></i>
-            </div>
-            <div class="p-8">
-                <div class="text-xs font-bold text-pink-600 uppercase tracking-widest mb-2">Session 2 | GenAI</div>
-                <h3 class="text-2xl font-bold mb-2">AI Design Studio</h3>
-                <p class="text-slate-500 mb-6 text-sm">Turn napkin sketches into photorealistic 4K architectural renders
-                    using ControlNet.</p>
-                <div class="flex gap-3">
-                    <a href="Session_2_Presentation.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors">Slides</a>
-                    <a href="Session_2_Student_Guide.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-pink-50 text-pink-700 font-semibold text-sm hover:bg-pink-100 transition-colors">Guide</a>
+        <!-- ═══════════════ SESSION GRID ═══════════════ -->
+        <section class="grid-section">
+            <div class="section-label">Workshop Sessions</div>
+            <div class="session-grid">
+
+                <!-- Session 1 -->
+                <div class="session-card fade-in">
+                    <div class="card-accent" style="box-shadow: inset 0 0 0 2px #2563EB;"></div>
+                    <div class="card-top" style="background: linear-gradient(135deg, #EFF6FF, #DBEAFE);">
+                        <div class="card-icon-wrap" style="background: rgba(37,99,235,0.1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#2563EB" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <path d="M7 7h10M7 12h10M7 17h6" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-session-tag" style="color:#2563EB;"><span class="tag-dot"
+                                style="background:#2563EB;"></span> Session 1 • RAG</div>
+                        <h3 class="card-title">Govt Tender Analysis</h3>
+                        <p class="card-desc">Analyze a confidential ₹500Cr RFP using Local RAG. Zero data leakage. Your
+                            documents never leave the device.</p>
+                        <div class="card-links">
+                            <a href="Session_1_Presentation.html" class="btn btn-dark">Slides</a>
+                            <a href="Session_1_Student_Guide.html" class="btn btn-light">Guide</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Session 3 -->
-        <div
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="h-32 bg-green-50 flex items-center justify-center p-6 border-b border-green-100">
-                <i data-lucide="trending-up" class="w-12 h-12 text-green-600"></i>
-            </div>
-            <div class="p-8">
-                <div class="text-xs font-bold text-green-600 uppercase tracking-widest mb-2">Session 3 | Agents</div>
-                <h3 class="text-2xl font-bold mb-2">Finance Analyst Bot</h3>
-                <p class="text-slate-500 mb-6 text-sm">Build an Agent that fetches LIVE stock data via APIs and performs
-                    technical analysis.</p>
-                <div class="flex gap-3">
-                    <a href="Session_3_Presentation.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors">Slides</a>
-                    <a href="Session_3_Student_Guide.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-green-50 text-green-700 font-semibold text-sm hover:bg-green-100 transition-colors">Guide</a>
+                <!-- Session 2 -->
+                <div class="session-card fade-in">
+                    <div class="card-accent" style="box-shadow: inset 0 0 0 2px #8B5CF6;"></div>
+                    <div class="card-top" style="background: linear-gradient(135deg, #F5F3FF, #EDE9FE);">
+                        <div class="card-icon-wrap" style="background: rgba(139,92,246,0.1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#8B5CF6" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-session-tag" style="color:#8B5CF6;"><span class="tag-dot"
+                                style="background:#8B5CF6;"></span> Session 2 • Creative</div>
+                        <h3 class="card-title">AI Creative Studio</h3>
+                        <p class="card-desc">Generate product photos, transform sketches into renders, and create AI
+                            videos — all locally at ₹0 per image.</p>
+                        <div class="card-links">
+                            <a href="Session_2_Presentation.html" class="btn btn-dark">Slides</a>
+                            <a href="Session_2_Student_Guide.html" class="btn btn-light">Guide</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Session 4 -->
-        <div
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="h-32 bg-cyan-50 flex items-center justify-center p-6 border-b border-cyan-100">
-                <i data-lucide="camera" class="w-12 h-12 text-cyan-600"></i>
-            </div>
-            <div class="p-8">
-                <div class="text-xs font-bold text-cyan-600 uppercase tracking-widest mb-2">Session 4 | Editing</div>
-                <h3 class="text-2xl font-bold mb-2">Photo Restoration</h3>
-                <p class="text-slate-500 mb-6 text-sm">Seamlessly remove defects and upscale old photos using Inpainting
-                    and Super Res.</p>
-                <div class="flex gap-3">
-                    <a href="Session_4_Presentation.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors">Slides</a>
-                    <a href="Session_4_Student_Guide.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-cyan-50 text-cyan-700 font-semibold text-sm hover:bg-cyan-100 transition-colors">Guide</a>
+                <!-- Session 3 -->
+                <div class="session-card fade-in">
+                    <div class="card-accent" style="box-shadow: inset 0 0 0 2px #10B981;"></div>
+                    <div class="card-top" style="background: linear-gradient(135deg, #ECFDF5, #D1FAE5);">
+                        <div class="card-icon-wrap" style="background: rgba(16,185,129,0.1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#10B981" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-session-tag" style="color:#10B981;"><span class="tag-dot"
+                                style="background:#10B981;"></span> Session 3 • Agents</div>
+                        <h3 class="card-title">Finance Analyst Bot</h3>
+                        <p class="card-desc">Build an AI Agent that fetches live stock data via APIs and performs
+                            automated technical analysis.</p>
+                        <div class="card-links">
+                            <a href="Session_3_Presentation.html" class="btn btn-dark">Slides</a>
+                            <a href="Session_3_Student_Guide.html" class="btn btn-light">Guide</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Session 5 -->
-        <div
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="h-32 bg-red-50 flex items-center justify-center p-6 border-b border-red-100">
-                <i data-lucide="mic" class="w-12 h-12 text-red-600"></i>
-            </div>
-            <div class="p-8">
-                <div class="text-xs font-bold text-red-600 uppercase tracking-widest mb-2">Session 5 | Voice</div>
-                <h3 class="text-2xl font-bold mb-2">News Anchor AI</h3>
-                <p class="text-slate-500 mb-6 text-sm">Create a low-latency, witty Tech News host that interviews you
-                    live via voice.</p>
-                <div class="flex gap-3">
-                    <a href="Session_5_Presentation.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors">Slides</a>
-                    <a href="Session_5_Student_Guide.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-red-50 text-red-700 font-semibold text-sm hover:bg-red-100 transition-colors">Guide</a>
+                <!-- Session 4 -->
+                <div class="session-card fade-in">
+                    <div class="card-accent" style="box-shadow: inset 0 0 0 2px #06B6D4;"></div>
+                    <div class="card-top" style="background: linear-gradient(135deg, #ECFEFF, #CFFAFE);">
+                        <div class="card-icon-wrap" style="background: rgba(6,182,212,0.1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#06B6D4" stroke-width="2">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                <circle cx="12" cy="13" r="4" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-session-tag" style="color:#06B6D4;"><span class="tag-dot"
+                                style="background:#06B6D4;"></span> Session 4 • Editing</div>
+                        <h3 class="card-title">Photo Restoration</h3>
+                        <p class="card-desc">Remove defects, upscale old photos, and seamlessly erase objects using
+                            Inpainting and Super Resolution.</p>
+                        <div class="card-links">
+                            <a href="Session_4_Presentation.html" class="btn btn-dark">Slides</a>
+                            <a href="Session_4_Student_Guide.html" class="btn btn-light">Guide</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Session 6 -->
-        <div
-            class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1">
-            <div class="h-32 bg-orange-50 flex items-center justify-center p-6 border-b border-orange-100">
-                <i data-lucide="wind" class="w-12 h-12 text-orange-600"></i>
-            </div>
-            <div class="p-8">
-                <div class="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2">Session 6 | IoT</div>
-                <h3 class="text-2xl font-bold mb-2">AirOwl Smart City</h3>
-                <p class="text-slate-500 mb-6 text-sm">Connect an ESP32 sensor to AI to monitor air quality and issue
-                    health alerts.</p>
-                <div class="flex gap-3">
-                    <a href="Session_6_Presentation.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-colors">Slides</a>
-                    <a href="Session_6_Student_Guide.html"
-                        class="flex-1 text-center py-2 px-4 rounded-lg bg-orange-50 text-orange-700 font-semibold text-sm hover:bg-orange-100 transition-colors">Guide</a>
+                <!-- Session 5 -->
+                <div class="session-card fade-in">
+                    <div class="card-accent" style="box-shadow: inset 0 0 0 2px #EF4444;"></div>
+                    <div class="card-top" style="background: linear-gradient(135deg, #FEF2F2, #FEE2E2);">
+                        <div class="card-icon-wrap" style="background: rgba(239,68,68,0.1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#EF4444" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" y1="19" x2="12" y2="23" />
+                                <line x1="8" y1="23" x2="16" y2="23" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-session-tag" style="color:#EF4444;"><span class="tag-dot"
+                                style="background:#EF4444;"></span> Session 5 • Voice</div>
+                        <h3 class="card-title">News Anchor AI</h3>
+                        <p class="card-desc">Create a low-latency, witty Tech News host that interviews you live via
+                            voice. Full STT → LLM → TTS pipeline.</p>
+                        <div class="card-links">
+                            <a href="Session_5_Presentation.html" class="btn btn-dark">Slides</a>
+                            <a href="Session_5_Student_Guide.html" class="btn btn-light">Guide</a>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Session 6 -->
+                <div class="session-card fade-in">
+                    <div class="card-accent" style="box-shadow: inset 0 0 0 2px #F59E0B;"></div>
+                    <div class="card-top" style="background: linear-gradient(135deg, #FFFBEB, #FEF3C7);">
+                        <div class="card-icon-wrap" style="background: rgba(245,158,11,0.1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="#F59E0B" stroke-width="2">
+                                <path
+                                    d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-session-tag" style="color:#F59E0B;"><span class="tag-dot"
+                                style="background:#F59E0B;"></span> Session 6 • IoT</div>
+                        <h3 class="card-title">AirOwl Smart City</h3>
+                        <p class="card-desc">Connect an ESP32 air quality sensor to AI via MCP Server. Real-time
+                            environmental monitoring and health alerts.</p>
+                        <div class="card-links">
+                            <a href="Session_6_Presentation.html" class="btn btn-dark">Slides</a>
+                            <a href="Session_6_Student_Guide.html" class="btn btn-light">Guide</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </section>
 
-    </main>
+        <!-- ═══════════════ RESOURCES ═══════════════ -->
+        <section class="resources-section">
+            <div class="section-label">Resources & Tools</div>
+            <div class="resource-grid">
+                <a href="setup_guide.html" class="resource-card">
+                    <div class="resource-icon" style="background:#EFF6FF;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#2563EB" stroke-width="2">
+                            <path
+                                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="r-title">Setup Guide</div>
+                        <div class="r-desc">Installation & configuration</div>
+                    </div>
+                </a>
 
-    <script>
-        lucide.createIcons();
-    </script>
+                <a href="requirements.html" class="resource-card">
+                    <div class="resource-icon" style="background:#F5F3FF;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#8B5CF6" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                            <rect x="9" y="9" width="6" height="6" />
+                            <line x1="9" y1="1" x2="9" y2="4" />
+                            <line x1="15" y1="1" x2="15" y2="4" />
+                            <line x1="9" y1="20" x2="9" y2="23" />
+                            <line x1="15" y1="20" x2="15" y2="23" />
+                            <line x1="20" y1="9" x2="23" y2="9" />
+                            <line x1="20" y1="14" x2="23" y2="14" />
+                            <line x1="1" y1="9" x2="4" y2="9" />
+                            <line x1="1" y1="14" x2="4" y2="14" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="r-title">Requirements</div>
+                        <div class="r-desc">Hardware & software specs</div>
+                    </div>
+                </a>
+
+                <a href="Troubleshooting_Guide.html" class="resource-card">
+                    <div class="resource-icon" style="background:#FEF2F2;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#EF4444" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="r-title">Troubleshooting</div>
+                        <div class="r-desc">Common issues & fixes</div>
+                    </div>
+                </a>
+
+                <a href="roster.html" class="resource-card">
+                    <div class="resource-icon" style="background:#ECFDF5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="#10B981" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="r-title">Roster</div>
+                        <div class="r-desc">Participant management</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ═══════════════ FOOTER ═══════════════ -->
+        <footer class="site-footer">
+            <p>Powered by <a href="https://github.com/intel/AI-Playground" target="_blank">Intel AI Playground</a> •
+                India AI Summit 2026</p>
+            <p style="margin-top:6px; opacity:0.6;">All AI processing runs 100% locally on Intel AI PCs. Zero data
+                leaves your device.</p>
+        </footer>
+
+    </div>
 </body>
 
 </html>
