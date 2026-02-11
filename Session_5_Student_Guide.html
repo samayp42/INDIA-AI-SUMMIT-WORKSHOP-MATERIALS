@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 5 | Student Guide - Voice AI</title>
+    <title>Session 5 | Student Guide - Building Voice AI Agents with Pipecat</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #EF4444;
+            --primary: #DC2626;
+            --primary-dark: #B91C1C;
             --primary-light: #FEF2F2;
+            --accent: #F97316;
+            --accent-light: #FFF7ED;
             --bg: #FAFCFF;
             --text-main: #7F1D1D;
             --text-sub: #334155;
-            --code-bg: #FEF2F2;
-            --tip-bg: #FFF7ED;
-            --tip-border: #FFEDD5;
-            --tip-text: #9A3412;
+            --code-bg: #1F2937;
+            --success: #10B981;
         }
 
         * {
@@ -31,37 +32,77 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             padding: 40px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: var(--primary);
+        .header-badge {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
 
-        h2 {
-            font-size: 1.5rem;
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            margin-bottom: 30px;
+        }
+
+        .part-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .part-header h2 {
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 10px;
+            margin: 0;
+        }
+
+        .part-number {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #B91C1C;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
         }
 
         p {
@@ -69,99 +110,513 @@
             color: var(--text-sub);
         }
 
+        /* Pipecat Logo Box */
+        .pipecat-intro {
+            background: linear-gradient(135deg, #1F2937, #374151);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .pipecat-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .pipecat-info h3 {
+            color: white;
+            margin: 0 0 8px 0;
+            font-size: 1.4rem;
+        }
+
+        .pipecat-info p {
+            color: #D1D5DB;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .pipecat-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Pipeline Visual */
+        .pipeline-visual {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-stage {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            padding: 20px 10px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pipeline-stage:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .pipeline-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 10px;
+        }
+
+        .pipeline-stage h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .pipeline-stage p {
+            font-size: 0.7rem;
+            margin: 0;
+            color: var(--text-sub);
+        }
+
+        .pipeline-arrow {
+            color: var(--primary);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* Concept Cards */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
         .concept-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 25px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .concept-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.15);
+        }
+
+        .concept-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .concept-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .concept-card p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #374151;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-filename {
+            color: #9CA3AF;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        .code-lang {
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #E5E7EB;
+        }
+
+        .code-content .comment { color: #6B7280; }
+        .code-content .keyword { color: #F472B6; }
+        .code-content .string { color: #34D399; }
+        .code-content .function { color: #60A5FA; }
+        .code-content .class { color: #FBBF24; }
+
+        /* Component Cards */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .component-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .component-card:hover {
+            border-color: var(--primary);
+        }
+
+        .component-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 12px;
+        }
+
+        .component-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .component-card p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        .component-card code {
+            display: block;
+            background: var(--code-bg);
+            color: #34D399;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+
+        /* Demo Section */
+        .demo-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .demo-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .demo-info h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .demo-info .demo-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        /* Prompt Box */
+        .prompt-section {
+            background: var(--primary-light);
+            border: 1px solid #FECACA;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .prompt-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .prompt-box {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            line-height: 1.6;
+        }
+
+        .prompt-box:hover {
+            background: var(--primary-light);
+            transform: scale(1.01);
+        }
+
+        .prompt-box::after {
+            content: '📋 Click to Copy';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            font-size: 0.7rem;
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        /* Try This */
+        .try-this {
+            background: linear-gradient(135deg, var(--accent-light), var(--primary-light));
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .try-this-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .try-this-content h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .try-this-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        /* Info Boxes */
+        .info-box {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            border-radius: 12px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+
+        .info-box.tip {
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+        }
+
+        .info-box.tip .icon {
+            color: #D97706;
+        }
+
+        .info-box.important {
+            background: #DBEAFE;
+            border: 1px solid #93C5FD;
+        }
+
+        .info-box.important .icon {
+            color: #2563EB;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Architecture Diagram */
+        .architecture-box {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .arch-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .arch-box {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .arch-box.highlight {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .arch-box h5 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .arch-box p {
+            font-size: 0.75rem;
+            margin: 0;
+            color: var(--text-sub);
+        }
+
+        .arch-arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .arch-arrow.down {
+            transform: rotate(90deg);
+        }
+
+        /* Use Cases */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .use-case-card {
             background: white;
             border: 1px solid #E2E8F0;
             padding: 20px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
-
-        .concept-icon {
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        .scenario-box {
-            background: #FEF2F2;
-            border: 1px solid #FECACA;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .resource-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .resource-btn {
-            background: white;
-            border: 1px solid #CBD5E1;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-sub);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
+            text-align: center;
             transition: all 0.2s;
         }
 
-        .resource-btn:hover {
+        .use-case-card:hover {
             border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
-        .prompt-box {
-            background: var(--code-bg);
-            border: 1px solid #FCA5A5;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.2s;
+        .use-case-icon {
+            font-size: 2rem;
             margin-bottom: 10px;
-            color: #7F1D1D;
         }
 
-        .prompt-box:hover {
-            border-color: var(--primary);
-            background: #fee2e2;
+        .use-case-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
         }
 
-        .prompt-box::after {
-            content: 'Click to Copy';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: #9A3412;
-            font-family: sans-serif;
-        }
-
-        .tip-box {
-            background: var(--tip-bg);
-            border: 1px solid var(--tip-border);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--tip-text);
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
+        .use-case-card p {
+            font-size: 0.8rem;
+            margin: 0;
         }
 
         footer {
@@ -169,8 +624,8 @@
             text-align: center;
             color: #94A3B8;
             font-size: 0.9rem;
-            border-top: 1px solid #E2E8F0;
-            padding-top: 20px;
+            border-top: 2px solid #E2E8F0;
+            padding-top: 25px;
         }
 
         .back-nav {
@@ -236,87 +691,351 @@
         </a>
     </nav>
     <div class="container">
-        <div
-            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
-            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 5
+        <div class="header-badge">
+            <i data-lucide="mic"></i> SESSION 5 - STUDENT GUIDE
         </div>
 
-        <h1>Voice AI Pipelines</h1>
-        <p class="lead">Building Real-Time Conversational Agents with STT, LLM, and TTS.</p>
+        <h1>Building Voice AI Agents</h1>
+        <p class="subtitle">Create Real-Time Conversational AI using the Pipecat Framework</p>
 
-        <!-- SECTION 1: CONCEPTS -->
-        <h2>Part 1: Key Concepts</h2>
+        <!-- PART 1: WHAT IS PIPECAT -->
+        <div class="part-header">
+            <span class="part-number">PART 1</span>
+            <h2>Introduction to Pipecat</h2>
+        </div>
 
-        <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="mic"></i></div>
-            <div>
-                <h3>STT & TTS</h3>
-                <p><strong>Speech-to-Text (STT):</strong> Converts your voice to text (Whisper).<br>
-                    <strong>Text-to-Speech (TTS):</strong> Converts the AI's answer back to audio.
-                </p>
+        <div class="pipecat-intro">
+            <div class="pipecat-logo">🐱</div>
+            <div class="pipecat-info">
+                <h3>Pipecat Framework</h3>
+                <p>Pipecat is an open-source Python framework for building voice and multimodal AI agents. It handles the complex orchestration of STT, LLM, and TTS services in real-time.</p>
+                <a href="https://github.com/pipecat-ai/pipecat" class="pipecat-link">github.com/pipecat-ai/pipecat →</a>
             </div>
         </div>
 
-        <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="timer"></i></div>
-            <div>
-                <h3>Latency & VAD</h3>
-                <p><strong>Latency:</strong> The delay between you speaking and the AI answering. Anything over 1 second
-                    feels "laggy".<br>
-                    <strong>VAD (Voice Activity Detection):</strong> How the AI knows when you've stopped talking.
-                </p>
+        <h3>Why Pipecat?</h3>
+        <div class="concepts-grid">
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="zap"></i></div>
+                <h4>Real-Time Processing</h4>
+                <p>Handles streaming audio with minimal latency. Processes speech as you talk, not after.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="puzzle"></i></div>
+                <h4>Modular Components</h4>
+                <p>Swap STT, LLM, or TTS providers easily. Use Whisper, OpenAI, Deepgram, ElevenLabs, and more.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="git-branch"></i></div>
+                <h4>Pipeline Architecture</h4>
+                <p>Build processing pipelines by connecting components. Data flows through each stage automatically.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="cpu"></i></div>
+                <h4>Local & Cloud</h4>
+                <p>Run entirely on your AI PC with OpenVINO, or connect to cloud services for more power.</p>
             </div>
         </div>
 
-        <!-- SECTION 2: SCENARIO -->
-        <h2>Part 2: The Lab - "News Anchor Bot"</h2>
-
-        <div class="scenario-box">
-            <h3><i data-lucide="radio"></i> The Mission</h3>
-            <p>Create a high-energy "News Anchor" personality that can interview you live about technology trends. The
-                goal is to minimize latency so it feels like a real TV interview.</p>
+        <!-- PART 2: THE PIPELINE -->
+        <div class="part-header">
+            <span class="part-number">PART 2</span>
+            <h2>Voice AI Pipeline Architecture</h2>
         </div>
 
-        <h3>Configuration</h3>
-        <p>Set these values in your Config Panel:</p>
-        <div class="code-box"
-            style="background:#450A0A; padding:15px; border-radius:8px; color:#FECACA; font-family:monospace; margin-bottom:20px;">
-            STT Model: "Whisper (Small)"<br>
-            TTS Speed: 1.2x<br>
-            VAD Sensitivity: High
+        <p>A voice agent connects multiple AI models in a real-time pipeline:</p>
+
+        <div class="pipeline-visual">
+            <div class="pipeline-flow">
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="mic"></i></div>
+                    <h4>Audio Input</h4>
+                    <p>Microphone</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="audio-waveform"></i></div>
+                    <h4>VAD</h4>
+                    <p>Voice Detection</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="file-text"></i></div>
+                    <h4>STT</h4>
+                    <p>Whisper</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="brain"></i></div>
+                    <h4>LLM</h4>
+                    <p>AI Thinking</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="volume-2"></i></div>
+                    <h4>TTS</h4>
+                    <p>Voice Output</p>
+                </div>
+            </div>
         </div>
 
-        <!-- SECTION 3: PROMPTS -->
-        <h2>Part 3: The Prompt Library</h2>
-
-        <h3>Level 1: The Persona (System Prompt)</h3>
-        <p><strong>Goal:</strong> Define the character.</p>
-        <div class="prompt-box" onclick="copy(this)">You are "Cyber Sam", a fast-talking, energetic tech news anchor.
-            Keep your responses under 2 sentences.
-            Always ask a follow-up question to keep the interview moving.
-            Be witty and use news jargon like "Breaking News!" or "Back to you!".</div>
-
-        <h3>Level 2: The Interview (Conversation Starters)</h3>
-        <p><strong>Goal:</strong> Test the flow.</p>
-        <div class="tip-box">
-            <i data-lucide="mic"></i>
-            <div><strong>Say this:</strong> "Sam, what's the biggest story in AI today?"</div>
+        <h3>Pipeline Components</h3>
+        <div class="component-grid">
+            <div class="component-card">
+                <div class="component-icon"><i data-lucide="audio-waveform"></i></div>
+                <h4>VAD</h4>
+                <p>Detects when you start/stop speaking</p>
+                <code>SileroVADAnalyzer</code>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i data-lucide="mic"></i></div>
+                <h4>STT</h4>
+                <p>Converts speech to text</p>
+                <code>WhisperSTTService</code>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i data-lucide="brain"></i></div>
+                <h4>LLM</h4>
+                <p>Generates intelligent responses</p>
+                <code>OpenAILLMService</code>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i data-lucide="volume-2"></i></div>
+                <h4>TTS</h4>
+                <p>Converts text to speech</p>
+                <code>ElevenLabsTTSService</code>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i data-lucide="layers"></i></div>
+                <h4>Transport</h4>
+                <p>Handles audio I/O</p>
+                <code>DailyTransport</code>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i data-lucide="git-merge"></i></div>
+                <h4>Pipeline</h4>
+                <p>Orchestrates all components</p>
+                <code>Pipeline</code>
+            </div>
         </div>
-        <div class="tip-box" style="margin-top:10px;">
-            <i data-lucide="mic"></i>
-            <div><strong>Say this:</strong> "Are robots going to take our jobs?"</div>
+
+        <!-- PART 3: CODE STRUCTURE -->
+        <div class="part-header">
+            <span class="part-number">PART 3</span>
+            <h2>Building a Voice Agent</h2>
         </div>
 
-        <h3>Level 3: Latency Stress Test</h3>
-        <p><strong>Goal:</strong> Interrupt the AI.</p>
-        <div class="tip-box">
-            <i data-lucide="zap"></i>
-            <div><strong>Try this:</strong> Start speaking <em>while</em> Sam is still talking. Does Sam stop
-                immediately? If not, tune your VAD settings.</div>
+        <h3>Basic Pipeline Structure</h3>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-filename">voice_agent.py</span>
+                <span class="code-lang">Python</span>
+            </div>
+            <div class="code-content">
+<pre><span class="comment"># Import Pipecat components</span>
+<span class="keyword">from</span> pipecat.pipeline.pipeline <span class="keyword">import</span> <span class="class">Pipeline</span>
+<span class="keyword">from</span> pipecat.pipeline.task <span class="keyword">import</span> <span class="class">PipelineTask</span>
+<span class="keyword">from</span> pipecat.services.openai <span class="keyword">import</span> <span class="class">OpenAILLMService</span>
+<span class="keyword">from</span> pipecat.services.elevenlabs <span class="keyword">import</span> <span class="class">ElevenLabsTTSService</span>
+<span class="keyword">from</span> pipecat.transports.services.daily <span class="keyword">import</span> <span class="class">DailyTransport</span>
+
+<span class="comment"># Initialize services</span>
+llm = <span class="function">OpenAILLMService</span>(
+    api_key=<span class="string">"your-api-key"</span>,
+    model=<span class="string">"gpt-4"</span>
+)
+
+tts = <span class="function">ElevenLabsTTSService</span>(
+    api_key=<span class="string">"your-api-key"</span>,
+    voice_id=<span class="string">"voice-id"</span>
+)
+
+<span class="comment"># Build the pipeline</span>
+pipeline = <span class="function">Pipeline</span>([
+    transport.input(),    <span class="comment"># Audio in</span>
+    stt,                  <span class="comment"># Speech to text</span>
+    llm,                  <span class="comment"># AI processing</span>
+    tts,                  <span class="comment"># Text to speech</span>
+    transport.output()    <span class="comment"># Audio out</span>
+])</pre>
+            </div>
+        </div>
+
+        <h3>Setting the System Prompt</h3>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-filename">system_prompt.py</span>
+                <span class="code-lang">Python</span>
+            </div>
+            <div class="code-content">
+<pre><span class="comment"># Define your AI's personality</span>
+messages = [
+    {
+        <span class="string">"role"</span>: <span class="string">"system"</span>,
+        <span class="string">"content"</span>: <span class="string">"""You are Cyber Sam, a fast-talking tech news anchor.
+Keep responses under 2 sentences - you're on live TV!
+Always ask a follow-up question to keep the interview moving.
+Use phrases like 'Breaking news!' and 'Fascinating!'"""</span>
+    }
+]
+
+<span class="comment"># Pass to LLM context</span>
+context = <span class="function">OpenAILLMContext</span>(messages=messages)
+context_aggregator = llm.<span class="function">create_context_aggregator</span>(context)</pre>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" class="icon"></i>
+            <p><strong>Key Insight:</strong> The system prompt defines your agent's entire personality. Keep responses short for natural conversation flow!</p>
+        </div>
+
+        <!-- PART 4: DEMO -->
+        <div class="part-header">
+            <span class="part-number">PART 4</span>
+            <h2>Demo: AI News Anchor</h2>
+        </div>
+
+        <div class="demo-card">
+            <div class="demo-header">
+                <div class="demo-avatar">🎙️</div>
+                <div class="demo-info">
+                    <h4>Cyber Sam - Tech News Anchor</h4>
+                    <span class="demo-desc">A fast-talking, energetic AI news anchor for live interviews</span>
+                </div>
+            </div>
+
+            <div class="prompt-section">
+                <div class="prompt-label">System Prompt</div>
+                <div class="prompt-box" onclick="copy(this)">You are "Cyber Sam", a fast-talking, energetic tech news anchor from a futuristic news channel. Your style is witty, engaging, and slightly dramatic. Keep responses under 2 sentences - you're on live TV! Always ask a follow-up question to keep the interview moving. Use phrases like "Breaking news!", "Fascinating development!", and "Back to you!"</div>
+            </div>
+
+            <div class="try-this">
+                <div class="try-this-icon"><i data-lucide="mic"></i></div>
+                <div class="try-this-content">
+                    <h4>Try These Prompts:</h4>
+                    <p>"Sam, what's the biggest story in AI today?"<br>
+                    "Are robots going to take our jobs?"<br>
+                    "What do you think about AI-powered cars?"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box important">
+            <i data-lucide="zap" class="icon"></i>
+            <p><strong>Latency Test:</strong> Try interrupting Sam while it's speaking. A well-configured pipeline should stop immediately when you start talking (VAD in action).</p>
+        </div>
+
+        <!-- PART 5: ARCHITECTURE OVERVIEW -->
+        <div class="part-header">
+            <span class="part-number">PART 5</span>
+            <h2>Complete Architecture</h2>
+        </div>
+
+        <div class="architecture-box">
+            <div class="arch-row">
+                <div class="arch-box">
+                    <h5>👤 User</h5>
+                    <p>Speaks into mic</p>
+                </div>
+            </div>
+            <div class="arch-row">
+                <span class="arch-arrow down">→</span>
+            </div>
+            <div class="arch-row">
+                <div class="arch-box">
+                    <h5>🎤 Transport</h5>
+                    <p>Daily / WebRTC</p>
+                </div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box highlight">
+                    <h5>🐱 Pipecat Pipeline</h5>
+                    <p>Orchestration</p>
+                </div>
+            </div>
+            <div class="arch-row">
+                <span class="arch-arrow down">→</span>
+            </div>
+            <div class="arch-row">
+                <div class="arch-box">
+                    <h5>🎧 VAD</h5>
+                    <p>Silero</p>
+                </div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">
+                    <h5>📝 STT</h5>
+                    <p>Whisper</p>
+                </div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">
+                    <h5>🧠 LLM</h5>
+                    <p>GPT-4 / Local</p>
+                </div>
+                <span class="arch-arrow">→</span>
+                <div class="arch-box">
+                    <h5>🔊 TTS</h5>
+                    <p>ElevenLabs</p>
+                </div>
+            </div>
+            <div class="arch-row">
+                <span class="arch-arrow down">→</span>
+            </div>
+            <div class="arch-row">
+                <div class="arch-box">
+                    <h5>🔈 Audio Output</h5>
+                    <p>Speaker / Headphones</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PART 6: USE CASES -->
+        <div class="part-header">
+            <span class="part-number">PART 6</span>
+            <h2>What You Can Build</h2>
+        </div>
+
+        <div class="use-cases-grid">
+            <div class="use-case-card">
+                <div class="use-case-icon">🎧</div>
+                <h4>Customer Support</h4>
+                <p>24/7 voice agents for help desks</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">📚</div>
+                <h4>Language Tutors</h4>
+                <p>Interactive conversation practice</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏥</div>
+                <h4>Healthcare Intake</h4>
+                <p>Patient symptom collection</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🎮</div>
+                <h4>Game NPCs</h4>
+                <p>Voice-enabled game characters</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">📞</div>
+                <h4>Virtual Receptionist</h4>
+                <p>Automated call handling</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏠</div>
+                <h4>Smart Home</h4>
+                <p>Voice-controlled automation</p>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="shield" class="icon"></i>
+            <p><strong>Privacy Note:</strong> When running STT locally with Whisper on your Intel AI PC, voice data never leaves your device - perfect for sensitive applications.</p>
         </div>
 
         <footer>
-            AI PC Workshop Series • Session 5
+            AI PC Workshop Series • Session 5 - Building Voice AI with Pipecat
         </footer>
     </div>
 
@@ -326,10 +1045,10 @@
             navigator.clipboard.writeText(el.innerText);
             const original = el.style.borderColor;
             el.style.borderColor = '#22C55E';
-            el.style.backgroundColor = '#DCFCE7';
+            el.style.background = '#D1FAE5';
             setTimeout(() => {
                 el.style.borderColor = original;
-                el.style.backgroundColor = '';
+                el.style.background = '';
             }, 500);
         }
     </script>

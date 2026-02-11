@@ -4,21 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 3 | Student Guide - AI Agents</title>
+    <title>Session 3 | Zerodha MCP & AI Superbuilder</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #10B981;
-            --primary-light: #ECFDF5;
-            --bg: #FAFCFF;
-            --text-main: #064E3B;
+            --primary: #387ED1;
+            --primary-light: #EBF4FF;
+            --primary-dark: #2563EB;
+            --zerodha: #387ED1;
+            --zerodha-light: #EBF4FF;
+            --green: #10B981;
+            --green-light: #ECFDF5;
+            --red: #EF4444;
+            --red-light: #FEF2F2;
+            --orange: #F59E0B;
+            --orange-light: #FFFBEB;
+            --purple: #8B5CF6;
+            --purple-light: #F5F3FF;
+            --bg: #F8FAFC;
+            --text-main: #0F172A;
             --text-sub: #334155;
-            --code-bg: #F0FDF4;
-            --tip-bg: #FFF7ED;
-            --tip-border: #FFEDD5;
-            --tip-text: #9A3412;
+            --text-muted: #64748B;
+            --code-bg: #1E293B;
         }
 
         * {
@@ -31,146 +41,463 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
-            padding: 40px;
+            line-height: 1.7;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: var(--primary);
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, #387ED1 0%, #1E40AF 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
         }
 
-        h2 {
+        .guide-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .guide-header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .guide-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .guide-header p {
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .zerodha-logo {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 800;
+            color: var(--zerodha);
+            font-size: 1rem;
+        }
+
+        /* Section Headers */
+        .part-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 50px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .part-num {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), #1E40AF);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .part-header h2 {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 10px;
+            margin: 0;
+        }
+
+        .part-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 4px 0 0;
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #059669;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
         }
 
         p {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             color: var(--text-sub);
         }
 
+        /* Concept Cards */
         .concept-card {
             background: white;
             border: 1px solid #E2E8F0;
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            border-radius: 14px;
+            margin-bottom: 16px;
             display: flex;
-            gap: 15px;
+            gap: 16px;
             align-items: flex-start;
         }
 
         .concept-icon {
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             flex-shrink: 0;
         }
 
-        .scenario-box {
-            background: #ECFDF5;
-            border: 1px solid #D1FAE5;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 30px;
-            margin-bottom: 30px;
+        .concept-card h4 {
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
-        .resource-list {
+        .concept-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* MCP Tools Grid */
+        .tools-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 24px 0;
         }
 
-        .resource-btn {
+        .tool-card {
             background: white;
-            border: 1px solid #CBD5E1;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-sub);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 18px;
             transition: all 0.2s;
         }
 
-        .resource-btn:hover {
+        .tool-card:hover {
             border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(56, 126, 209, 0.1);
         }
 
+        .tool-card .tool-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .tool-card h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .tool-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .tool-card code {
+            display: block;
+            margin-top: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        /* Prompt Box */
         .prompt-box {
             background: var(--code-bg);
-            border: 1px solid #BBF7D0;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
+            border-radius: 12px;
+            padding: 18px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            margin: 16px 0;
             position: relative;
             cursor: pointer;
             transition: all 0.2s;
-            margin-bottom: 10px;
-            color: #065F46;
         }
 
         .prompt-box:hover {
-            border-color: var(--primary);
-            background: #D1FAE5;
+            background: #334155;
+        }
+
+        .prompt-box::before {
+            content: 'PROMPT';
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .prompt-box::after {
-            content: 'Click to Copy';
+            content: '📋 Copy';
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 12px;
+            right: 12px;
             font-size: 0.7rem;
             color: #94A3B8;
-            font-family: sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        .tip-box {
-            background: var(--tip-bg);
-            border: 1px solid var(--tip-border);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--tip-text);
+        /* Response Preview */
+        .response-preview {
+            background: linear-gradient(135deg, var(--green-light), #D1FAE5);
+            border: 1px solid #A7F3D0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
             font-size: 0.9rem;
+        }
+
+        .response-preview::before {
+            content: '🤖 AI RESPONSE';
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .response-preview code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
             display: flex;
-            gap: 10px;
+            gap: 14px;
             align-items: flex-start;
         }
 
+        .info-box.tip {
+            background: var(--orange-light);
+            border: 1px solid #FDE68A;
+            color: #92400E;
+        }
+
+        .info-box.success {
+            background: var(--green-light);
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+        }
+
+        .info-box.warning {
+            background: var(--red-light);
+            border: 1px solid #FECACA;
+            color: #991B1B;
+        }
+
+        .info-box.purple {
+            background: var(--purple-light);
+            border: 1px solid #DDD6FE;
+            color: #5B21B6;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Steps */
+        .setup-steps {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .setup-steps h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h5 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .step-content code {
+            display: inline-block;
+            margin-top: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            background: var(--code-bg);
+            color: #86EFAC;
+            padding: 8px 14px;
+            border-radius: 8px;
+        }
+
+        /* Use Case Cards */
+        .usecase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .usecase-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .usecase-card h5 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .usecase-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Category Label */
+        .category-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .category-label.portfolio {
+            background: var(--purple-light);
+            color: var(--purple);
+        }
+
+        .category-label.orders {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .category-label.market {
+            background: var(--orange-light);
+            color: #D97706;
+        }
+
+        .category-label.analysis {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Footer */
         footer {
             margin-top: 60px;
             text-align: center;
-            color: #94A3B8;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             border-top: 1px solid #E2E8F0;
-            padding-top: 20px;
+            padding-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .usecase-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .back-nav {
@@ -236,98 +563,359 @@
         </a>
     </nav>
     <div class="container">
-        <div
-            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
-            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 3
+
+        <!-- Header -->
+        <div class="guide-header">
+            <div class="badge">
+                <i data-lucide="cpu" style="width:14px;height:14px;"></i>
+                Session 3 Guide
+            </div>
+            <h1>
+                <span class="zerodha-logo">ZERODHA</span>
+                MCP & AI Superbuilder
+            </h1>
+            <p>Connect AI to your Zerodha trading account. Get portfolio insights, analyze positions, and explore market data using natural language.</p>
         </div>
 
-        <h1>AI Agents & MCP</h1>
-        <p class="lead">Building Agents that can Use Tools, APIs, and Reason.</p>
-
-        <!-- SECTION 1: CONCEPTS -->
-        <h2>Part 1: Key Concepts</h2>
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 1: UNDERSTANDING MCP
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">1</div>
+            <div>
+                <h2>Understanding MCP</h2>
+                <p>What is Model Context Protocol and why it matters</p>
+            </div>
+        </div>
 
         <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="brain-circuit"></i></div>
+            <div class="concept-icon" style="background:var(--primary-light);color:var(--primary);"><i data-lucide="plug"></i></div>
             <div>
-                <h3>Agents vs Chatbots</h3>
-                <p>A Chatbot reads and writes. An <strong>Agent</strong> can <em>Act</em>. It has "Tools" (like Python
-                    functions) that it can call to get real-time data or perform tasks.</p>
+                <h4>What is MCP?</h4>
+                <p><strong>Model Context Protocol</strong> is a standard way to connect AI models to external tools and data sources. Instead of the AI making things up, MCP lets it fetch <em>real data</em> from your Zerodha account, APIs, databases, and more.</p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="server"></i></div>
+            <div class="concept-icon" style="background:var(--green-light);color:var(--green);"><i data-lucide="shield-check"></i></div>
             <div>
-                <h3>MCP (Model Context Protocol)</h3>
-                <p>The standard way to connect LLMs to external data. Instead of hardcoding API calls, we run a small
-                    local server (MCP Server) that exposes tools to the AI in a safe, standardized way.</p>
+                <h4>Why Zerodha MCP?</h4>
+                <p>The Zerodha MCP server connects AI Superbuilder directly to your Kite account. Ask questions in plain English and get <strong>real-time data</strong> from your actual portfolio, positions, and market quotes.</p>
             </div>
         </div>
 
-        <!-- SECTION 2: SCENARIO -->
-        <h2>Part 2: The Lab - "The Finance Analyst"</h2>
-
-        <div class="scenario-box">
-            <h3><i data-lucide="trending-up"></i> The Mission</h3>
-            <p>You are a Quantitative Analyst. You need to build a custom AI agent that can fetch LIVE stock data using
-                the YFinance API and give you immediate investment advice.</p>
-        </div>
-
-        <h3>Prerequisites</h3>
-        <p>Ensure your Python MCP Server is running:</p>
-        <div class="prompt-box" style="background:#1E293B; color:#F0FDF4;">
-            python mcp_server.py
-        </div>
-
-        <!-- SECTION 3: PROMPTS -->
-        <h2>Part 3: The Prompt Library</h2>
-
-        <h3>Level 1: Basic Tool Call</h3>
-        <p><strong>Goal:</strong> Verify the Agent can call the tool.</p>
-        <div class="prompt-box" onclick="copy(this)">What is the current stock price of Apple (AAPL)?</div>
-        <div class="tip-box">
-            <i data-lucide="eye"></i>
-            <div><strong>Watch:</strong> Look at the "Thought Chain". You should see `Action: get_stock_price("AAPL")`.
+        <div class="info-box warning">
+            <i data-lucide="alert-triangle" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Important: Read-Only Mode</strong>
+                The Zerodha MCP is configured in <strong>read-only mode</strong> for safety. It can VIEW your portfolio and market data but CANNOT place, modify, or cancel orders. Your funds are completely safe.
             </div>
         </div>
 
-        <h3>Level 2: Comparison (Multi-Step)</h3>
-        <p><strong>Goal:</strong> Force the agent to make multiple calls.</p>
-        <div class="prompt-box" onclick="copy(this)">Compare the price of Apple (AAPL) and Microsoft (MSFT). Which one
-            is more expensive per share right now?</div>
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 2: ZERODHA MCP TOOLS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">2</div>
+            <div>
+                <h2>Zerodha MCP Tools</h2>
+                <p>All the capabilities available through the MCP connection</p>
+            </div>
+        </div>
 
-        <h3>Level 3: Analysis & Synthesis</h3>
-        <p><strong>Goal:</strong> Combine Data with Reasoning.</p>
-        <div class="prompt-box" onclick="copy(this)">Fetch the last 5 days of data for Tesla (TSLA). Is the trend
-            bullish or bearish? Explain your reasoning based on the moving average.</div>
+        <p>The Zerodha MCP exposes these tools that AI can call on your behalf:</p>
 
-        <h3>Level 4: Handling Errors (Robustness)</h3>
-        <p><strong>Goal:</strong> Test error recovery.</p>
-        <div class="prompt-box" onclick="copy(this)">Check the price of a fake company called 'XYZABC'. If it fails,
-            check Google (GOOGL) instead.</div>
-        <div class="tip-box">
-            <i data-lucide="check-circle"></i>
-            <div><strong>Insight:</strong> The Agent should receive an error from the first call, catch it, and proceed
-                to the second instruction autonomously.</div>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--purple-light);color:var(--purple);">
+                    <i data-lucide="briefcase"></i>
+                </div>
+                <h5>Holdings</h5>
+                <p>View your long-term stock holdings with P&L</p>
+                <code>get_holdings()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--green-light);color:var(--green);">
+                    <i data-lucide="trending-up"></i>
+                </div>
+                <h5>Positions</h5>
+                <p>View intraday and F&O positions</p>
+                <code>get_positions()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--orange-light);color:#D97706;">
+                    <i data-lucide="indian-rupee"></i>
+                </div>
+                <h5>Margins</h5>
+                <p>Check available trading margins</p>
+                <code>get_margins()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--primary-light);color:var(--primary);">
+                    <i data-lucide="activity"></i>
+                </div>
+                <h5>Quote</h5>
+                <p>Get live price for any instrument</p>
+                <code>get_quote(symbol)</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--red-light);color:var(--red);">
+                    <i data-lucide="file-text"></i>
+                </div>
+                <h5>Orders</h5>
+                <p>View today's order history</p>
+                <code>get_orders()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:#F0FDFA;color:#14B8A6;">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <h5>Historical Data</h5>
+                <p>Get OHLC candles for analysis</p>
+                <code>get_historical()</code>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 3: SETUP ON AI SUPERBUILDER
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">3</div>
+            <div>
+                <h2>Setup on AI Superbuilder</h2>
+                <p>Connect Zerodha MCP to Intel AI Superbuilder</p>
+            </div>
+        </div>
+
+        <div class="setup-steps">
+            <h4><i data-lucide="settings"></i> Connection Steps</h4>
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h5>Open AI Superbuilder</h5>
+                    <p>Launch Intel AI Superbuilder application on your AI PC.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h5>Navigate to MCP Settings</h5>
+                    <p>Go to Settings → MCP Servers → Add New Server</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h5>Configure Zerodha MCP</h5>
+                    <p>Enter the MCP server details provided in the workshop:</p>
+                    <code>Server URL: localhost:3000/zerodha-mcp</code>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h5>Authenticate with Kite</h5>
+                    <p>You'll be redirected to Zerodha login. Enter your credentials to authorize the connection.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <h5>Verify Connection</h5>
+                    <p>You should see "Zerodha MCP: Connected" with a green indicator.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box success">
+            <i data-lucide="check-circle" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Connection Successful!</strong>
+                Once connected, you can ask natural language questions about your portfolio and the AI will automatically call the appropriate Zerodha MCP tools.
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 4: PORTFOLIO QUERIES
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">4</div>
+            <div>
+                <h2>Portfolio Queries</h2>
+                <p>Analyze your holdings and positions with natural language</p>
+            </div>
+        </div>
+
+        <span class="category-label portfolio"><i data-lucide="briefcase" style="width:12px;height:12px;"></i> Holdings</span>
+
+        <h3>Query 1: Portfolio Overview</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Show me my complete portfolio holdings. What's my total invested value and current value?</div>
+
+        <div class="response-preview">
+            The AI will call <code>get_holdings()</code> and display your stocks with buy price, current price, quantity, and P&L for each.
+        </div>
+
+        <h3>Query 2: Top Performers</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Which stocks in my portfolio have given me the best returns? Show top 5 by percentage gain.</div>
+
+        <h3>Query 3: Loss-Making Stocks</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">List all stocks in my portfolio that are currently in loss. What's the total unrealized loss?</div>
+
+        <span class="category-label orders"><i data-lucide="trending-up" style="width:12px;height:12px;"></i> Positions</span>
+
+        <h3>Query 4: Intraday Positions</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Show my current intraday positions. Am I in profit or loss today?</div>
+
+        <h3>Query 5: Sector Exposure</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio by sector. Which sector has the highest allocation?</div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 5: MARKET DATA QUERIES
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">5</div>
+            <div>
+                <h2>Market Data Queries</h2>
+                <p>Get real-time quotes and historical data</p>
+            </div>
+        </div>
+
+        <span class="category-label market"><i data-lucide="activity" style="width:12px;height:12px;"></i> Live Quotes</span>
+
+        <h3>Query 6: Single Stock Quote</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">What is the current price of Reliance Industries? Show me the day's high, low, and volume.</div>
+
+        <h3>Query 7: Multiple Stocks Comparison</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Compare the current prices of TCS, Infosys, and Wipro. Which IT stock is performing best today?</div>
+
+        <h3>Query 8: Index Status</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">What's the current Nifty 50 level? Is it up or down from yesterday's close?</div>
+
+        <span class="category-label analysis"><i data-lucide="bar-chart-3" style="width:12px;height:12px;"></i> Historical Analysis</span>
+
+        <h3>Query 9: Price History</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Get the last 30 days price data for HDFC Bank. What was the highest and lowest price in this period?</div>
+
+        <h3>Query 10: Trend Analysis</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Analyze the 1-month trend for Tata Motors. Is it in an uptrend or downtrend? Calculate the percentage change.</div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 6: ADVANCED ANALYSIS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">6</div>
+            <div>
+                <h2>Advanced Analysis</h2>
+                <p>Complex multi-step queries combining multiple data sources</p>
+            </div>
+        </div>
+
+        <div class="info-box purple">
+            <i data-lucide="sparkles" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Multi-Tool Queries</strong>
+                These queries require the AI to call multiple MCP tools and combine the results. Watch the "Thought Chain" to see how the AI reasons through each step.
+            </div>
+        </div>
+
+        <h3>Query 11: Portfolio vs Market</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Compare my portfolio's performance against Nifty 50 today. Am I beating the market or underperforming?</div>
+
+        <h3>Query 12: Concentration Risk</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio concentration. Is any single stock more than 20% of my total portfolio? What's the risk?</div>
+
+        <h3>Query 13: Margin Utilization</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Check my available margin. How much more can I invest today? What percentage of my margin is already used?</div>
+
+        <h3>Query 14: P&L Summary</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Give me a complete P&L summary: total invested, current value, absolute profit/loss, and percentage return. Also show today's gain/loss separately.</div>
+
+        <h3>Query 15: Investment Suggestion</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Based on my current holdings and available margin, which sectors am I underexposed to? Suggest areas to diversify.</div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 7: USE CASES
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">7</div>
+            <div>
+                <h2>Real-World Use Cases</h2>
+                <p>Practical applications of Zerodha MCP</p>
+            </div>
+        </div>
+
+        <div class="usecase-grid">
+            <div class="usecase-card">
+                <h5><i data-lucide="sunrise" style="width:18px;height:18px;color:var(--orange);"></i> Morning Review</h5>
+                <p>"Give me a quick morning briefing: How did my portfolio stocks open? Any significant gaps up or down?"</p>
+            </div>
+
+            <div class="usecase-card">
+                <h5><i data-lucide="sunset" style="width:18px;height:18px;color:var(--purple);"></i> EOD Summary</h5>
+                <p>"End of day summary: What was my total P&L today? Which stocks moved the most?"</p>
+            </div>
+
+            <div class="usecase-card">
+                <h5><i data-lucide="target" style="width:18px;height:18px;color:var(--green);"></i> Target Tracking</h5>
+                <p>"Check if any of my stocks hit their 52-week high or low today."</p>
+            </div>
+
+            <div class="usecase-card">
+                <h5><i data-lucide="pie-chart" style="width:18px;height:18px;color:var(--primary);"></i> Rebalancing</h5>
+                <p>"My portfolio seems heavy on banking stocks. Show me the allocation breakdown."</p>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="concept-card" style="background:var(--green-light);border-color:#A7F3D0;margin-top:40px;">
+            <div class="concept-icon" style="background:white;color:var(--green);"><i data-lucide="check"></i></div>
+            <div>
+                <h4 style="color:#065F46;margin-bottom:8px;">What You Learned</h4>
+                <ul style="margin:0 0 0 16px;color:#065F46;">
+                    <li><strong>MCP</strong> connects AI to real external data sources</li>
+                    <li><strong>Zerodha MCP</strong> provides read-only access to your Kite account</li>
+                    <li><strong>Natural language</strong> queries automatically translate to API calls</li>
+                    <li><strong>Multi-step reasoning</strong> allows complex portfolio analysis</li>
+                    <li>AI can combine multiple data sources for comprehensive insights</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Pro Tip: Watch the Thought Chain</strong>
+                Enable "Show Thought Process" in AI Superbuilder settings to see exactly which MCP tools the AI calls and how it reasons through your query. This helps you understand the capabilities and craft better prompts.
+            </div>
         </div>
 
         <footer>
-            AI PC Workshop Series • Session 3
+            <strong>India AI Summit Workshop</strong><br>
+            Session 3: Zerodha MCP & AI Superbuilder
         </footer>
+
     </div>
 
     <script>
         lucide.createIcons();
-        function copy(el) {
-            navigator.clipboard.writeText(el.innerText);
-            const original = el.style.borderColor;
-            el.style.borderColor = '#22C55E';
-            el.style.backgroundColor = '#DCFCE7';
+
+        function copyPrompt(el) {
+            const text = el.textContent.trim();
+            navigator.clipboard.writeText(text);
+            el.style.background = '#065F46';
             setTimeout(() => {
-                el.style.borderColor = original;
-                el.style.backgroundColor = '';
-            }, 500);
+                el.style.background = '';
+            }, 800);
         }
     </script>
 </body>

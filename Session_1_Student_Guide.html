@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 1 | Student Guide - Local RAG</title>
+    <title>Session 1 | Local RAG & AI Playground</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -12,13 +12,21 @@
         :root {
             --primary: #2563EB;
             --primary-light: #EFF6FF;
+            --primary-dark: #1D4ED8;
             --bg: #FAFCFF;
             --text-main: #1E293B;
             --text-sub: #334155;
+            --text-muted: #64748B;
             --code-bg: #F1F5F9;
             --tip-bg: #FFF7ED;
             --tip-border: #FFEDD5;
             --tip-text: #9A3412;
+            --success: #10B981;
+            --success-light: #ECFDF5;
+            --danger: #EF4444;
+            --danger-light: #FEF2F2;
+            --purple: #8B5CF6;
+            --purple-light: #F5F3FF;
         }
 
         * {
@@ -31,41 +39,69 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
-            padding: 40px;
+            line-height: 1.7;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.5rem;
+        .guide-header {
+            background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .guide-header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .guide-header h1 {
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 5px;
-            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .guide-header p {
+            opacity: 0.9;
         }
 
         h2 {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary-light);
+            margin-top: 45px;
+            margin-bottom: 20px;
             padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #1D4ED8;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
         }
 
         p {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             color: var(--text-sub);
         }
 
@@ -73,47 +109,281 @@
             background: white;
             border: 1px solid #E2E8F0;
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            border-radius: 14px;
+            margin-bottom: 16px;
             display: flex;
-            gap: 15px;
+            gap: 16px;
             align-items: flex-start;
         }
 
         .concept-icon {
             background: var(--primary-light);
             color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             flex-shrink: 0;
         }
 
-        .scenario-box {
-            background: #EFF6FF;
-            border: 1px solid #DBEAFE;
-            padding: 20px;
+        .concept-card h4 {
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .concept-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .info-box {
+            padding: 18px 20px;
             border-radius: 12px;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin: 20px 0;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
         }
 
-        .resource-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+        .info-box.tip {
+            background: var(--tip-bg);
+            border: 1px solid var(--tip-border);
+            color: var(--tip-text);
         }
 
-        .resource-btn {
+        .info-box.success {
+            background: var(--success-light);
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+        }
+
+        .info-box.danger {
+            background: var(--danger-light);
+            border: 1px solid #FECACA;
+            color: #991B1B;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* RAG Pipeline */
+        .rag-pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 25px 0;
+            flex-wrap: wrap;
             background: white;
-            border: 1px solid #CBD5E1;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .rag-node {
+            background: var(--code-bg);
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .rag-node.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .rag-node span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
             color: var(--text-sub);
+            margin-top: 6px;
+        }
+
+        .rag-arrow {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        /* Model Cards */
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .model-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .model-card.recommended {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .model-card h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .model-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .model-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 100px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        /* Steps */
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Prompt Box */
+        .prompt-box {
+            background: var(--code-bg);
+            border: 1px solid #E2E8F0;
+            padding: 16px 18px;
+            border-radius: 10px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .prompt-box:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .prompt-box::after {
+            content: '📋 Copy';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .prompt-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* Scenario Box */
+        .scenario-box {
+            background: linear-gradient(135deg, #EFF6FF 0%, #F5F3FF 100%);
+            border: 1px solid #DBEAFE;
+            padding: 24px;
+            border-radius: 14px;
+            margin: 25px 0;
+        }
+
+        .scenario-box h3 {
+            margin-top: 0;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        /* Applications Grid */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .app-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .app-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .app-card i {
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .app-card span {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-sub);
+        }
+
+        /* Resource */
+        .resource-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-sub);
             font-weight: 600;
             transition: all 0.2s;
         }
@@ -121,56 +391,27 @@
         .resource-btn:hover {
             border-color: var(--primary);
             color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .prompt-box {
-            background: var(--code-bg);
-            border: 1px solid #CBD5E1;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 10px;
-            color: #334155;
-        }
-
-        .prompt-box:hover {
-            border-color: var(--primary);
-            background: #EFF6FF;
-        }
-
-        .prompt-box::after {
-            content: 'Click to Copy';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: #94A3B8;
-            font-family: sans-serif;
-        }
-
-        .tip-box {
-            background: var(--tip-bg);
-            border: 1px solid var(--tip-border);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--tip-text);
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
         }
 
         footer {
             margin-top: 60px;
             text-align: center;
-            color: #94A3B8;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             border-top: 1px solid #E2E8F0;
-            padding-top: 20px;
+            padding-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .model-grid {
+                grid-template-columns: 1fr;
+            }
+            .rag-pipeline {
+                flex-direction: column;
+            }
+            .rag-arrow {
+                transform: rotate(90deg);
+            }
         }
 
         .back-nav {
@@ -236,96 +477,241 @@
         </a>
     </nav>
     <div class="container">
-        <div
-            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
-            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 1
+
+        <!-- Header -->
+        <div class="guide-header">
+            <div class="badge">
+                <i data-lucide="book-open" style="width:14px;height:14px;"></i>
+                Session 1 Guide
+            </div>
+            <h1>Local RAG & AI Playground</h1>
+            <p>Master private document analysis using Intel AI Playground. Zero cloud. 100% privacy.</p>
         </div>
 
-        <h1>Local RAG & Privacy</h1>
-        <p class="lead">Using Intel AI Playground to securely analyze confidential documents.</p>
-
-        <!-- SECTION 1: CONCEPTS -->
-        <h2>Part 1: Key Concepts</h2>
+        <!-- SECTION 1: Key Concepts -->
+        <h2><i data-lucide="lightbulb" style="color:var(--primary);"></i> Key Concepts</h2>
 
         <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="shield"></i></div>
+            <div class="concept-icon"><i data-lucide="cloud-off"></i></div>
             <div>
-                <h3>The Privacy Problem</h3>
-                <p>Cloud AI (ChatGPT) stores your data. For government, legal, or health documents, this is
-                    unacceptable. <strong>Local AI</strong> runs 100% on your laptop's NPU, ensuring zero data leakage.
-                </p>
+                <h4>The Privacy Problem</h4>
+                <p>Cloud AI (ChatGPT, Gemini) sends your data to remote servers where it's stored and potentially used for training. For confidential documents—government files, medical records, legal contracts—this is unacceptable.</p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="file-search"></i></div>
+            <div class="concept-icon" style="background:var(--success-light);color:var(--success);"><i data-lucide="laptop"></i></div>
             <div>
-                <h3>What is RAG? (Retrieval Augmented Generation)</h3>
-                <p>Standard AI hallucinates facts. <strong>RAG</strong> forces the AI to read <em>your specific PDF</em>
-                    first, then answer based <em>only</em> on that document. It's like an open-book exam.</p>
+                <h4>The Solution: Local AI</h4>
+                <p>Run powerful AI models directly on your laptop. <strong>Zero internet required. Zero data leakage.</strong> Your documents never leave your device.</p>
             </div>
         </div>
 
-        <!-- SECTION 2: SCENARIO -->
-        <h2>Part 2: The Lab - "The 500Cr Tender"</h2>
+        <div class="concept-card">
+            <div class="concept-icon" style="background:var(--purple-light);color:var(--purple);"><i data-lucide="file-search"></i></div>
+            <div>
+                <h4>What is RAG?</h4>
+                <p><strong>Retrieval-Augmented Generation</strong> — Instead of AI making up answers, RAG forces it to read YOUR document first, then answer based only on that content. Like an open-book exam. No hallucinations.</p>
+            </div>
+        </div>
+
+        <!-- RAG Pipeline Visual -->
+        <h3>How RAG Works</h3>
+        <div class="rag-pipeline">
+            <div class="rag-node">
+                <i data-lucide="file-text" style="width:24px;height:24px;color:#64748B;"></i>
+                <span>Your PDF</span>
+            </div>
+            <span class="rag-arrow">→</span>
+            <div class="rag-node">
+                <i data-lucide="scissors" style="width:24px;height:24px;color:#8B5CF6;"></i>
+                <span>Chunk</span>
+            </div>
+            <span class="rag-arrow">→</span>
+            <div class="rag-node">
+                <i data-lucide="database" style="width:24px;height:24px;color:#F59E0B;"></i>
+                <span>Vectorize</span>
+            </div>
+            <span class="rag-arrow">→</span>
+            <div class="rag-node">
+                <i data-lucide="search" style="width:24px;height:24px;color:#10B981;"></i>
+                <span>Retrieve</span>
+            </div>
+            <span class="rag-arrow">→</span>
+            <div class="rag-node active">
+                <i data-lucide="sparkles" style="width:24px;height:24px;color:var(--primary);"></i>
+                <span>Answer</span>
+            </div>
+        </div>
+
+        <p style="font-size:0.9rem;text-align:center;color:var(--text-muted);">Your document is split into chunks → converted to vectors → relevant parts retrieved → AI generates grounded answers with citations.</p>
+
+        <!-- SECTION 2: Model Selection -->
+        <h2><i data-lucide="cpu" style="color:var(--primary);"></i> Choosing Your Model</h2>
+
+        <p>AI Playground lets you choose different models based on your hardware. Here's what to know:</p>
+
+        <div class="model-grid">
+            <div class="model-card">
+                <h4>CPU</h4>
+                <p>Works everywhere<br>Slower (5-15 tok/s)</p>
+            </div>
+            <div class="model-card">
+                <h4>GPU</h4>
+                <p>Fastest speed<br>Needs graphics card</p>
+            </div>
+            <div class="model-card recommended">
+                <span class="model-badge">AI PC</span>
+                <h4>NPU</h4>
+                <p>Best efficiency<br>Intel Core Ultra</p>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="info" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Quick Selection Guide</strong>
+                <ul style="margin:8px 0 0 16px;font-size:0.9rem;">
+                    <li><strong>Intel Core Ultra laptop?</strong> → Use Phi-3 Mini (NPU)</li>
+                    <li><strong>Gaming laptop with RTX?</strong> → Use Llama 3 8B (GPU)</li>
+                    <li><strong>Older laptop?</strong> → Use Gemma 2B (CPU)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Hands-On Lab -->
+        <h2><i data-lucide="flask-conical" style="color:var(--primary);"></i> Hands-On Lab</h2>
 
         <div class="scenario-box">
-            <h3><i data-lucide="briefcase"></i> The Mission</h3>
-            <p>You are a Bureaucrat. You have received a massive, confidential "Smart City RFP" document. You need to
-                summarize it and check for compliance risks in 10 minutes without uploading it to the cloud.</p>
+            <h3><i data-lucide="briefcase" style="width:20px;height:20px;"></i> The Mission: ₹500Cr Tender Analysis</h3>
+            <p>You're a <strong>Senior Government Official</strong>. A 500-page confidential Smart City RFP landed on your desk. You have <strong>15 minutes</strong> to extract critical info. You <u>cannot</u> upload it to any cloud service.</p>
         </div>
 
-        <h3>The Evidence</h3>
-        <p>Download the dummy tender document:</p>
-        <div class="resource-list">
-            <a href="../Workshop_Resources/Session_1/resources/Tender_Document_Secret.pdf" class="resource-btn"
-                download><i data-lucide="file-text" style="color:#2563EB;"></i> Tender_Document_Secret.pdf</a>
+        <h3>Step 1: Download Sample Document</h3>
+        <a href="assets/Tender_Document_Secret.pdf" class="resource-btn" download>
+            <i data-lucide="file-text" style="color:var(--primary);"></i>
+            Tender_Document_Secret.pdf
+        </a>
+
+        <h3>Step 2: Load into RAG</h3>
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <h4>Open RAG Mode</h4>
+                <p>In AI Playground, click "RAG" or "Chat with Documents" in the sidebar.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <h4>Upload Document</h4>
+                <p>Click "Add Files" and select your PDF. Wait for "Vectorization Complete".</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <h4>Start Querying</h4>
+                <p>Use the prompts below to extract intelligence from the document.</p>
+            </div>
         </div>
 
-        <!-- SECTION 3: PROMPTS -->
-        <h2>Part 3: The Prompt Library</h2>
+        <h3>Step 3: Query the Document</h3>
 
-        <h3>Level 1: The Executive Summary</h3>
-        <p><strong>Goal:</strong> Get the big picture instantly.</p>
-        <div class="prompt-box" onclick="copy(this)">Summarize this tender document. What is the primary objective of
-            the project and what is the estimated budget?</div>
+        <p class="prompt-label">🎯 Executive Summary</p>
+        <div class="prompt-box" onclick="copy(this)">Summarize this tender document. What is the project objective and estimated budget?</div>
 
-        <h3>Level 2: The Technical Deep Dive</h3>
-        <p><strong>Goal:</strong> Extract specific technical requirements.</p>
-        <div class="prompt-box" onclick="copy(this)">List all the mandatory IoT sensor requirements mentioned in the
-            Technical Specifications section. Bullet points please.</div>
+        <p class="prompt-label">🔧 Technical Requirements</p>
+        <div class="prompt-box" onclick="copy(this)">List all mandatory IoT sensor requirements from the Technical Specifications section. Format as bullet points.</div>
 
-        <h3>Level 3: The Compliance Trap (Risk Check)</h3>
-        <p><strong>Goal:</strong> Find the hidden clause.</p>
-        <div class="prompt-box" onclick="copy(this)">Check the 'Data Localization' clause. Does the tender require all
-            data to be stored within India? Quote the exact text.</div>
-        <div class="tip-box">
-            <i data-lucide="check-circle"></i>
-            <div><strong>Verification:</strong> The AI should cite the page number (e.g. [Page 12]). Click the number to
-                verify the source text yourself!</div>
+        <p class="prompt-label">⚠️ Compliance Check</p>
+        <div class="prompt-box" onclick="copy(this)">Check for 'Data Localization' clauses. Does this tender require all data to be stored within India? Quote the exact text.</div>
+
+        <p class="prompt-label">💰 Financial Risk</p>
+        <div class="prompt-box" onclick="copy(this)">What are the penalty clauses for project delays exceeding 90 days? Is there a force majeure clause?</div>
+
+        <div class="info-box success">
+            <i data-lucide="check-circle" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Verify Citations!</strong>
+                The AI should cite page numbers like [Page 12]. Always click to verify the source text yourself—this catches any hallucinations.
+            </div>
         </div>
 
-        <h3>Level 4: The Penalty Clause</h3>
-        <p><strong>Goal:</strong> Financial risk assessment.</p>
-        <div class="prompt-box" onclick="copy(this)">What represent the penalties for delaying the project by more than
-            3 months? Is there a force majeure clause?</div>
+        <!-- SECTION 4: Other Applications -->
+        <h2><i data-lucide="layers" style="color:var(--primary);"></i> Beyond Tenders: Other Applications</h2>
+
+        <p>The same RAG technique works for <strong>any confidential document analysis</strong>. Here are sectors where local RAG is invaluable:</p>
+
+        <div class="applications-grid">
+            <div class="app-card">
+                <i data-lucide="scale" style="width:28px;height:28px;"></i>
+                <span>Legal Contracts</span>
+            </div>
+            <div class="app-card">
+                <i data-lucide="heart-pulse" style="width:28px;height:28px;"></i>
+                <span>Medical Records</span>
+            </div>
+            <div class="app-card">
+                <i data-lucide="indian-rupee" style="width:28px;height:28px;"></i>
+                <span>Financial Reports</span>
+            </div>
+            <div class="app-card">
+                <i data-lucide="building" style="width:28px;height:28px;"></i>
+                <span>HR Policies</span>
+            </div>
+            <div class="app-card">
+                <i data-lucide="graduation-cap" style="width:28px;height:28px;"></i>
+                <span>Research Papers</span>
+            </div>
+            <div class="app-card">
+                <i data-lucide="file-code" style="width:28px;height:28px;"></i>
+                <span>Technical Docs</span>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Pro Tip: Customize Your Prompts</strong>
+                Adapt the same prompt patterns for any domain. For legal: "Find liability clauses." For medical: "List contraindications." For finance: "Extract key ratios." The technique remains the same—only the questions change.
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <h2><i data-lucide="award" style="color:var(--primary);"></i> Key Takeaways</h2>
+
+        <div class="concept-card" style="background:var(--success-light);border-color:#A7F3D0;">
+            <div class="concept-icon" style="background:white;color:var(--success);"><i data-lucide="check"></i></div>
+            <div>
+                <h4 style="color:#065F46;">What You Learned</h4>
+                <ul style="margin:8px 0 0 16px;color:#065F46;">
+                    <li><strong>Local AI</strong> keeps your data 100% private</li>
+                    <li><strong>RAG</strong> grounds AI answers in your actual documents</li>
+                    <li><strong>NPU</strong> is optimal for AI workloads on modern laptops</li>
+                    <li><strong>Always verify</strong> AI citations against source</li>
+                    <li>This technique applies to <strong>any sector</strong> with confidential docs</li>
+                </ul>
+            </div>
+        </div>
 
         <footer>
-            AI PC Workshop Series • Session 1
+            <strong>India AI Summit Workshop</strong><br>
+            Session 1: Local RAG & AI Playground
         </footer>
+
     </div>
 
     <script>
         lucide.createIcons();
         function copy(el) {
-            navigator.clipboard.writeText(el.innerText);
-            const original = el.style.borderColor;
+            navigator.clipboard.writeText(el.innerText.replace('📋 Copy', '').trim());
             el.style.borderColor = '#22C55E';
-            el.style.backgroundColor = '#DCFCE7';
+            el.style.background = '#ECFDF5';
             setTimeout(() => {
-                el.style.borderColor = original;
-                el.style.backgroundColor = '';
-            }, 500);
+                el.style.borderColor = '';
+                el.style.background = '';
+            }, 800);
         }
     </script>
 </body>

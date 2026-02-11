@@ -4,25 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 2 | Student Guide - Creative AI Studio</title>
+    <title>Session 2 | Creative AI Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --primary: #8B5CF6;
             --primary-light: #F5F3FF;
+            --primary-dark: #7C3AED;
             --pink: #EC4899;
             --pink-light: #FDF2F8;
             --blue: #3B82F6;
             --blue-light: #EFF6FF;
+            --green: #10B981;
+            --green-light: #ECFDF5;
+            --orange: #F59E0B;
+            --orange-light: #FFFBEB;
             --bg: #FAFAFF;
             --text-main: #0F172A;
             --text-sub: #334155;
-            --code-bg: #F8FAFC;
-            --tip-bg: #FFF7ED;
-            --tip-border: #FFEDD5;
-            --tip-text: #9A3412;
+            --text-muted: #64748B;
+            --code-bg: #1E1E2E;
         }
 
         * {
@@ -35,232 +39,453 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
-            padding: 40px;
+            line-height: 1.7;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 880px;
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            background: linear-gradient(135deg, #8B5CF6, #EC4899);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Header */
+        .guide-header {
+            background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
         }
 
-        h2 {
+        .guide-header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .guide-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .guide-header p {
+            opacity: 0.9;
+        }
+
+        /* Part Headers */
+        .part-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 50px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .part-num {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--pink));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .part-header h2 {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 10px;
+            margin: 0;
+        }
+
+        .part-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 4px 0 0;
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #7C3AED;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
         }
 
         p {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             color: var(--text-sub);
         }
 
-        .lead {
-            font-size: 1.1rem;
-            color: var(--text-sub);
-            margin-bottom: 30px;
-        }
-
+        /* Concept Cards */
         .concept-card {
             background: white;
             border: 1px solid #E2E8F0;
             padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            border-radius: 14px;
+            margin-bottom: 16px;
             display: flex;
-            gap: 15px;
+            gap: 16px;
             align-items: flex-start;
         }
 
         .concept-icon {
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             flex-shrink: 0;
         }
 
-        .concept-icon.pink {
-            background: var(--pink-light);
-            color: var(--pink);
+        /* JSON Prompt Box */
+        .prompt-json {
+            background: var(--code-bg);
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
-        .concept-icon.blue {
-            background: var(--blue-light);
-            color: var(--blue);
+        .prompt-json-header {
+            background: #2D2D3F;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #3D3D4F;
         }
 
-        .scenario-box {
-            background: var(--primary-light);
-            border: 1px solid #E9D5FF;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .scenario-box h3 {
-            color: var(--primary);
+        .prompt-json-header span {
+            color: #A78BFA;
+            font-size: 0.8rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-top: 0;
         }
 
-        .prompt-box {
-            background: var(--code-bg);
-            border: 1px solid #CBD5E1;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 0.9rem;
+        .prompt-json-header .copy-btn {
+            background: #3D3D4F;
+            border: none;
+            color: #94A3B8;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .prompt-json-header .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .prompt-json-body {
+            padding: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: #E2E8F0;
+            overflow-x: auto;
+        }
+
+        .json-key {
+            color: #F472B6;
+        }
+
+        .json-string {
+            color: #86EFAC;
+        }
+
+        .json-comment {
+            color: #64748B;
+            font-style: italic;
+        }
+
+        /* Compiled Prompt */
+        .compiled-prompt {
+            background: linear-gradient(135deg, var(--primary-light), #FDF2F8);
+            border: 1px solid #DDD6FE;
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
             position: relative;
             cursor: pointer;
             transition: all 0.2s;
-            margin-bottom: 10px;
-            color: #334155;
-            line-height: 1.7;
         }
 
-        .prompt-box:hover {
-            border-color: var(--primary);
-            background: var(--primary-light);
+        .compiled-prompt:hover {
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
         }
 
-        .prompt-box::after {
-            content: '📋 Click to Copy';
+        .compiled-prompt::before {
+            content: 'COMPILED PROMPT';
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -10px;
+            left: 16px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .compiled-prompt p {
+            margin: 0;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .compiled-prompt::after {
+            content: '📋 Copy';
+            position: absolute;
+            top: 14px;
+            right: 14px;
             font-size: 0.7rem;
-            color: #94A3B8;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--primary);
+            background: white;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-weight: 600;
         }
 
-        .tip-box {
-            background: var(--tip-bg);
-            border: 1px solid var(--tip-border);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--tip-text);
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .success-box {
-            background: #ECFDF5;
-            border: 1px solid #A7F3D0;
-            padding: 15px;
-            border-radius: 8px;
-            color: #065F46;
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .asset-preview {
+        /* Settings Grid */
+        .settings-panel {
             background: white;
             border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            overflow: hidden;
+            border-radius: 14px;
+            padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
 
-        .asset-preview img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .asset-caption {
-            padding: 12px 16px;
-            font-size: 0.82rem;
-            color: #94A3B8;
-            text-align: center;
-            border-top: 1px solid #F1F5F9;
-        }
-
-        .anatomy-row {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin: 15px 0;
-        }
-
-        .anatomy-tag {
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 0.8rem;
+        .settings-panel h4 {
+            font-size: 0.9rem;
             font-weight: 700;
-        }
-
-        .anatomy-arrow {
-            color: #94A3B8;
-            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
+            gap: 8px;
         }
 
         .settings-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin: 15px 0;
         }
 
-        .setting-card {
-            background: white;
-            border: 1px solid #E2E8F0;
-            padding: 14px;
-            border-radius: 8px;
+        .setting-item {
+            background: var(--primary-light);
+            padding: 14px 16px;
+            border-radius: 10px;
         }
 
-        .setting-card strong {
+        .setting-item label {
             display: block;
-            font-size: 0.82rem;
-            color: #7C3AED;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 4px;
         }
 
-        .setting-card span {
-            font-size: 0.85rem;
-            color: var(--text-sub);
+        .setting-item .value {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1rem;
         }
 
+        .setting-item .note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Quality Steps */
+        .quality-steps {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .quality-step {
+            flex: 1;
+            min-width: 140px;
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .quality-step:hover {
+            border-color: var(--primary);
+        }
+
+        .quality-step .step-num {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin: 0 auto 10px;
+        }
+
+        .quality-step h5 {
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .quality-step p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .info-box.tip {
+            background: var(--orange-light);
+            border: 1px solid #FDE68A;
+            color: #92400E;
+        }
+
+        .info-box.success {
+            background: var(--green-light);
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Scenario Box */
+        .scenario-box {
+            background: linear-gradient(135deg, var(--primary-light), var(--pink-light));
+            border: 1px solid #E9D5FF;
+            padding: 24px;
+            border-radius: 14px;
+            margin: 24px 0;
+        }
+
+        .scenario-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .scenario-box p {
+            margin: 0;
+        }
+
+        /* Workflow Visual */
+        .workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .workflow-node {
+            background: var(--primary-light);
+            border: 2px solid #DDD6FE;
+            border-radius: 10px;
+            padding: 14px 18px;
+            text-align: center;
+        }
+
+        .workflow-node.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .workflow-node span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .workflow-arrow {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        /* Negative Prompt */
+        .negative-prompt {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin: 16px 0;
+        }
+
+        .negative-prompt h5 {
+            color: #991B1B;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .negative-prompt p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #7F1D1D;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* Footer */
         footer {
             margin-top: 60px;
             text-align: center;
-            color: #94A3B8;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             border-top: 1px solid #E2E8F0;
-            padding-top: 20px;
+            padding-top: 25px;
         }
 
         .back-nav {
@@ -306,13 +531,15 @@
             transform: translateX(-3px);
         }
 
-        @media print {
-            body {
-                padding: 20px;
+        @media (max-width: 600px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
             }
-
-            .prompt-box::after {
-                display: none;
+            .workflow {
+                flex-direction: column;
+            }
+            .workflow-arrow {
+                transform: rotate(90deg);
             }
 
             .back-nav {
@@ -334,186 +561,433 @@
         </a>
     </nav>
     <div class="container">
-        <div
-            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
-            <i data-lucide="palette"></i> WORKSHOP GUIDE — SESSION 2
+
+        <!-- Header -->
+        <div class="guide-header">
+            <div class="badge">
+                <i data-lucide="palette" style="width:14px;height:14px;"></i>
+                Session 2 Guide
+            </div>
+            <h1>Creative AI Studio</h1>
+            <p>Generate stunning images, transform sketches to reality, and create AI videos — all locally on your AI PC.</p>
         </div>
 
-        <h1>Creative AI Studio</h1>
-        <p class="lead">Generate professional images, transform sketches into photorealistic renders, and create AI
-            videos — all locally on your Intel AI PC, at zero cost.</p>
-
-        <!-- ═══════════════ PART 1: CONCEPTS ═══════════════ -->
-        <h2>Part 1: Key Concepts</h2>
-
-        <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="sparkles"></i></div>
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 1: IMAGE GENERATION
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">1</div>
             <div>
-                <h3>What is a Diffusion Model?</h3>
-                <p>Diffusion models start with <strong>random noise</strong> and gradually refine it into a coherent
-                    image through ~50 "denoising" steps, guided by your text prompt. Think of it like sculpting —
-                    starting with a rough block and carving details with each pass.</p>
-                <p style="margin-bottom:0;"><strong>Key takeaway:</strong> The entire model runs on your GPU/NPU. No
-                    cloud API. No per-image fees. Unlimited generations.</p>
+                <h2>Image Generation</h2>
+                <p>Create professional product shots & marketing visuals from text</p>
             </div>
         </div>
 
-        <div class="concept-card">
-            <div class="concept-icon pink"><i data-lucide="image"></i></div>
-            <div>
-                <h3>Text-to-Image vs Image-to-Image</h3>
-                <p><strong>Text-to-Image:</strong> You describe what you want in words and the AI creates it from
-                    scratch. Great for product shots, concept art, and marketing visuals.</p>
-                <p style="margin-bottom:0;"><strong>Image-to-Image (Img2Img):</strong> You upload a reference image
-                    (sketch, photo) and the AI transforms it while keeping the original structure. Perfect for
-                    converting sketches into photorealistic renders.</p>
+        <h3>The Prompt Formula</h3>
+        <p>High-quality images require structured prompts. Follow this formula:</p>
+
+        <div class="workflow">
+            <div class="workflow-node">
+                <i data-lucide="box" style="width:20px;height:20px;"></i>
+                <span>Subject</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node">
+                <i data-lucide="map-pin" style="width:20px;height:20px;"></i>
+                <span>Setting</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node">
+                <i data-lucide="sun" style="width:20px;height:20px;"></i>
+                <span>Lighting</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node">
+                <i data-lucide="paintbrush" style="width:20px;height:20px;"></i>
+                <span>Style</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node active">
+                <i data-lucide="sparkles" style="width:20px;height:20px;"></i>
+                <span>Quality</span>
             </div>
         </div>
 
-        <div class="concept-card">
-            <div class="concept-icon blue"><i data-lucide="video"></i></div>
-            <div>
-                <h3>AI Video Generation</h3>
-                <p style="margin-bottom:0;">Same principle as image generation, but extended to create short 4-second
-                    video clips. Describe a scene, and the AI generates a video with motion, lighting, and camera
-                    angles. Ideal for product reveals, social media content, and concept videos.</p>
+        <!-- Prompt 1: Product Hero -->
+        <h3>Prompt 1: Product Hero Shot</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="code" style="width:14px;height:14px;"></i> PROMPT STRUCTURE</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Product Photography Template</span>
+{
+  <span class="json-key">"subject"</span>: <span class="json-string">"Premium wireless earbuds"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-string">"white marble surface, minimal background"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"soft studio lighting, subtle shadow"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"e-commerce product photography, Apple aesthetic"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"4K, ultra detailed, professional, sharp focus"</span>
+}
             </div>
         </div>
 
-        <!-- ═══════════════ PART 2: PROMPT ANATOMY ═══════════════ -->
-        <h2>Part 2: The Anatomy of a Perfect Prompt</h2>
-
-        <p>The quality of your output is directly proportional to the quality of your prompt. Follow this formula:</p>
-
-        <div class="anatomy-row">
-            <div class="anatomy-tag" style="background:#DBEAFE; color:#1D4ED8;">📦 Subject</div>
-            <div class="anatomy-arrow">→</div>
-            <div class="anatomy-tag" style="background:#E0E7FF; color:#4338CA;">🏠 Setting</div>
-            <div class="anatomy-arrow">→</div>
-            <div class="anatomy-tag" style="background:#FEF3C7; color:#92400E;">💡 Lighting</div>
-            <div class="anatomy-arrow">→</div>
-            <div class="anatomy-tag" style="background:#FCE7F3; color:#9D174D;">🎨 Style</div>
-            <div class="anatomy-arrow">→</div>
-            <div class="anatomy-tag" style="background:#ECFDF5; color:#065F46;">✨ Quality</div>
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Premium wireless earbuds on white marble surface, minimal background, soft studio lighting, subtle shadow, e-commerce product photography, Apple aesthetic, 4K, ultra detailed, professional, sharp focus">
+            <p>Premium wireless earbuds on white marble surface, minimal background, soft studio lighting, subtle shadow, e-commerce product photography, Apple aesthetic, 4K, ultra detailed, professional, sharp focus</p>
         </div>
 
-        <div class="tip-box">
-            <i data-lucide="lightbulb"></i>
-            <div><strong>Pro Tip:</strong> Always include a <strong>negative prompt</strong> to tell the AI what to
-                avoid: <em>"blurry, low quality, watermark, text, distorted, extra fingers"</em></div>
+        <!-- Prompt 2: Lifestyle -->
+        <h3>Prompt 2: Lifestyle Shot</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="code" style="width:14px;height:14px;"></i> PROMPT STRUCTURE</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Lifestyle Photography Template</span>
+{
+  <span class="json-key">"subject"</span>: <span class="json-string">"Person wearing wireless earbuds while jogging"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-string">"urban park, morning atmosphere"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"golden hour sunlight, bokeh background"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"fitness lifestyle photography, energetic mood"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"4K, cinematic, vibrant colors"</span>
+}
+            </div>
         </div>
 
-        <!-- ═══════════════ PART 3: LAB 1 — TEXT TO IMAGE ═══════════════ -->
-        <h2>Part 3: Lab 1 — Text → Image (Product Photography)</h2>
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Person wearing wireless earbuds while jogging in urban park, morning atmosphere, golden hour sunlight, bokeh background, fitness lifestyle photography, energetic mood, 4K, cinematic, vibrant colors">
+            <p>Person wearing wireless earbuds while jogging in urban park, morning atmosphere, golden hour sunlight, bokeh background, fitness lifestyle photography, energetic mood, 4K, cinematic, vibrant colors</p>
+        </div>
+
+        <!-- Prompt 3: Food -->
+        <h3>Prompt 3: Food Photography</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="code" style="width:14px;height:14px;"></i> PROMPT STRUCTURE</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Food Photography Template</span>
+{
+  <span class="json-key">"subject"</span>: <span class="json-string">"Gourmet butter chicken in ceramic bowl"</span>,
+  <span class="json-key">"setting"</span>: <span class="json-string">"rustic wooden table, garnished with cilantro"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"warm restaurant lighting, steam rising"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"top-down food photography, Zomato style"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"4K, appetizing, rich colors, sharp details"</span>
+}
+            </div>
+        </div>
+
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Gourmet butter chicken in ceramic bowl on rustic wooden table, garnished with cilantro, warm restaurant lighting, steam rising, top-down food photography, Zomato style, 4K, appetizing, rich colors, sharp details">
+            <p>Gourmet butter chicken in ceramic bowl on rustic wooden table, garnished with cilantro, warm restaurant lighting, steam rising, top-down food photography, Zomato style, 4K, appetizing, rich colors, sharp details</p>
+        </div>
+
+        <!-- Negative Prompt -->
+        <div class="negative-prompt">
+            <h5><i data-lucide="x-circle" style="width:14px;height:14px;"></i> NEGATIVE PROMPT (Use for all)</h5>
+            <p onclick="copyText(this)">blurry, low quality, watermark, text, distorted, bad anatomy, extra fingers, jpeg artifacts, dark, gloomy, oversaturated</p>
+        </div>
+
+        <!-- Quality Settings -->
+        <h3>Steps to Improve Image Quality</h3>
+
+        <div class="quality-steps">
+            <div class="quality-step">
+                <div class="step-num">1</div>
+                <h5>Increase Steps</h5>
+                <p>25→40 steps for finer details</p>
+            </div>
+            <div class="quality-step">
+                <div class="step-num">2</div>
+                <h5>Use CFG 7-8</h5>
+                <p>Higher = follows prompt more</p>
+            </div>
+            <div class="quality-step">
+                <div class="step-num">3</div>
+                <h5>Resolution</h5>
+                <p>1024×1024 minimum</p>
+            </div>
+            <div class="quality-step">
+                <div class="step-num">4</div>
+                <h5>Add Negative</h5>
+                <p>Always use negative prompt</p>
+            </div>
+        </div>
+
+        <div class="settings-panel">
+            <h4><i data-lucide="sliders" style="width:16px;height:16px;"></i> Recommended Settings</h4>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label>Model</label>
+                    <div class="value">Stable Diffusion XL</div>
+                </div>
+                <div class="setting-item">
+                    <label>Steps</label>
+                    <div class="value">30-40</div>
+                    <div class="note">More steps = better quality</div>
+                </div>
+                <div class="setting-item">
+                    <label>CFG Scale</label>
+                    <div class="value">7.0 - 8.0</div>
+                    <div class="note">Prompt adherence strength</div>
+                </div>
+                <div class="setting-item">
+                    <label>Resolution</label>
+                    <div class="value">1024 × 1024</div>
+                    <div class="note">Or 1024×768 for landscape</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 2: SKETCH TO REALITY
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">2</div>
+            <div>
+                <h2>Sketch to Reality</h2>
+                <p>Transform hand-drawn sketches into photorealistic images</p>
+            </div>
+        </div>
+
+        <div class="workflow">
+            <div class="workflow-node">
+                <i data-lucide="pencil" style="width:20px;height:20px;"></i>
+                <span>Your Sketch</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node">
+                <i data-lucide="upload" style="width:20px;height:20px;"></i>
+                <span>Upload</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node">
+                <i data-lucide="wand-2" style="width:20px;height:20px;"></i>
+                <span>Add Prompt</span>
+            </div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-node active">
+                <i data-lucide="image" style="width:20px;height:20px;"></i>
+                <span>Reality</span>
+            </div>
+        </div>
 
         <div class="scenario-box">
-            <h3><i data-lucide="shopping-bag"></i> The Mission</h3>
-            <p>You're launching a new product on Amazon India. You need 3 professional product shots. Budget: ₹0. Time:
-                5 minutes.</p>
+            <h4><i data-lucide="pen-tool" style="width:18px;height:18px;"></i> The Mission</h4>
+            <p>A client sends a rough napkin sketch of their dream living room. They want to see 3 style variations before committing to ₹15 Lakh renovation. You have 10 minutes.</p>
         </div>
 
-        <div class="asset-preview">
-            <img src="assets/earphone.png" alt="AI-generated earphone product photography">
-            <div class="asset-caption">Example: AI-generated product photography — created entirely on an AI PC</div>
-        </div>
-
-        <h3>Shot 1 — Hero Image</h3>
-        <p><strong>Goal:</strong> The main product listing photo.</p>
-        <div class="prompt-box" onclick="copy(this)">Premium wireless earbuds on white marble surface, soft studio
-            lighting, subtle shadow, e-commerce product photography, Apple style, 4K, ultra detailed, professional</div>
-
-        <h3>Shot 2 — Lifestyle Shot</h3>
-        <p><strong>Goal:</strong> Show the product in use.</p>
-        <div class="prompt-box" onclick="copy(this)">Person wearing wireless earbuds while jogging in a park, morning
-            golden hour sunlight, bokeh background, fitness lifestyle photography, energetic mood, 4K</div>
-
-        <h3>Shot 3 — Close-up Detail</h3>
-        <p><strong>Goal:</strong> Highlight build quality.</p>
-        <div class="prompt-box" onclick="copy(this)">Extreme close-up of premium wireless earbuds showing texture and
-            build quality, macro photography, studio lighting, dark background, reflections, 8K detail</div>
-
-        <h3>Negative Prompt (use for all)</h3>
-        <div class="prompt-box" onclick="copy(this)">blurry, low quality, watermark, text, bad anatomy, distorted, extra
-            objects, dark, gloomy, jpeg artifacts</div>
-
-        <div class="settings-grid">
-            <div class="setting-card">
-                <strong>Model</strong>
-                <span>Stable Diffusion XL</span>
-            </div>
-            <div class="setting-card">
-                <strong>Steps</strong>
-                <span>25-30 recommended</span>
-            </div>
-            <div class="setting-card">
-                <strong>Resolution</strong>
-                <span>1024 × 1024</span>
-            </div>
-            <div class="setting-card">
-                <strong>Guidance Scale</strong>
-                <span>7.0 (default)</span>
+        <div class="info-box success">
+            <i data-lucide="info" style="flex-shrink:0;"></i>
+            <div>
+                <strong>How to Enable Image-to-Image</strong>
+                In AI Playground → Select "Image to Image" mode → Upload your sketch (JPG/PNG) → Enter your prompt
             </div>
         </div>
 
-        <!-- ═══════════════ PART 4: LAB 2 — SKETCH TO REALITY ═══════════════ -->
-        <h2>Part 4: Lab 2 — Sketch → Reality (Architecture Render)</h2>
+        <!-- Sketch Prompt 1: Modern -->
+        <h3>Style 1: Modern Minimalist</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="code" style="width:14px;height:14px;"></i> SKETCH → REALITY</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Modern Interior Transform</span>
+{
+  <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to photorealistic interior"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"modern minimalist, clean lines"</span>,
+  <span class="json-key">"materials"</span>: <span class="json-string">"light oak flooring, white walls, glass accents"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"natural daylight through large windows"</span>,
+  <span class="json-key">"details"</span>: <span class="json-string">"indoor plants, premium furniture"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"architectural visualization, 4K, photorealistic"</span>
+}
+            </div>
+        </div>
+
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Transform this sketch into a photorealistic modern minimalist interior, clean lines, light oak flooring, white walls, glass accents, natural daylight through large windows, indoor plants, premium furniture, architectural visualization, 4K, photorealistic">
+            <p>Transform this sketch into a photorealistic modern minimalist interior, clean lines, light oak flooring, white walls, glass accents, natural daylight through large windows, indoor plants, premium furniture, architectural visualization, 4K, photorealistic</p>
+        </div>
+
+        <!-- Sketch Prompt 2: Scandinavian -->
+        <h3>Style 2: Scandinavian Hygge</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="code" style="width:14px;height:14px;"></i> SKETCH → REALITY</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Scandinavian Interior Transform</span>
+{
+  <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to cozy Scandinavian interior"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"Scandinavian hygge, warm and inviting"</span>,
+  <span class="json-key">"materials"</span>: <span class="json-string">"warm wood tones, wool textiles, sheepskin rug"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"soft pendant lighting, candle glow"</span>,
+  <span class="json-key">"colors"</span>: <span class="json-string">"muted earth tones, cream, beige"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"interior photography, 4K, magazine quality"</span>
+}
+            </div>
+        </div>
+
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Transform this sketch into a cozy Scandinavian hygge interior, warm and inviting, warm wood tones, wool textiles, sheepskin rug, soft pendant lighting, candle glow, muted earth tones, cream, beige, interior photography, 4K, magazine quality">
+            <p>Transform this sketch into a cozy Scandinavian hygge interior, warm and inviting, warm wood tones, wool textiles, sheepskin rug, soft pendant lighting, candle glow, muted earth tones, cream, beige, interior photography, 4K, magazine quality</p>
+        </div>
+
+        <!-- Sketch Prompt 3: Industrial -->
+        <h3>Style 3: Industrial Loft</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="code" style="width:14px;height:14px;"></i> SKETCH → REALITY</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Industrial Interior Transform</span>
+{
+  <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to industrial loft interior"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"industrial, urban, raw aesthetic"</span>,
+  <span class="json-key">"materials"</span>: <span class="json-string">"exposed brick walls, steel beams, concrete floor"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"edison bulb lighting, warm moody atmosphere"</span>,
+  <span class="json-key">"furniture"</span>: <span class="json-string">"leather sofa, metal accents, vintage pieces"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"architectural photography, 8K, dramatic"</span>
+}
+            </div>
+        </div>
+
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Transform this sketch into an industrial loft interior, urban raw aesthetic, exposed brick walls, steel beams, concrete floor, edison bulb lighting, warm moody atmosphere, leather sofa, metal accents, vintage pieces, architectural photography, 8K, dramatic">
+            <p>Transform this sketch into an industrial loft interior, urban raw aesthetic, exposed brick walls, steel beams, concrete floor, edison bulb lighting, warm moody atmosphere, leather sofa, metal accents, vintage pieces, architectural photography, 8K, dramatic</p>
+        </div>
+
+        <!-- Negative Prompt -->
+        <div class="negative-prompt">
+            <h5><i data-lucide="x-circle" style="width:14px;height:14px;"></i> NEGATIVE PROMPT (For Interiors)</h5>
+            <p onclick="copyText(this)">text, watermark, distorted perspective, extra furniture, dark, gloomy, low quality, blurry, jpeg artifacts, people, cartoon</p>
+        </div>
+
+        <!-- Strength Settings -->
+        <div class="settings-panel">
+            <h4><i data-lucide="sliders" style="width:16px;height:16px;"></i> Image-to-Image Settings</h4>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label>Mode</label>
+                    <div class="value">Image-to-Image</div>
+                </div>
+                <div class="setting-item">
+                    <label>Strength</label>
+                    <div class="value">0.65 - 0.80</div>
+                    <div class="note">Key setting! Higher = more creative</div>
+                </div>
+                <div class="setting-item">
+                    <label>Steps</label>
+                    <div class="value">35-50</div>
+                    <div class="note">More for complex sketches</div>
+                </div>
+                <div class="setting-item">
+                    <label>CFG Scale</label>
+                    <div class="value">7.5</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Strength Slider Explained</strong>
+                <strong>0.3-0.5:</strong> Keeps close to your sketch (minor changes)<br>
+                <strong>0.6-0.8:</strong> Balanced transformation (recommended)<br>
+                <strong>0.8-1.0:</strong> Maximum creative freedom (may lose sketch structure)
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 3: VIDEO GENERATION
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">3</div>
+            <div>
+                <h2>Video Generation</h2>
+                <p>Create 4-second AI video clips for social media & commercials</p>
+            </div>
+        </div>
 
         <div class="scenario-box">
-            <h3><i data-lucide="pen-tool"></i> The Mission</h3>
-            <p>A client has sent a rough napkin sketch of a living room. They want to see 3 style variations (Modern,
-                Scandinavian, Industrial) before committing to a ₹15 Lakh renovation. You have 10 minutes.</p>
+            <h4><i data-lucide="video" style="width:18px;height:18px;"></i> The Mission</h4>
+            <p>Create a product reveal video for Instagram. No camera crew. No editing software. No budget.</p>
         </div>
 
-        <div class="asset-preview">
-            <img src="assets/sketch.png" alt="Sketch to reality transformation">
-            <div class="asset-caption">Example: Hand-drawn sketch transformed into a photorealistic interior render
+        <!-- Video Prompt 1 -->
+        <h3>Video 1: Product Reveal</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="film" style="width:14px;height:14px;"></i> VIDEO PROMPT</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
+            </div>
+            <div class="prompt-json-body">
+<span class="json-comment">// Product Reveal Video</span>
+{
+  <span class="json-key">"action"</span>: <span class="json-string">"Smartphone emerging from elegant white packaging"</span>,
+  <span class="json-key">"camera"</span>: <span class="json-string">"slow zoom in, subtle rotation"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"soft studio lights, subtle reflections"</span>,
+  <span class="json-key">"background"</span>: <span class="json-string">"clean white, minimal"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"Apple commercial aesthetic, premium feel"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"cinematic, smooth motion, 4K"</span>
+}
             </div>
         </div>
 
-        <div class="success-box">
-            <i data-lucide="info"></i>
-            <div><strong>How to switch:</strong> In AI Playground, change the mode to <strong>"Image to Image"</strong>
-                and upload your sketch file (JPG/PNG).</div>
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Smartphone emerging from elegant white packaging, slow zoom in, subtle rotation, soft studio lights, subtle reflections, clean white minimal background, Apple commercial aesthetic, premium feel, cinematic, smooth motion, 4K">
+            <p>Smartphone emerging from elegant white packaging, slow zoom in, subtle rotation, soft studio lights, subtle reflections, clean white minimal background, Apple commercial aesthetic, premium feel, cinematic, smooth motion, 4K</p>
         </div>
 
-        <h3>Level 1: Modern Minimalist</h3>
-        <p><strong>Goal:</strong> Clean contemporary design.</p>
-        <div class="prompt-box" onclick="copy(this)">Transform this living room sketch into a photorealistic modern
-            minimalist interior, natural lighting through large windows, premium furniture, light wooden flooring, white
-            walls, indoor plants, architectural visualization, 4K</div>
+        <!-- Video Prompt 2 -->
+        <h3>Video 2: Car Showroom</h3>
 
-        <h3>Level 2: Scandinavian Hygge</h3>
-        <p><strong>Goal:</strong> Warm Nordic atmosphere.</p>
-        <div class="prompt-box" onclick="copy(this)">Transform this living room sketch into a cozy Scandinavian
-            interior, warm wood tones, soft textured throws, sheepskin rug, pendant lighting, hygge atmosphere, muted
-            earth tones, architectural photography, 4K</div>
-
-        <h3>Negative Prompt</h3>
-        <div class="prompt-box" onclick="copy(this)">text, watermark, bad anatomy, distorted perspective, extra
-            furniture, dark, gloomy, low quality, jpeg artifacts, blur</div>
-
-        <h3>Level 3: Industrial Loft</h3>
-        <p><strong>Goal:</strong> Change materials (Brick & Steel).</p>
-        <div class="prompt-box" onclick="copy(this)">Industrial loft apartment, exposed brick walls, steel beams, edison
-            bulb lighting, concrete floor, leather sofa, open plan, warm moody lighting, magazine quality interior
-            photography, 8K</div>
-
-        <div class="settings-grid">
-            <div class="setting-card">
-                <strong>Mode</strong>
-                <span>Image-to-Image</span>
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="film" style="width:14px;height:14px;"></i> VIDEO PROMPT</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
             </div>
-            <div class="setting-card">
-                <strong>Strength</strong>
-                <span>0.6 – 0.8 (key setting!)</span>
+            <div class="prompt-json-body">
+<span class="json-comment">// Automotive Commercial</span>
+{
+  <span class="json-key">"subject"</span>: <span class="json-string">"Luxury sports car in dark showroom"</span>,
+  <span class="json-key">"camera"</span>: <span class="json-string">"smooth orbit around the car, 360 rotation"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"dramatic spotlight, reflections on polished floor"</span>,
+  <span class="json-key">"atmosphere"</span>: <span class="json-string">"premium, mysterious, sleek"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"automotive commercial, cinematic"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"high-end production, smooth motion"</span>
+}
             </div>
-            <div class="setting-card">
-                <strong>Steps</strong>
-                <span>30</span>
+        </div>
+
+        <div class="compiled-prompt" onclick="copyCompiled(this)" data-prompt="Luxury sports car in dark showroom, smooth orbit camera rotation around the car, dramatic spotlight lighting, reflections on polished floor, premium mysterious sleek atmosphere, automotive commercial, cinematic, high-end production, smooth motion">
+            <p>Luxury sports car in dark showroom, smooth orbit camera rotation around the car, dramatic spotlight lighting, reflections on polished floor, premium mysterious sleek atmosphere, automotive commercial, cinematic, high-end production, smooth motion</p>
+        </div>
+
+        <!-- Video Prompt 3 -->
+        <h3>Video 3: Coffee Commercial</h3>
+
+        <div class="prompt-json">
+            <div class="prompt-json-header">
+                <span><i data-lucide="film" style="width:14px;height:14px;"></i> VIDEO PROMPT</span>
+                <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
             </div>
-            <div class="setting-card">
-                <strong>Guidance Scale</strong>
-                <span>7.5</span>
+            <div class="prompt-json-body">
+<span class="json-comment">// Beverage Commercial</span>
+{
+  <span class="json-key">"action"</span>: <span class="json-string">"Coffee being poured into premium ceramic cup"</span>,
+  <span class="json-key">"details"</span>: <span class="json-string">"steam rising elegantly, slow motion pour"</span>,
+  <span class="json-key">"lighting"</span>: <span class="json-string">"warm cafe lighting, soft bokeh background"</span>,
+  <span class="json-key">"mood"</span>: <span class="json-string">"cozy, inviting, morning warmth"</span>,
+  <span class="json-key">"style"</span>: <span class="json-string">"food commercial, advertising quality"</span>,
+  <span class="json-key">"quality"</span>: <span class="json-string">"cinematic slow motion, rich colors"</span>
+}
             </div>
         </div>
 
@@ -521,82 +995,105 @@
             <i data-lucide="sliders"></i>
             <div><strong>Strength slider explained:</strong> Lower values (0.3–0.5) keep the image closer to your
                 original sketch. Higher values (0.7–0.9) give the AI more creative freedom. Start at
-                <strong>0.7</strong> and adjust.
+                <strong>0.7</strong> and adjust.</div>
+        </div>
+
+        <div class="settings-panel">
+            <h4><i data-lucide="sliders" style="width:16px;height:16px;"></i> Video Generation Settings</h4>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label>Duration</label>
+                    <div class="value">4 seconds</div>
+                    <div class="note">Fixed output length</div>
+                </div>
+                <div class="setting-item">
+                    <label>Generation Time</label>
+                    <div class="value">2-5 minutes</div>
+                    <div class="note">Longer than images</div>
+                </div>
+                <div class="setting-item">
+                    <label>Best For</label>
+                    <div class="value">Smooth camera moves</div>
+                </div>
+                <div class="setting-item">
+                    <label>Avoid</label>
+                    <div class="value">Complex human motion</div>
+                </div>
             </div>
         </div>
 
-        <!-- ═══════════════ PART 5: LAB 3 — VIDEO GENERATION ═══════════════ -->
-        <h2>Part 5: Lab 3 — AI Video Generation</h2>
-
-        <div class="scenario-box">
-            <h3><i data-lucide="video"></i> The Mission</h3>
-            <p>Create a 4-second product reveal video for a social media campaign. No camera crew, no editing software,
-                no budget.</p>
-        </div>
-
-        <h3>Video Prompt 1 — Car Showroom</h3>
-        <div class="prompt-box" onclick="copy(this)">Smooth camera orbit around a luxury sports car in a dark showroom,
-            dramatic spotlight lighting, reflections on polished floor, cinematic, commercial quality</div>
-
-        <h3>Video Prompt 2 — Coffee Commercial</h3>
-        <div class="prompt-box" onclick="copy(this)">Coffee being poured into a premium ceramic cup, steam rising
-            elegantly, slow motion, warm cafe lighting with bokeh, commercial quality, cozy atmosphere</div>
-
-        <h3>Video Prompt 3 — Product Reveal</h3>
-        <div class="prompt-box" onclick="copy(this)">Product reveal: modern smartphone emerging from elegant white
-            packaging, subtle light effects, clean white background, tech commercial style, Apple aesthetic</div>
-
-        <div class="tip-box">
-            <i data-lucide="clock"></i>
-            <div><strong>Note:</strong> Video generation takes longer than image generation (~2-5 minutes per clip). The
-                output is a 4-second video clip. For longer videos, generate multiple clips and stitch them together.
+        <div class="info-box tip">
+            <i data-lucide="film" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Video Pro Tips</strong>
+                <ul style="margin:8px 0 0 16px;">
+                    <li>Focus on <strong>camera movement</strong> (orbit, zoom, pan) rather than complex actions</li>
+                    <li>Products and objects work better than people</li>
+                    <li>For longer videos, generate multiple 4-sec clips and stitch them</li>
+                </ul>
             </div>
         </div>
 
-        <!-- ═══════════════ PART 6: BONUS PROMPTS ═══════════════ -->
-        <h2>Part 6: Bonus Prompt Library</h2>
-
-        <h3>🏠 Architecture Exterior</h3>
-        <div class="prompt-box" onclick="copy(this)">Transform this house sketch into a photorealistic modern villa,
-            glass facades, infinity pool, landscaped garden, golden hour lighting, 8K architectural visualization</div>
-
-        <h3>💅 Beauty Product</h3>
-        <div class="prompt-box" onclick="copy(this)">Luxury perfume bottle on reflective black surface, dramatic studio
-            lighting, smoke effects, premium advertisement aesthetic, dark moody background, 4K</div>
-
-        <h3>🍽️ Food Photography</h3>
-        <div class="prompt-box" onclick="copy(this)">Gourmet butter chicken in premium ceramic bowl, garnished with
-            fresh cilantro, steam rising, warm restaurant lighting, top-down food photography, Zomato style, 4K</div>
-
-        <h3>👗 Fashion</h3>
-        <div class="prompt-box" onclick="copy(this)">Indian ethnic wear, elegant lehenga on mannequin, rich embroidery
-            details, soft studio lighting, e-commerce product photography, white background, 4K</div>
-
-        <div class="success-box">
-            <i data-lucide="check-circle"></i>
-            <div><strong>What you achieved today:</strong> You generated unlimited professional images, transformed
-                rough sketches into photorealistic renders, and created AI video clips — all locally on your AI PC with
-                zero cloud costs and complete privacy.</div>
+        <!-- Key Takeaways -->
+        <div class="concept-card" style="background:var(--green-light);border-color:#A7F3D0;margin-top:40px;">
+            <div class="concept-icon" style="background:white;color:var(--green);"><i data-lucide="check"></i></div>
+            <div>
+                <h4 style="color:#065F46;margin-bottom:8px;">What You Learned</h4>
+                <ul style="margin:0 0 0 16px;color:#065F46;">
+                    <li><strong>Structured prompts</strong> = better quality (Subject → Setting → Lighting → Style → Quality)</li>
+                    <li><strong>Negative prompts</strong> are essential to avoid common issues</li>
+                    <li><strong>Image-to-Image</strong> transforms sketches into photorealistic renders</li>
+                    <li><strong>Strength slider</strong> controls how much AI changes your input</li>
+                    <li><strong>Video generation</strong> works best with camera movements & products</li>
+                </ul>
+            </div>
         </div>
 
         <footer>
-            AI PC Workshop Series • Session 2 — Creative AI Studio
+            <strong>India AI Summit Workshop</strong><br>
+            Session 2: Creative AI Studio
         </footer>
+
     </div>
 
     <script>
         lucide.createIcons();
-        function copy(el) {
-            const text = el.innerText.replace('📋 Click to Copy', '').trim();
-            navigator.clipboard.writeText(text);
-            const origBorder = el.style.borderColor;
-            const origBg = el.style.backgroundColor;
-            el.style.borderColor = '#22C55E';
-            el.style.backgroundColor = '#DCFCE7';
+
+        function copyJSON(btn) {
+            const body = btn.closest('.prompt-json').querySelector('.prompt-json-body');
+            // Extract just the string values for a clean prompt
+            const strings = body.querySelectorAll('.json-string');
+            const values = Array.from(strings).map(s => s.textContent.replace(/"/g, ''));
+            const prompt = values.join(', ');
+            navigator.clipboard.writeText(prompt);
+
+            btn.textContent = '✓ Copied!';
+            btn.style.background = '#10B981';
+            btn.style.color = 'white';
             setTimeout(() => {
-                el.style.borderColor = origBorder;
-                el.style.backgroundColor = origBg;
-            }, 600);
+                btn.textContent = 'Copy Prompt';
+                btn.style.background = '';
+                btn.style.color = '';
+            }, 1500);
+        }
+
+        function copyCompiled(el) {
+            const prompt = el.dataset.prompt;
+            navigator.clipboard.writeText(prompt);
+            el.style.borderColor = '#10B981';
+            el.style.background = 'linear-gradient(135deg, #ECFDF5, #D1FAE5)';
+            setTimeout(() => {
+                el.style.borderColor = '';
+                el.style.background = '';
+            }, 1000);
+        }
+
+        function copyText(el) {
+            navigator.clipboard.writeText(el.textContent);
+            el.style.color = '#10B981';
+            setTimeout(() => {
+                el.style.color = '';
+            }, 800);
         }
     </script>
 </body>

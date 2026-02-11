@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 6 | Student Guide - IoT + AI</title>
+    <title>Session 6 | Student Guide - IoT + AI: Connecting LLMs to the Physical World</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #F97316;
-            --primary-light: #FFEDD5;
+            --primary: #0D9488;
+            --primary-dark: #0F766E;
+            --primary-light: #F0FDFA;
+            --accent: #F97316;
+            --accent-light: #FFF7ED;
             --bg: #FAFCFF;
-            --text-main: #7C2D12;
+            --text-main: #134E4A;
             --text-sub: #334155;
-            --code-bg: #FFF7ED;
-            --tip-bg: #FFF7ED;
-            --tip-border: #FFEDD5;
-            --tip-text: #9A3412;
+            --code-bg: #1F2937;
+            --success: #10B981;
         }
 
         * {
@@ -31,37 +32,97 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             padding: 40px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: var(--primary);
+        .header-badge {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
 
-        h2 {
-            font-size: 1.5rem;
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+        }
+
+        .session-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-light);
+            border: 1px solid #99F6E4;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .part-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .part-header h2 {
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 10px;
+            margin: 0;
+        }
+
+        .part-number {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: #EA580C;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
         }
 
         p {
@@ -69,99 +130,678 @@
             color: var(--text-sub);
         }
 
+        /* Hero Intro Box */
+        .hero-intro {
+            background: linear-gradient(135deg, #134E4A, #1F2937);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .hero-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .hero-info h3 {
+            color: white;
+            margin: 0 0 8px 0;
+            font-size: 1.4rem;
+        }
+
+        .hero-info p {
+            color: #D1D5DB;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .hero-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Big Idea Box */
+        .big-idea {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border: 2px solid #99F6E4;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .big-idea .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .big-idea h3 {
+            color: var(--primary-dark);
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .big-idea p {
+            text-align: center;
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-sub);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Pipeline Visual */
+        .pipeline-visual {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-stage {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            padding: 20px 10px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pipeline-stage:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+
+        .pipeline-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 10px;
+        }
+
+        .pipeline-stage h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .pipeline-stage p {
+            font-size: 0.7rem;
+            margin: 0;
+            color: var(--text-sub);
+        }
+
+        .pipeline-arrow {
+            color: var(--primary);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* Concept Cards */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
         .concept-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 25px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .concept-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(13, 148, 136, 0.15);
+        }
+
+        .concept-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .concept-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .concept-card p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Tool Reference Cards */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tool-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .tool-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px -3px rgba(13, 148, 136, 0.15);
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 12px;
+        }
+
+        .tool-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .tool-card p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        .tool-card code {
+            display: block;
+            background: var(--code-bg);
+            color: #34D399;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            margin-top: 10px;
+        }
+
+        .tool-card .param-list {
+            text-align: left;
+            font-size: 0.72rem;
+            color: var(--text-sub);
+            margin-top: 8px;
+            background: #F8FAFC;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+
+        .tool-card .param-list span {
+            display: block;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Prompt Section */
+        .prompt-section {
+            background: var(--primary-light);
+            border: 1px solid #99F6E4;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .prompt-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .prompt-box {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+            line-height: 1.6;
+        }
+
+        .prompt-box:hover {
+            background: var(--primary-light);
+            transform: scale(1.01);
+        }
+
+        .prompt-box::after {
+            content: '📋 Click to Copy';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            font-size: 0.7rem;
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+
+        /* Level Card */
+        .level-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .level-card:hover {
+            border-color: var(--primary);
+        }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .level-badge {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .level-title h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .level-title .skill-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .skill-tag.beginner {
+            background: var(--success);
+        }
+
+        .skill-tag.intermediate {
+            background: var(--accent);
+        }
+
+        .skill-tag.advanced {
+            background: var(--primary-dark);
+        }
+
+        .skill-tag.expert {
+            background: #7C3AED;
+        }
+
+        .level-goal {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .level-goal strong {
+            color: var(--primary-dark);
+        }
+
+        .tools-used {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tool-pill {
+            background: var(--primary-light);
+            border: 1px solid #99F6E4;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Try This */
+        .try-this {
+            background: linear-gradient(135deg, var(--accent-light), var(--primary-light));
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .try-this-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .try-this-content h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .try-this-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        /* Info Boxes */
+        .info-box {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            border-radius: 12px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+
+        .info-box.tip {
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+        }
+
+        .info-box.tip .icon {
+            color: #D97706;
+        }
+
+        .info-box.important {
+            background: #DBEAFE;
+            border: 1px solid #93C5FD;
+        }
+
+        .info-box.important .icon {
+            color: #2563EB;
+        }
+
+        .info-box.success {
+            background: #D1FAE5;
+            border: 1px solid #6EE7B7;
+        }
+
+        .info-box.success .icon {
+            color: #059669;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Architecture Diagram */
+        .architecture-box {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .arch-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .arch-box {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .arch-box.highlight {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .arch-box.accent {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .arch-box h5 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .arch-box p {
+            font-size: 0.75rem;
+            margin: 0;
+            color: var(--text-sub);
+        }
+
+        .arch-arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .arch-arrow.down {
+            transform: rotate(90deg);
+        }
+
+        /* Scenario Box */
+        .scenario-box {
+            background: linear-gradient(135deg, #134E4A, #0F766E);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            color: white;
+        }
+
+        .scenario-box h3 {
+            color: #5EEAD4;
+            margin: 0 0 12px 0;
+            font-size: 1.2rem;
+        }
+
+        .scenario-box p {
+            color: #CCFBF1;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Use Cases */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .use-case-card {
             background: white;
             border: 1px solid #E2E8F0;
             padding: 20px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
+            text-align: center;
+            transition: all 0.2s;
         }
 
-        .concept-icon {
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 8px;
+        .use-case-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .use-case-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .use-case-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .use-case-card p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        /* Challenge Banner */
+        .challenge-banner {
+            background: linear-gradient(135deg, #7C3AED, #4F46E5);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .challenge-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
             flex-shrink: 0;
         }
 
-        .scenario-box {
-            background: #FFF7ED;
-            border: 1px solid #FED7AA;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 30px;
-            margin-bottom: 30px;
+        .challenge-content h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
 
-        .resource-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+        .challenge-content p {
+            color: #E0E7FF;
+            margin: 0;
+            font-size: 0.9rem;
         }
 
-        .resource-btn {
-            background: white;
-            border: 1px solid #CBD5E1;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
+        /* What You Learned */
+        .learnings-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .learnings-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
             color: var(--text-sub);
+            font-size: 0.95rem;
+        }
+
+        .learnings-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .resource-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .prompt-box {
-            background: var(--code-bg);
-            border: 1px solid #FED7AA;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 10px;
-            color: #7C2D12;
-        }
-
-        .prompt-box:hover {
-            border-color: var(--primary);
-            background: #FFEDD5;
-        }
-
-        .prompt-box::after {
-            content: 'Click to Copy';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: #EA580C;
-            font-family: sans-serif;
-        }
-
-        .tip-box {
-            background: var(--tip-bg);
-            border: 1px solid var(--tip-border);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--tip-text);
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            font-weight: 800;
         }
 
         footer {
@@ -169,8 +809,8 @@
             text-align: center;
             color: #94A3B8;
             font-size: 0.9rem;
-            border-top: 1px solid #E2E8F0;
-            padding-top: 20px;
+            border-top: 2px solid #E2E8F0;
+            padding-top: 25px;
         }
 
         .back-nav {
@@ -204,7 +844,7 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+            box-shadow: 0 4px 16px rgba(13, 148, 136, 0.3);
             transform: translateX(-4px);
         }
 
@@ -219,6 +859,50 @@
         @media print {
             .back-nav {
                 display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pipeline-flow {
+                flex-direction: column;
+            }
+
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
+
+            .hero-intro {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .arch-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .arch-arrow {
+                transform: rotate(90deg) !important;
             }
         }
     </style>
@@ -236,82 +920,626 @@
         </a>
     </nav>
     <div class="container">
-        <div
-            style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-weight: 700; color: var(--primary); font-size: 0.9rem; letter-spacing: 1px;">
-            <i data-lucide="book-open"></i> WORKSHOP GUIDE - SESSION 6
+        <div class="header-badge">
+            <i data-lucide="radio-tower"></i> SESSION 6 — CAPSTONE LAB
         </div>
 
-        <h1>IoT + AI: Smart Cities</h1>
-        <p class="lead">Connecting Physical Sensors (ESP32) to Digital AI Intelligence.</p>
+        <h1>IoT + AI: Talk to the Physical World</h1>
+        <p class="subtitle">Use AI Superbuilder & AIrowl MCP to connect Large Language Models directly to real-world IoT
+            sensors.</p>
 
-        <!-- SECTION 1: CONCEPTS -->
-        <h2>Part 1: Key Concepts</h2>
+        <div class="session-meta">
+            <span class="meta-chip"><i data-lucide="clock" style="width:14px;height:14px"></i> 90 min</span>
+            <span class="meta-chip"><i data-lucide="layers" style="width:14px;height:14px"></i> Hands-On Lab</span>
+            <span class="meta-chip"><i data-lucide="wind" style="width:14px;height:14px"></i> Air Quality + AI</span>
+            <span class="meta-chip"><i data-lucide="sparkles" style="width:14px;height:14px"></i> MCP Protocol</span>
+        </div>
 
-        <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="cpu"></i></div>
-            <div>
-                <h3>ESP32 Microcontroller</h3>
-                <p>A ₹400 chip with WiFi. It reads data from sensors (Temperature, Dust, Gas) and sends it to your
-                    computer.</p>
+        <!-- ====== PART 1: THE BIG PICTURE ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 1</span>
+            <h2>The Big Picture — Why IoT + AI?</h2>
+        </div>
+
+        <div class="big-idea">
+            <div class="emoji">💡</div>
+            <h3>The Core Idea</h3>
+            <p>What if your AI assistant could <strong>see</strong>, <strong>feel</strong>, and <strong>act on</strong>
+                the real world — not just answer questions from the internet? That's what happens when you connect an
+                IoT device to an LLM.</p>
+        </div>
+
+        <p>In this capstone session, you'll bridge the gap between the <strong>digital world</strong> (LLMs, AI agents)
+            and the <strong>physical world</strong> (air quality sensors, environmental data). Instead of the AI only
+            reading text, it will read <em>real sensor data</em> — temperature, humidity, PM2.5, CO₂ — in real-time.</p>
+
+        <h3>What You'll Use Today</h3>
+        <div class="concepts-grid">
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="sparkles"></i></div>
+                <h4>AI Superbuilder</h4>
+                <p>Your AI interface — a powerful chat environment pre-connected to LLMs. This is where you'll type
+                    prompts and see the AI respond with real sensor intelligence.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="radio-tower"></i></div>
+                <h4>AIrowl MCP Server</h4>
+                <p>The bridge between AI and IoT. This MCP server exposes AirOwl sensor data as "tools" that the LLM can
+                    call — just like a function call, but to a physical device.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="wind"></i></div>
+                <h4>AirOwl Device</h4>
+                <p>A real air quality monitor measuring PM2.5, PM10, CO₂, TVOC, Temperature, and Humidity. It sits on
+                    your desk and feeds live data to the AI.</p>
+            </div>
+            <div class="concept-card">
+                <div class="concept-icon"><i data-lucide="cable"></i></div>
+                <h4>MCP (Model Context Protocol)</h4>
+                <p>The open standard that lets AI models call external tools and data sources. Think of it as a USB port
+                    for AI — plug in any capability.</p>
             </div>
         </div>
 
-        <div class="concept-card">
-            <div class="concept-icon"><i data-lucide="share-2"></i></div>
-            <div>
-                <h3>Edge Intelligence</h3>
-                <p>Instead of sending massive video/audio streams to the cloud, we process data locally ("at the edge")
-                    using the AI PC. This saves bandwidth and privacy.</p>
+        <!-- ====== PART 2: HOW IT WORKS ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 2</span>
+            <h2>Architecture — How It All Connects</h2>
+        </div>
+
+        <p>Here's how your prompt travels from AI Superbuilder to the AirOwl sensor and back:</p>
+
+        <div class="pipeline-visual">
+            <div class="pipeline-flow">
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="message-square"></i></div>
+                    <h4>Your Prompt</h4>
+                    <p>AI Superbuilder</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="brain"></i></div>
+                    <h4>LLM</h4>
+                    <p>Decides which tool</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="plug"></i></div>
+                    <h4>MCP Server</h4>
+                    <p>AIrowl Bridge</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="radio-tower"></i></div>
+                    <h4>AirOwl</h4>
+                    <p>Physical Sensor</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                    <div class="pipeline-icon"><i data-lucide="bar-chart-3"></i></div>
+                    <h4>AI Response</h4>
+                    <p>Insight + Action</p>
+                </div>
             </div>
         </div>
 
-        <!-- SECTION 2: SCENARIO -->
-        <h2>Part 2: The Lab - "AirOwl Smart Monitor"</h2>
+        <div class="architecture-box">
+            <div style="text-align:center; margin-bottom:15px; font-weight:700; color:var(--primary-dark);">System
+                Architecture</div>
+            <div class="arch-row">
+                <div class="arch-box">
+                    <h5>👤 You</h5>
+                    <p>Type a prompt</p>
+                </div>
+            </div>
+            <div class="arch-row">
+                <span class="arch-arrow down">→</span>
+            </div>
+            <div class="arch-row">
+                <div class="arch-box highlight">
+                    <h5>✨ AI Superbuilder</h5>
+                    <p>Chat Interface + LLM</p>
+                </div>
+            </div>
+            <div class="arch-row">
+                <span class="arch-arrow down">→</span>
+            </div>
+            <div class="arch-row">
+                <div class="arch-box accent">
+                    <h5>🔌 AIrowl MCP Server</h5>
+                    <p>Tool Bridge (Python)</p>
+                </div>
+            </div>
+            <div class="arch-row">
+                <span class="arch-arrow down">→</span>
+            </div>
+            <div class="arch-row">
+                <div class="arch-box">
+                    <h5>🦉 AirOwl Device</h5>
+                    <p>PM2.5 · PM10 · CO₂ · TVOC · Temp · Humidity</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box important">
+            <i data-lucide="zap" class="icon"></i>
+            <p><strong>Key Insight:</strong> The LLM doesn't "know" the air quality. It <em>calls a tool</em> (via MCP)
+                to fetch the data, then reasons about it. This is the same pattern used by ChatGPT plugins, GitHub
+                Copilot, and every modern AI agent.</p>
+        </div>
+
+        <!-- ====== PART 3: TOOL REFERENCE ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 3</span>
+            <h2>Your Toolkit — AIrowl MCP Tools</h2>
+        </div>
+
+        <p>The AIrowl MCP server gives the LLM access to <strong>three categories of tools</strong>. When you ask the
+            right question, the AI automatically picks the right tool.</p>
+
+        <h3>🔴 Live Sensor Readings</h3>
+        <p>Fetch the <strong>current, real-time</strong> value of any environmental parameter from the AirOwl device.
+        </p>
+
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon"><i data-lucide="wind"></i></div>
+                <h4>PM2.5</h4>
+                <p>Fine particulate matter (μg/m³)</p>
+                <code>get_pm25()</code>
+                <div class="param-list"><span>Safe: &lt; 60</span><span>Hazardous: &gt; 250</span></div>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i data-lucide="cloud"></i></div>
+                <h4>PM10</h4>
+                <p>Coarse dust particles (μg/m³)</p>
+                <code>get_pm10()</code>
+                <div class="param-list"><span>Safe: &lt; 100</span><span>Hazardous: &gt; 430</span></div>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i data-lucide="flame"></i></div>
+                <h4>CO₂</h4>
+                <p>Carbon dioxide level (ppm)</p>
+                <code>get_co2()</code>
+                <div class="param-list"><span>Normal: 400-1000</span><span>Stuffy: &gt; 1500</span></div>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i data-lucide="flask-conical"></i></div>
+                <h4>TVOC</h4>
+                <p>Total volatile organics (ppb)</p>
+                <code>get_tvoc()</code>
+                <div class="param-list"><span>Clean: &lt; 250</span><span>Poor: &gt; 2000</span></div>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i data-lucide="thermometer"></i></div>
+                <h4>Temperature</h4>
+                <p>Ambient temperature (°C)</p>
+                <code>get_temp()</code>
+                <div class="param-list"><span>Comfort: 20-26°C</span></div>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon"><i data-lucide="droplets"></i></div>
+                <h4>Humidity</h4>
+                <p>Relative humidity (%)</p>
+                <code>get_humd()</code>
+                <div class="param-list"><span>Ideal: 30-60%</span></div>
+            </div>
+        </div>
+
+        <h3>📊 Historical Data</h3>
+        <p>Retrieve <strong>past readings</strong> for trend analysis, anomaly detection, and report generation.</p>
+
+        <div class="tools-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #6366F1, #8B5CF6);"><i
+                        data-lucide="trending-up"></i></div>
+                <h4>PM2.5 History</h4>
+                <code>get_historical_pm25()</code>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #6366F1, #8B5CF6);"><i
+                        data-lucide="trending-up"></i></div>
+                <h4>PM10 History</h4>
+                <code>get_historical_pm10()</code>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #6366F1, #8B5CF6);"><i
+                        data-lucide="trending-up"></i></div>
+                <h4>CO₂ History</h4>
+                <code>get_historical_co2()</code>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #6366F1, #8B5CF6);"><i
+                        data-lucide="trending-up"></i></div>
+                <h4>TVOC History</h4>
+                <code>get_historical_tvoc()</code>
+            </div>
+        </div>
+
+        <h3>📺 Device Screen Control</h3>
+        <p>The AI can <strong>change the AirOwl's physical display</strong> to show a graph of any parameter. This is
+            the AI controlling a physical device!</p>
+
+        <div style="max-width: 320px; margin: 20px auto;">
+            <div class="tool-card" style="border-color: var(--accent); border-width: 2px;">
+                <div class="tool-icon" style="background: linear-gradient(135deg, #F97316, #DC2626);"><i
+                        data-lucide="monitor"></i></div>
+                <h4>Change Screen</h4>
+                <p>Switch AirOwl display to show graph of any parameter</p>
+                <code>change_screen(parameter)</code>
+                <div class="param-list"><span>pm25 · pm10 · co2 · tvoc</span></div>
+            </div>
+        </div>
+
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" class="icon"></i>
+            <p><strong>Wow Moment:</strong> When the AI calls <code>change_screen</code>, look at the AirOwl device on
+                your desk — the screen will physically change! The AI is controlling hardware via natural language.</p>
+        </div>
+
+        <!-- ====== PART 4: THE MISSION ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 4</span>
+            <h2>The Mission — Smart City Engineer</h2>
+        </div>
 
         <div class="scenario-box">
-            <h3><i data-lucide="activity"></i> The Mission</h3>
-            <p>You are deploying an Air Quality Monitor for a School. The AI needs to read the PM2.5 levels and
-                automatically advise if recess should be indoors or outdoors.</p>
+            <h3>🏙️ Your Role: Smart City Air Quality Analyst</h3>
+            <p>You've been assigned to monitor the air quality at a <strong>school campus in Delhi</strong> during
+                winter. Construction is happening nearby. Your job is to use the AI + AirOwl system to fetch live data,
+                analyze trends, generate health advisories, and control the monitoring display — all through natural
+                language.</p>
         </div>
 
-        <h3>Wiring Checklist</h3>
-        <p>Ensure your connections are secure:</p>
-        <div class="code-box"
-            style="background:#431407; padding:15px; border-radius:8px; color:#FED7AA; font-family:monospace; margin-bottom:20px;">
-            VCC -> 3.3V<br>
-            GND -> GND<br>
-            RX -> TX (Pin 17)
+        <!-- ====== PART 5: PROMPT LIBRARY ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 5</span>
+            <h2>The Prompt Lab — 6 Levels</h2>
         </div>
 
-        <!-- SECTION 3: PROMPTS -->
-        <h2>Part 3: The Prompt Library</h2>
+        <p>Work through these prompts in order. Each level builds on the previous one and teaches a new AI + IoT skill.
+        </p>
 
-        <h3>Level 1: Live Status Check</h3>
-        <p><strong>Goal:</strong> Read the raw data.</p>
-        <div class="prompt-box" onclick="copy(this)">Fetch the latest sensor data from AirOwl. What is the current PM2.5
-            level?</div>
-
-        <h3>Level 2: Health Advisory</h3>
-        <p><strong>Goal:</strong> Interpret the number.</p>
-        <div class="prompt-box" onclick="copy(this)">The PM2.5 is currently 145. Is this safe for children with asthma?
-            What precautions should the school take?</div>
-        <div class="tip-box">
-            <i data-lucide="info"></i>
-            <div><strong>Note:</strong> PM2.5 > 100 is generally considered "Unhealthy".</div>
+        <!-- Level 1 -->
+        <div class="level-card">
+            <div class="level-header">
+                <div class="level-badge">1</div>
+                <div class="level-title">
+                    <h4>Live Status Check</h4>
+                    <span class="skill-tag beginner">Beginner</span>
+                </div>
+            </div>
+            <div class="level-goal"><strong>🎯 Goal:</strong> Make the AI fetch real-time sensor data. Learn how the LLM
+                triggers a tool call.</div>
+            <div class="tools-used">
+                <span class="tool-pill">🔧 get_pm25</span>
+                <span class="tool-pill">🔧 get_temp</span>
+                <span class="tool-pill">🔧 get_humd</span>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 1.1 — Single Reading</div>
+                <div class="prompt-box" onclick="copy(this)">What is the current PM2.5 level from the AirOwl sensor? Is
+                    it safe to breathe right now?</div>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 1.2 — Multi-Parameter</div>
+                <div class="prompt-box" onclick="copy(this)">Fetch the current temperature, humidity, and PM2.5 from the
+                    AirOwl. Give me a quick summary of the indoor environment quality.</div>
+            </div>
+            <div class="try-this">
+                <div class="try-this-icon"><i data-lucide="eye"></i></div>
+                <div class="try-this-content">
+                    <h4>👀 Watch For:</h4>
+                    <p>Notice in the AI's response how it calls <code>get_pm25()</code>, <code>get_temp()</code>, etc.
+                        The LLM <em>decided</em> which tools to call based on your question. That's the magic of MCP.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <h3>Level 3: Debugging Mode</h3>
-        <p><strong>Goal:</strong> Identify sensor fault.</p>
-        <div class="prompt-box" onclick="copy(this)">The sensor reports PM2.5 = 0 and Humidity = 0. Is this physically
-            possible, or is the wire loose?</div>
+        <!-- Level 2 -->
+        <div class="level-card">
+            <div class="level-header">
+                <div class="level-badge">2</div>
+                <div class="level-title">
+                    <h4>Health Advisory</h4>
+                    <span class="skill-tag beginner">Beginner</span>
+                </div>
+            </div>
+            <div class="level-goal"><strong>🎯 Goal:</strong> Make the AI <em>interpret</em> the data against health
+                standards. This is AI reasoning over IoT data.</div>
+            <div class="tools-used">
+                <span class="tool-pill">🔧 get_pm25</span>
+                <span class="tool-pill">🔧 get_co2</span>
+                <span class="tool-pill">🔧 get_tvoc</span>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 2.1 — School Safety</div>
+                <div class="prompt-box" onclick="copy(this)">Read the PM2.5 and CO₂ levels from AirOwl. Based on the WHO
+                    and Indian NAQI standards, is it safe for children to play outside right now? If not, what specific
+                    precautions should the school take?</div>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 2.2 — Classroom Ventilation</div>
+                <div class="prompt-box" onclick="copy(this)">Check the CO₂ and TVOC levels. If CO₂ is above 1000 ppm,
+                    recommend how many windows the classroom should open. Factor in the current outdoor PM2.5 — if
+                    that's also high, suggest an alternative solution.</div>
+            </div>
+            <div class="info-box tip">
+                <i data-lucide="lightbulb" class="icon"></i>
+                <p><strong>Learning:</strong> The AI doesn't just return a number — it cross-references with health
+                    guidelines, considers trade-offs (ventilation vs. outdoor pollution), and gives actionable advice.
+                    That's the power of LLM reasoning on real data.</p>
+            </div>
+        </div>
 
-        <h3>Level 4: Data Logging</h3>
-        <p><strong>Goal:</strong> Create a report.</p>
-        <div class="prompt-box" onclick="copy(this)">Based on the last 5 readings (all above 100), write an incident
-            report for the City Council complaining about the nearby factory pollution.</div>
+        <!-- Level 3 -->
+        <div class="level-card">
+            <div class="level-header">
+                <div class="level-badge">3</div>
+                <div class="level-title">
+                    <h4>Screen Control — AI Meets Hardware</h4>
+                    <span class="skill-tag intermediate">Intermediate</span>
+                </div>
+            </div>
+            <div class="level-goal"><strong>🎯 Goal:</strong> Command the AI to change the AirOwl's physical display.
+                This is the AI <em>controlling</em> a device, not just reading from it.</div>
+            <div class="tools-used">
+                <span class="tool-pill">🔧 change_screen</span>
+                <span class="tool-pill">🔧 get_pm25</span>
+                <span class="tool-pill">🔧 get_co2</span>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 3.1 — Simple Display Change</div>
+                <div class="prompt-box" onclick="copy(this)">Switch the AirOwl screen to show the PM2.5 graph so
+                    visitors in the lobby can see it.</div>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 3.2 — Intelligent Display</div>
+                <div class="prompt-box" onclick="copy(this)">Check all air quality parameters. Whichever one is
+                    currently the most concerning (highest relative to its safety threshold), switch the AirOwl screen
+                    to display that parameter's graph.</div>
+            </div>
+            <div class="try-this">
+                <div class="try-this-icon"><i data-lucide="monitor"></i></div>
+                <div class="try-this-content">
+                    <h4>🖥️ Look at the Device!</h4>
+                    <p>After running Prompt 3.2, look at the AirOwl screen on your desk. The AI just decided
+                        <em>which</em> graph matters most and changed the display. You controlled hardware with a
+                        conversation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 4 -->
+        <div class="level-card">
+            <div class="level-header">
+                <div class="level-badge">4</div>
+                <div class="level-title">
+                    <h4>Trend Analysis — Historical Reasoning</h4>
+                    <span class="skill-tag intermediate">Intermediate</span>
+                </div>
+            </div>
+            <div class="level-goal"><strong>🎯 Goal:</strong> Use historical data to identify patterns, anomalies, and
+                trends. This is where AI stops being a dashboard and becomes an analyst.</div>
+            <div class="tools-used">
+                <span class="tool-pill">🔧 get_historical_pm25</span>
+                <span class="tool-pill">🔧 get_historical_co2</span>
+                <span class="tool-pill">🔧 change_screen</span>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 4.1 — Trend Detection</div>
+                <div class="prompt-box" onclick="copy(this)">Pull the historical PM2.5 data. Has air quality been
+                    getting better or worse over time? Identify any spikes and suggest what might have caused them
+                    (traffic, construction, weather).</div>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 4.2 — Anomaly Hunting</div>
+                <div class="prompt-box" onclick="copy(this)">Get the historical CO₂ data. Are there any sudden spikes?
+                    If so, what time did they occur and what could explain them? Then show the CO₂ graph on the AirOwl
+                    screen.</div>
+            </div>
+            <div class="info-box success">
+                <i data-lucide="check-circle" class="icon"></i>
+                <p><strong>Notice:</strong> The AI is now multi-stepping — first fetching historical data, then
+                    analyzing patterns, then controlling the screen. A single prompt triggered 3 tool calls. This is
+                    <strong>agentic behavior</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Level 5 -->
+        <div class="level-card">
+            <div class="level-header">
+                <div class="level-badge">5</div>
+                <div class="level-title">
+                    <h4>Report Generation — AI as Your Analyst</h4>
+                    <span class="skill-tag advanced">Advanced</span>
+                </div>
+            </div>
+            <div class="level-goal"><strong>🎯 Goal:</strong> Make the AI combine live + historical data into a
+                professional document. This is AI doing real work.</div>
+            <div class="tools-used">
+                <span class="tool-pill">🔧 get_pm25</span>
+                <span class="tool-pill">🔧 get_pm10</span>
+                <span class="tool-pill">🔧 get_co2</span>
+                <span class="tool-pill">🔧 get_tvoc</span>
+                <span class="tool-pill">🔧 get_temp</span>
+                <span class="tool-pill">🔧 get_humd</span>
+                <span class="tool-pill">🔧 get_historical_pm25</span>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 5.1 — Formal Safety Report</div>
+                <div class="prompt-box" onclick="copy(this)">You are an environmental safety officer. Fetch ALL current
+                    air quality readings (PM2.5, PM10, CO₂, TVOC, Temperature, Humidity) and the historical PM2.5 trend.
+                    Generate a formal "Daily Air Quality Report" for the school principal with: 1) Current status
+                    summary 2) Risk level (Green/Yellow/Red) 3) Trend analysis 4) Specific recommendations for today.
+                </div>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 5.2 — Complaint Letter</div>
+                <div class="prompt-box" onclick="copy(this)">The PM2.5 has been consistently high. Pull the historical
+                    PM2.5 data as evidence, then draft a formal complaint letter to the Municipal Corporation about
+                    nearby construction dust affecting our school's air quality. Include the actual data readings as
+                    evidence.</div>
+            </div>
+        </div>
+
+        <!-- Level 6 -->
+        <div class="level-card">
+            <div class="level-header">
+                <div class="level-badge">6</div>
+                <div class="level-title">
+                    <h4>Full Agent Mode — Sensor Diagnostics</h4>
+                    <span class="skill-tag expert">Expert</span>
+                </div>
+            </div>
+            <div class="level-goal"><strong>🎯 Goal:</strong> Make the AI reason about sensor health, detect faults, and
+                troubleshoot like an engineer.</div>
+            <div class="tools-used">
+                <span class="tool-pill">🔧 All Tools</span>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 6.1 — Sensor Health Check</div>
+                <div class="prompt-box" onclick="copy(this)">Run a full diagnostic on the AirOwl sensor. Fetch every
+                    available parameter. Check if any readings are physically impossible (e.g., negative values,
+                    humidity > 100%, PM2.5 = 0 with PM10 > 200). Report the sensor's health status and flag any
+                    anomalies that suggest a hardware issue.</div>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-label">Prompt 6.2 — Smart Dashboard</div>
+                <div class="prompt-box" onclick="copy(this)">Act as a smart monitoring system. Check all current
+                    readings, then check historical trends. Based on your analysis: 1) Identify the most critical
+                    parameter right now 2) Switch the AirOwl screen to show that parameter 3) Explain why you chose it
+                    4) Set a "risk score" from 1-10 for the overall environment.</div>
+            </div>
+            <div class="try-this">
+                <div class="try-this-icon"><i data-lucide="rocket"></i></div>
+                <div class="try-this-content">
+                    <h4>🚀 Full Autonomy</h4>
+                    <p>Prompt 6.2 is a fully autonomous AI agent: it reads, analyzes, decides, and acts — all from a
+                        single prompt. Count how many tool calls it makes!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== PART 6: BONUS CHALLENGES ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 6</span>
+            <h2>Bonus Challenges</h2>
+        </div>
+
+        <div class="challenge-banner">
+            <div class="challenge-icon">🏆</div>
+            <div class="challenge-content">
+                <h4>Think You've Mastered It? Try These.</h4>
+                <p>These open-ended challenges push your prompt engineering skills further. No right answers — just
+                    creative problem-solving.</p>
+            </div>
+        </div>
+
+        <div class="prompt-section">
+            <div class="prompt-label">Challenge A — The Comparator</div>
+            <div class="prompt-box" onclick="copy(this)">Compare the current PM2.5 with the historical average. Is today
+                better or worse than usual? By what percentage? Present this as a headline a news anchor would read.
+            </div>
+        </div>
+
+        <div class="prompt-section">
+            <div class="prompt-label">Challenge B — The Correlator</div>
+            <div class="prompt-box" onclick="copy(this)">Fetch historical PM2.5 and CO₂ data. Do these two parameters
+                correlate (rise and fall together)? If yes, what does that tell us about the pollution source — is it
+                combustion (traffic/industry) or dust?</div>
+        </div>
+
+        <div class="prompt-section">
+            <div class="prompt-label">Challenge C — The Storyteller</div>
+            <div class="prompt-box" onclick="copy(this)">You are a journalist writing a story about air pollution in
+                Indian schools. Use ALL the AirOwl data — live and historical — to write a 200-word news article.
+                Include real numbers from the sensor. End with a call to action.</div>
+        </div>
+
+        <!-- ====== PART 7: WHAT YOU LEARNED ====== -->
+        <div class="part-header">
+            <span class="part-number">PART 7</span>
+            <h2>What You Built Today</h2>
+        </div>
+
+        <ul class="learnings-list">
+            <li>
+                <div class="check-icon">✓</div>
+                <div><strong>MCP Architecture:</strong> You learned how the Model Context Protocol connects LLMs to
+                    external tools and real-world devices.</div>
+            </li>
+            <li>
+                <div class="check-icon">✓</div>
+                <div><strong>IoT + AI Integration:</strong> You connected a physical air quality sensor to an AI agent
+                    and had conversations about real environmental data.</div>
+            </li>
+            <li>
+                <div class="check-icon">✓</div>
+                <div><strong>Prompt Engineering for Tools:</strong> You crafted prompts that trigger specific tool calls
+                    — asking the right question to get the right data.</div>
+            </li>
+            <li>
+                <div class="check-icon">✓</div>
+                <div><strong>AI-Controlled Hardware:</strong> You commanded an AI to change a physical device's screen —
+                    the AI acted on the real world.</div>
+            </li>
+            <li>
+                <div class="check-icon">✓</div>
+                <div><strong>Agentic Behavior:</strong> You witnessed multi-step reasoning: the AI fetching data,
+                    analyzing it, and taking action — all autonomously from a single prompt.</div>
+            </li>
+            <li>
+                <div class="check-icon">✓</div>
+                <div><strong>Real-World AI Applications:</strong> You generated reports, detected anomalies, and made
+                    health decisions using AI + live sensor data.</div>
+            </li>
+        </ul>
+
+        <h3>Where This Goes Next</h3>
+        <div class="use-cases-grid">
+            <div class="use-case-card">
+                <div class="use-case-icon">🏭</div>
+                <h4>Smart Factories</h4>
+                <p>AI monitoring machine health & emissions</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏥</div>
+                <h4>Hospital Rooms</h4>
+                <p>AI tracking air quality for patient safety</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🌾</div>
+                <h4>Smart Agriculture</h4>
+                <p>AI reasoning over soil & weather sensors</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏙️</div>
+                <h4>Smart Cities</h4>
+                <p>City-wide pollution monitoring with AI</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🏫</div>
+                <h4>Smart Schools</h4>
+                <p>Automated ventilation & safety alerts</p>
+            </div>
+            <div class="use-case-card">
+                <div class="use-case-icon">🚗</div>
+                <h4>Traffic Systems</h4>
+                <p>AI managing signals based on air quality</p>
+            </div>
+        </div>
+
+        <div class="info-box success">
+            <i data-lucide="award" class="icon"></i>
+            <p><strong>Congratulations!</strong> You've completed the capstone session. You now understand how to
+                connect AI to the physical world — a skill that powers the next generation of intelligent systems. The
+                future isn't just AI that thinks. It's AI that <em>senses, reasons, and acts</em>.</p>
+        </div>
 
         <footer>
-            AI PC Workshop Series • Session 6
+            India AI Summit Workshop Series • Session 6 — IoT + AI: Connecting LLMs to the Physical World
         </footer>
     </div>
 
@@ -321,10 +1549,10 @@
             navigator.clipboard.writeText(el.innerText);
             const original = el.style.borderColor;
             el.style.borderColor = '#22C55E';
-            el.style.backgroundColor = '#CCFBF1';
+            el.style.background = '#D1FAE5';
             setTimeout(() => {
                 el.style.borderColor = original;
-                el.style.backgroundColor = '';
+                el.style.background = '';
             }, 500);
         }
     </script>
