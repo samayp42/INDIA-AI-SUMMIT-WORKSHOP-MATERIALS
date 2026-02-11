@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session 1 | Local RAG & AI Playground</title>
+    <title>Session 1 | Local RAG & AI PC Immersion Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -60,7 +60,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             padding: 8px 16px;
             border-radius: 100px;
             font-size: 0.8rem;
@@ -406,9 +406,11 @@
             .model-grid {
                 grid-template-columns: 1fr;
             }
+
             .rag-pipeline {
                 flex-direction: column;
             }
+
             .rag-arrow {
                 transform: rotate(90deg);
             }
@@ -484,8 +486,8 @@
                 <i data-lucide="book-open" style="width:14px;height:14px;"></i>
                 Session 1 Guide
             </div>
-            <h1>Local RAG & AI Playground</h1>
-            <p>Master private document analysis using Intel AI Playground. Zero cloud. 100% privacy.</p>
+            <h1>Local RAG & AI PC Immersion Lab</h1>
+            <p>Master private document analysis using AI PC Immersion Lab. Zero cloud. 100% privacy.</p>
         </div>
 
         <!-- SECTION 1: Key Concepts -->
@@ -495,23 +497,30 @@
             <div class="concept-icon"><i data-lucide="cloud-off"></i></div>
             <div>
                 <h4>The Privacy Problem</h4>
-                <p>Cloud AI (ChatGPT, Gemini) sends your data to remote servers where it's stored and potentially used for training. For confidential documents—government files, medical records, legal contracts—this is unacceptable.</p>
+                <p>Cloud AI (ChatGPT, Gemini) sends your data to remote servers where it's stored and potentially used
+                    for training. For confidential documents—government files, medical records, legal contracts—this is
+                    unacceptable.</p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon" style="background:var(--success-light);color:var(--success);"><i data-lucide="laptop"></i></div>
+            <div class="concept-icon" style="background:var(--success-light);color:var(--success);"><i
+                    data-lucide="laptop"></i></div>
             <div>
                 <h4>The Solution: Local AI</h4>
-                <p>Run powerful AI models directly on your laptop. <strong>Zero internet required. Zero data leakage.</strong> Your documents never leave your device.</p>
+                <p>Run powerful AI models directly on your laptop. <strong>Zero internet required. Zero data
+                        leakage.</strong> Your documents never leave your device.</p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon" style="background:var(--purple-light);color:var(--purple);"><i data-lucide="file-search"></i></div>
+            <div class="concept-icon" style="background:var(--purple-light);color:var(--purple);"><i
+                    data-lucide="file-search"></i></div>
             <div>
                 <h4>What is RAG?</h4>
-                <p><strong>Retrieval-Augmented Generation</strong> — Instead of AI making up answers, RAG forces it to read YOUR document first, then answer based only on that content. Like an open-book exam. No hallucinations.</p>
+                <p><strong>Retrieval-Augmented Generation</strong> — Instead of AI making up answers, RAG forces it to
+                    read YOUR document first, then answer based only on that content. Like an open-book exam. No
+                    hallucinations.</p>
             </div>
         </div>
 
@@ -544,12 +553,13 @@
             </div>
         </div>
 
-        <p style="font-size:0.9rem;text-align:center;color:var(--text-muted);">Your document is split into chunks → converted to vectors → relevant parts retrieved → AI generates grounded answers with citations.</p>
+        <p style="font-size:0.9rem;text-align:center;color:var(--text-muted);">Your document is split into chunks →
+            converted to vectors → relevant parts retrieved → AI generates grounded answers with citations.</p>
 
         <!-- SECTION 2: Model Selection -->
         <h2><i data-lucide="cpu" style="color:var(--primary);"></i> Choosing Your Model</h2>
 
-        <p>AI Playground lets you choose different models based on your hardware. Here's what to know:</p>
+        <p>AI PC Immersion Lab lets you choose different models based on your hardware. Here's what to know:</p>
 
         <div class="model-grid">
             <div class="model-card">
@@ -584,7 +594,9 @@
 
         <div class="scenario-box">
             <h3><i data-lucide="briefcase" style="width:20px;height:20px;"></i> The Mission: ₹500Cr Tender Analysis</h3>
-            <p>You're a <strong>Senior Government Official</strong>. A 500-page confidential Smart City RFP landed on your desk. You have <strong>15 minutes</strong> to extract critical info. You <u>cannot</u> upload it to any cloud service.</p>
+            <p>You're a <strong>Senior Government Official</strong>. A 500-page confidential Smart City RFP landed on
+                your desk. You have <strong>15 minutes</strong> to extract critical info. You <u>cannot</u> upload it to
+                any cloud service.</p>
         </div>
 
         <h3>Step 1: Download Sample Document</h3>
@@ -598,7 +610,7 @@
             <div class="step-num">1</div>
             <div class="step-content">
                 <h4>Open RAG Mode</h4>
-                <p>In AI Playground, click "RAG" or "Chat with Documents" in the sidebar.</p>
+                <p>In AI PC Immersion Lab, click "RAG" or "Chat with Documents" in the sidebar.</p>
             </div>
         </div>
         <div class="step">
@@ -619,29 +631,35 @@
         <h3>Step 3: Query the Document</h3>
 
         <p class="prompt-label">🎯 Executive Summary</p>
-        <div class="prompt-box" onclick="copy(this)">Summarize this tender document. What is the project objective and estimated budget?</div>
+        <div class="prompt-box" onclick="copy(this)">Summarize this tender document. What is the project objective and
+            estimated budget?</div>
 
         <p class="prompt-label">🔧 Technical Requirements</p>
-        <div class="prompt-box" onclick="copy(this)">List all mandatory IoT sensor requirements from the Technical Specifications section. Format as bullet points.</div>
+        <div class="prompt-box" onclick="copy(this)">List all mandatory IoT sensor requirements from the Technical
+            Specifications section. Format as bullet points.</div>
 
         <p class="prompt-label">⚠️ Compliance Check</p>
-        <div class="prompt-box" onclick="copy(this)">Check for 'Data Localization' clauses. Does this tender require all data to be stored within India? Quote the exact text.</div>
+        <div class="prompt-box" onclick="copy(this)">Check for 'Data Localization' clauses. Does this tender require all
+            data to be stored within India? Quote the exact text.</div>
 
         <p class="prompt-label">💰 Financial Risk</p>
-        <div class="prompt-box" onclick="copy(this)">What are the penalty clauses for project delays exceeding 90 days? Is there a force majeure clause?</div>
+        <div class="prompt-box" onclick="copy(this)">What are the penalty clauses for project delays exceeding 90 days?
+            Is there a force majeure clause?</div>
 
         <div class="info-box success">
             <i data-lucide="check-circle" style="flex-shrink:0;"></i>
             <div>
                 <strong>Verify Citations!</strong>
-                The AI should cite page numbers like [Page 12]. Always click to verify the source text yourself—this catches any hallucinations.
+                The AI should cite page numbers like [Page 12]. Always click to verify the source text yourself—this
+                catches any hallucinations.
             </div>
         </div>
 
         <!-- SECTION 4: Other Applications -->
         <h2><i data-lucide="layers" style="color:var(--primary);"></i> Beyond Tenders: Other Applications</h2>
 
-        <p>The same RAG technique works for <strong>any confidential document analysis</strong>. Here are sectors where local RAG is invaluable:</p>
+        <p>The same RAG technique works for <strong>any confidential document analysis</strong>. Here are sectors where
+            local RAG is invaluable:</p>
 
         <div class="applications-grid">
             <div class="app-card">
@@ -674,7 +692,9 @@
             <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
             <div>
                 <strong>Pro Tip: Customize Your Prompts</strong>
-                Adapt the same prompt patterns for any domain. For legal: "Find liability clauses." For medical: "List contraindications." For finance: "Extract key ratios." The technique remains the same—only the questions change.
+                Adapt the same prompt patterns for any domain. For legal: "Find liability clauses." For medical: "List
+                contraindications." For finance: "Extract key ratios." The technique remains the same—only the questions
+                change.
             </div>
         </div>
 
@@ -697,7 +717,7 @@
 
         <footer>
             <strong>India AI Summit Workshop</strong><br>
-            Session 1: Local RAG & AI Playground
+            Session 1: Local RAG & AI PC Immersion Lab
         </footer>
 
     </div>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Troubleshooting AI Playground</title>
+    <title>Troubleshooting AI PC Immersion Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -164,12 +164,13 @@
     </nav>
 
     <h1>🚨 Setup Troubleshooter</h1>
-    <p class="lead">Fixes for common issues with Intel AI Playground, 7zr.exe, and missing models.</p>
+    <p class="lead">Fixes for common issues with AI PC Immersion Lab, 7zr.exe, and missing models.</p>
 
     <!-- ISSUE 1: The 7zr.exe / Extraction Problem -->
     <div class="issue-card">
         <h2><span class="tag">Error 1</span> Installation fails with "7zr.exe not found"</h2>
-        <p><strong>The Symptom:</strong> You try to install AI Playground or download a model, and it fails immediately
+        <p><strong>The Symptom:</strong> You try to install AI PC Immersion Lab or download a model, and it fails
+            immediately
             with an error about 7zip or archiving.</p>
         <div class="solution">
             <h3>✅ The Fix: Manual 7-Zip Setup</h3>
@@ -179,14 +180,14 @@
                 <code>7zr.exe</code>.
             </div>
             <div class="step">3. Rename it to exactly <code>7zr.exe</code> if it isn't already.</div>
-            <div class="step">4. Copy this file into the AI Playground installation folder. Usually:
+            <div class="step">4. Copy this file into the AI PC Immersion Lab installation folder. Usually:
                 <br><code>C:\Users\[YourName]\AppData\Local\Intel\AI-Playground\resources\app\bin\</code> <br><em>(Note:
                     You might need to hunt for the `bin` folder inside the installation path).</em>
             </div>
             <div class="step">5. <strong>Alternative:</strong> Add the folder containing `7zr.exe` to your System PATH
                 environment variable.</div>
             <div class="important">
-                👉 <strong>Restart AI Playground</strong> completely after doing this.
+                👉 <strong>Restart AI PC Immersion Lab</strong> completely after doing this.
             </div>
         </div>
     </div>
@@ -198,7 +199,7 @@
             again.</p>
         <div class="solution">
             <h3>✅ The Fix: Check Paths & Files</h3>
-            <div class="step">1. Open AI Playground -> <strong>Settings (Gear Icon)</strong>.</div>
+            <div class="step">1. Open AI PC Immersion Lab -> <strong>Settings (Gear Icon)</strong>.</div>
             <div class="step">2. Look for "Model Path". It usually defaults to:
                 <br><code>C:\Users\[YourName]\AI-Playground\models</code>
             </div>
@@ -234,7 +235,7 @@
     <!-- ISSUE 4: Silent Crashes -->
     <div class="issue-card">
         <h2><span class="tag">Error 4</span> App Closes Immediately</h2>
-        <p><strong>The Symptom:</strong> You open AI Playground or Ollama and it just disappears.</p>
+        <p><strong>The Symptom:</strong> You open AI PC Immersion Lab or Ollama and it just disappears.</p>
         <div class="solution">
             <h3>✅ The Fix: Visual C++ Redistributable</h3>
             <div class="step">1. You are likely missing the C++ runtimes.</div>

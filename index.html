@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI PC Playground | India AI Impact Summit 2026</title>
-    <meta name="description" content="6-session hands-on AI PC Playground. Local AI, zero cloud, absolute privacy.">
+    <title>AI PC Immersion Lab | India AI Impact Summit 2026</title>
+    <meta name="description" content="6-session hands-on AI PC Immersion Lab. Local AI, zero cloud, absolute privacy.">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -13,17 +13,17 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ai-pc-playground.com/">
-    <meta property="og:title" content="AI PC Playground | India AI Impact Summit 2026">
+    <meta property="og:title" content="AI PC Immersion Lab | India AI Impact Summit 2026">
     <meta property="og:description"
-        content="6-session hands-on AI PC Playground. Local AI, zero cloud, absolute privacy.">
+        content="6-session hands-on AI PC Immersion Lab. Local AI, zero cloud, absolute privacy.">
     <meta property="og:image" content="assets/preview.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://ai-pc-playground.com/">
-    <meta property="twitter:title" content="AI PC Playground | India AI Impact Summit 2026">
+    <meta property="twitter:title" content="AI PC Immersion Lab | India AI Impact Summit 2026">
     <meta property="twitter:description"
-        content="6-session hands-on AI PC Playground. Local AI, zero cloud, absolute privacy.">
+        content="6-session hands-on AI PC Immersion Lab. Local AI, zero cloud, absolute privacy.">
     <meta property="twitter:image" content="assets/preview.png">
     <style>
         /* ═══════════════════════════════════════════
@@ -348,60 +348,69 @@
             width: 0.3em;
         }
 
-        /* "Playground." — each letter gets a unique color */
+        /* "Immersion Lab." — each letter gets a unique color */
         .title-gradient .char {
             -webkit-text-fill-color: transparent;
             background-clip: text;
             -webkit-background-clip: text;
         }
 
+        /* "Immersion Lab." — I(1) m(2) m(3) e(4) r(5) s(6) i(7) o(8) n(9) [space=10] L(11) a(12) b(13) .(14) */
         .title-gradient .char:nth-child(1) {
             background-image: linear-gradient(135deg, #2563EB, #3B82F6);
         }
 
         .title-gradient .char:nth-child(2) {
-            background-image: linear-gradient(135deg, #4F46E5, #6366F1);
+            background-image: linear-gradient(135deg, #3B5FE5, #4F6EF1);
         }
 
         .title-gradient .char:nth-child(3) {
-            background-image: linear-gradient(135deg, #7C3AED, #8B5CF6);
+            background-image: linear-gradient(135deg, #4F46E5, #6366F1);
         }
 
         .title-gradient .char:nth-child(4) {
-            background-image: linear-gradient(135deg, #9333EA, #A855F7);
+            background-image: linear-gradient(135deg, #6D3AED, #7C5CF6);
         }
 
         .title-gradient .char:nth-child(5) {
-            background-image: linear-gradient(135deg, #A855F7, #C084FC);
+            background-image: linear-gradient(135deg, #7C3AED, #8B5CF6);
         }
 
         .title-gradient .char:nth-child(6) {
-            background-image: linear-gradient(135deg, #C026D3, #D946EF);
+            background-image: linear-gradient(135deg, #9333EA, #A855F7);
         }
 
         .title-gradient .char:nth-child(7) {
-            background-image: linear-gradient(135deg, #DB2777, #EC4899);
+            background-image: linear-gradient(135deg, #A855F7, #C084FC);
         }
 
         .title-gradient .char:nth-child(8) {
-            background-image: linear-gradient(135deg, #E11D48, #F43F5E);
+            background-image: linear-gradient(135deg, #C026D3, #D946EF);
         }
 
         .title-gradient .char:nth-child(9) {
+            background-image: linear-gradient(135deg, #DB2777, #EC4899);
+        }
+
+        /* nth-child(10) is the space span — skipped */
+
+        .title-gradient .char:nth-child(11) {
+            background-image: linear-gradient(135deg, #E11D48, #F43F5E);
+        }
+
+        .title-gradient .char:nth-child(12) {
             background-image: linear-gradient(135deg, #DC2626, #EF4444);
         }
 
-        .title-gradient .char:nth-child(10) {
+        .title-gradient .char:nth-child(13) {
             background-image: linear-gradient(135deg, #EA580C, #F97316);
         }
 
-        .title-gradient .char:nth-child(11) {
+        .title-gradient .char:nth-child(14) {
             background-image: linear-gradient(135deg, #D97706, #F59E0B);
         }
 
-        /* period */
-
-        /* continuous wave hover on Playground */
+        /* continuous wave hover on Immersion Lab */
         .title-gradient .char {
             animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
                 letterWave 3s ease-in-out infinite;
@@ -1323,7 +1332,7 @@
 
         <!-- ═══════════════ FOOTER ═══════════════ -->
         <footer class="site-footer">
-            <p>Powered by <a href="https://github.com/intel/AI-Playground" target="_blank">AI PC Playground</a> •
+            <p>Powered by <a href="https://github.com/intel/AI-Playground" target="_blank">AI PC Immersion Lab</a> •
                 India AI Impact Summit 2026</p>
             <p style="margin-top:6px; opacity:0.6;">All AI processing runs 100% locally on AI PCs. Zero data
                 leaves your device.</p>
@@ -1341,7 +1350,7 @@
             const titleEl = document.getElementById('hero-title');
             const lines = [
                 { text: 'AI PC', className: '' },
-                { text: 'Playground.', className: 'title-gradient' },
+                { text: 'Immersion Lab.', className: 'title-gradient' },
             ];
 
             let globalCharIndex = 0;
