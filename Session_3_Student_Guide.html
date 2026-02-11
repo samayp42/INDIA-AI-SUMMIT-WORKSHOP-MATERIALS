@@ -11,9 +11,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #387ED1;
-            --primary-light: #EBF4FF;
-            --primary-dark: #2563EB;
+            --primary: #0068B5;
+            --primary-light: #E8F4FC;
+            --primary-dark: #005A9E;
             --zerodha: #387ED1;
             --zerodha-light: #EBF4FF;
             --green: #10B981;
@@ -52,7 +52,7 @@
 
         /* Header */
         .guide-header {
-            background: linear-gradient(135deg, #387ED1 0%, #1E40AF 100%);
+            background: linear-gradient(135deg, #0068B5 0%, #00C7FD 100%);
             color: white;
             padding: 40px;
             border-radius: 20px;
@@ -68,7 +68,7 @@
             right: -20%;
             width: 400px;
             height: 400px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
         }
 
@@ -76,7 +76,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             padding: 8px 16px;
             border-radius: 100px;
             font-size: 0.8rem;
@@ -495,6 +495,7 @@
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+
             .usecase-grid {
                 grid-template-columns: 1fr;
             }
@@ -566,6 +567,8 @@
 
         <!-- Header -->
         <div class="guide-header">
+            <img src="assets/intel.svg" alt="Intel"
+                style="display: block; margin-bottom: 20px; height: 32px; filter: brightness(0) invert(1);">
             <div class="badge">
                 <i data-lucide="cpu" style="width:14px;height:14px;"></i>
                 Session 3 Guide
@@ -574,7 +577,8 @@
                 <span class="zerodha-logo">ZERODHA</span>
                 MCP & AI Superbuilder
             </h1>
-            <p>Connect AI to your Zerodha trading account. Get portfolio insights, analyze positions, and explore market data using natural language.</p>
+            <p>Connect AI to your Zerodha trading account. Get portfolio insights, analyze positions, and explore market
+                data using natural language.</p>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════
@@ -589,18 +593,24 @@
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon" style="background:var(--primary-light);color:var(--primary);"><i data-lucide="plug"></i></div>
+            <div class="concept-icon" style="background:var(--primary-light);color:var(--primary);"><i
+                    data-lucide="plug"></i></div>
             <div>
                 <h4>What is MCP?</h4>
-                <p><strong>Model Context Protocol</strong> is a standard way to connect AI models to external tools and data sources. Instead of the AI making things up, MCP lets it fetch <em>real data</em> from your Zerodha account, APIs, databases, and more.</p>
+                <p><strong>Model Context Protocol</strong> is a standard way to connect AI models to external tools and
+                    data sources. Instead of the AI making things up, MCP lets it fetch <em>real data</em> from your
+                    Zerodha account, APIs, databases, and more.</p>
             </div>
         </div>
 
         <div class="concept-card">
-            <div class="concept-icon" style="background:var(--green-light);color:var(--green);"><i data-lucide="shield-check"></i></div>
+            <div class="concept-icon" style="background:var(--green-light);color:var(--green);"><i
+                    data-lucide="shield-check"></i></div>
             <div>
                 <h4>Why Zerodha MCP?</h4>
-                <p>The Zerodha MCP server connects AI Superbuilder directly to your Kite account. Ask questions in plain English and get <strong>real-time data</strong> from your actual portfolio, positions, and market quotes.</p>
+                <p>The Zerodha MCP server connects AI Superbuilder directly to your Kite account. Ask questions in plain
+                    English and get <strong>real-time data</strong> from your actual portfolio, positions, and market
+                    quotes.</p>
             </div>
         </div>
 
@@ -608,7 +618,8 @@
             <i data-lucide="alert-triangle" style="flex-shrink:0;"></i>
             <div>
                 <strong>Important: Read-Only Mode</strong>
-                The Zerodha MCP is configured in <strong>read-only mode</strong> for safety. It can VIEW your portfolio and market data but CANNOT place, modify, or cancel orders. Your funds are completely safe.
+                The Zerodha MCP is configured in <strong>read-only mode</strong> for safety. It can VIEW your portfolio
+                and market data but CANNOT place, modify, or cancel orders. Your funds are completely safe.
             </div>
         </div>
 
@@ -741,7 +752,8 @@
             <i data-lucide="check-circle" style="flex-shrink:0;"></i>
             <div>
                 <strong>Connection Successful!</strong>
-                Once connected, you can ask natural language questions about your portfolio and the AI will automatically call the appropriate Zerodha MCP tools.
+                Once connected, you can ask natural language questions about your portfolio and the AI will
+                automatically call the appropriate Zerodha MCP tools.
             </div>
         </div>
 
@@ -756,28 +768,36 @@
             </div>
         </div>
 
-        <span class="category-label portfolio"><i data-lucide="briefcase" style="width:12px;height:12px;"></i> Holdings</span>
+        <span class="category-label portfolio"><i data-lucide="briefcase" style="width:12px;height:12px;"></i>
+            Holdings</span>
 
         <h3>Query 1: Portfolio Overview</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Show me my complete portfolio holdings. What's my total invested value and current value?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Show me my complete portfolio holdings. What's my total
+            invested value and current value?</div>
 
         <div class="response-preview">
-            The AI will call <code>get_holdings()</code> and display your stocks with buy price, current price, quantity, and P&L for each.
+            The AI will call <code>get_holdings()</code> and display your stocks with buy price, current price,
+            quantity, and P&L for each.
         </div>
 
         <h3>Query 2: Top Performers</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Which stocks in my portfolio have given me the best returns? Show top 5 by percentage gain.</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Which stocks in my portfolio have given me the best returns?
+            Show top 5 by percentage gain.</div>
 
         <h3>Query 3: Loss-Making Stocks</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">List all stocks in my portfolio that are currently in loss. What's the total unrealized loss?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">List all stocks in my portfolio that are currently in loss.
+            What's the total unrealized loss?</div>
 
-        <span class="category-label orders"><i data-lucide="trending-up" style="width:12px;height:12px;"></i> Positions</span>
+        <span class="category-label orders"><i data-lucide="trending-up" style="width:12px;height:12px;"></i>
+            Positions</span>
 
         <h3>Query 4: Intraday Positions</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Show my current intraday positions. Am I in profit or loss today?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Show my current intraday positions. Am I in profit or loss
+            today?</div>
 
         <h3>Query 5: Sector Exposure</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio by sector. Which sector has the highest allocation?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio by sector. Which sector has the highest
+            allocation?</div>
 
         <!-- ═══════════════════════════════════════════════════════════
              PART 5: MARKET DATA QUERIES
@@ -790,24 +810,31 @@
             </div>
         </div>
 
-        <span class="category-label market"><i data-lucide="activity" style="width:12px;height:12px;"></i> Live Quotes</span>
+        <span class="category-label market"><i data-lucide="activity" style="width:12px;height:12px;"></i> Live
+            Quotes</span>
 
         <h3>Query 6: Single Stock Quote</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">What is the current price of Reliance Industries? Show me the day's high, low, and volume.</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">What is the current price of Reliance Industries? Show me the
+            day's high, low, and volume.</div>
 
         <h3>Query 7: Multiple Stocks Comparison</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Compare the current prices of TCS, Infosys, and Wipro. Which IT stock is performing best today?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Compare the current prices of TCS, Infosys, and Wipro. Which
+            IT stock is performing best today?</div>
 
         <h3>Query 8: Index Status</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">What's the current Nifty 50 level? Is it up or down from yesterday's close?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">What's the current Nifty 50 level? Is it up or down from
+            yesterday's close?</div>
 
-        <span class="category-label analysis"><i data-lucide="bar-chart-3" style="width:12px;height:12px;"></i> Historical Analysis</span>
+        <span class="category-label analysis"><i data-lucide="bar-chart-3" style="width:12px;height:12px;"></i>
+            Historical Analysis</span>
 
         <h3>Query 9: Price History</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Get the last 30 days price data for HDFC Bank. What was the highest and lowest price in this period?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Get the last 30 days price data for HDFC Bank. What was the
+            highest and lowest price in this period?</div>
 
         <h3>Query 10: Trend Analysis</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Analyze the 1-month trend for Tata Motors. Is it in an uptrend or downtrend? Calculate the percentage change.</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Analyze the 1-month trend for Tata Motors. Is it in an
+            uptrend or downtrend? Calculate the percentage change.</div>
 
         <!-- ═══════════════════════════════════════════════════════════
              PART 6: ADVANCED ANALYSIS
@@ -824,24 +851,30 @@
             <i data-lucide="sparkles" style="flex-shrink:0;"></i>
             <div>
                 <strong>Multi-Tool Queries</strong>
-                These queries require the AI to call multiple MCP tools and combine the results. Watch the "Thought Chain" to see how the AI reasons through each step.
+                These queries require the AI to call multiple MCP tools and combine the results. Watch the "Thought
+                Chain" to see how the AI reasons through each step.
             </div>
         </div>
 
         <h3>Query 11: Portfolio vs Market</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Compare my portfolio's performance against Nifty 50 today. Am I beating the market or underperforming?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Compare my portfolio's performance against Nifty 50 today. Am
+            I beating the market or underperforming?</div>
 
         <h3>Query 12: Concentration Risk</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio concentration. Is any single stock more than 20% of my total portfolio? What's the risk?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio concentration. Is any single stock more
+            than 20% of my total portfolio? What's the risk?</div>
 
         <h3>Query 13: Margin Utilization</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Check my available margin. How much more can I invest today? What percentage of my margin is already used?</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Check my available margin. How much more can I invest today?
+            What percentage of my margin is already used?</div>
 
         <h3>Query 14: P&L Summary</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Give me a complete P&L summary: total invested, current value, absolute profit/loss, and percentage return. Also show today's gain/loss separately.</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Give me a complete P&L summary: total invested, current
+            value, absolute profit/loss, and percentage return. Also show today's gain/loss separately.</div>
 
         <h3>Query 15: Investment Suggestion</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Based on my current holdings and available margin, which sectors am I underexposed to? Suggest areas to diversify.</div>
+        <div class="prompt-box" onclick="copyPrompt(this)">Based on my current holdings and available margin, which
+            sectors am I underexposed to? Suggest areas to diversify.</div>
 
         <!-- ═══════════════════════════════════════════════════════════
              PART 7: USE CASES
@@ -856,8 +889,10 @@
 
         <div class="usecase-grid">
             <div class="usecase-card">
-                <h5><i data-lucide="sunrise" style="width:18px;height:18px;color:var(--orange);"></i> Morning Review</h5>
-                <p>"Give me a quick morning briefing: How did my portfolio stocks open? Any significant gaps up or down?"</p>
+                <h5><i data-lucide="sunrise" style="width:18px;height:18px;color:var(--orange);"></i> Morning Review
+                </h5>
+                <p>"Give me a quick morning briefing: How did my portfolio stocks open? Any significant gaps up or
+                    down?"</p>
             </div>
 
             <div class="usecase-card">
@@ -871,7 +906,8 @@
             </div>
 
             <div class="usecase-card">
-                <h5><i data-lucide="pie-chart" style="width:18px;height:18px;color:var(--primary);"></i> Rebalancing</h5>
+                <h5><i data-lucide="pie-chart" style="width:18px;height:18px;color:var(--primary);"></i> Rebalancing
+                </h5>
                 <p>"My portfolio seems heavy on banking stocks. Show me the allocation breakdown."</p>
             </div>
         </div>
@@ -895,7 +931,9 @@
             <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
             <div>
                 <strong>Pro Tip: Watch the Thought Chain</strong>
-                Enable "Show Thought Process" in AI Superbuilder settings to see exactly which MCP tools the AI calls and how it reasons through your query. This helps you understand the capabilities and craft better prompts.
+                Enable "Show Thought Process" in AI Superbuilder settings to see exactly which MCP tools the AI calls
+                and how it reasons through your query. This helps you understand the capabilities and craft better
+                prompts.
             </div>
         </div>
 

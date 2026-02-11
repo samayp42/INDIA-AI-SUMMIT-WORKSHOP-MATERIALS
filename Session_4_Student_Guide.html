@@ -10,11 +10,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #06B6D4;
-            --primary-dark: #0891B2;
-            --primary-light: #ECFEFF;
-            --accent: #8B5CF6;
-            --accent-light: #EDE9FE;
+            --primary: #0068B5;
+            --primary-dark: #005A9E;
+            --primary-light: #E8F4FC;
+            --accent: #00C7FD;
+            --accent-light: #E0F7FF;
             --bg: #FAFCFF;
             --text-main: #164E63;
             --text-sub: #334155;
@@ -91,7 +91,7 @@
         }
 
         .part-number {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.8rem;
@@ -507,6 +507,7 @@
         </a>
     </nav>
     <div class="container">
+        <img src="assets/intel.svg" alt="Intel" style="display: block; margin-bottom: 20px; height: 32px;">
         <div class="header-badge">
             <i data-lucide="palette"></i> SESSION 4 - STUDENT GUIDE
         </div>
@@ -520,28 +521,33 @@
             <h2>Understanding AI Editing</h2>
         </div>
 
-        <p>OpenVINO brings AI-powered editing directly into GIMP, enabling professional-grade photo manipulation that was previously only possible with expensive cloud services.</p>
+        <p>OpenVINO brings AI-powered editing directly into GIMP, enabling professional-grade photo manipulation that
+            was previously only possible with expensive cloud services.</p>
 
         <div class="concepts-grid">
             <div class="concept-card">
                 <div class="concept-icon"><i data-lucide="eraser"></i></div>
                 <h4>Inpainting</h4>
-                <p>AI "fills the hole" - select an area, and AI generates matching content using surrounding context. Perfect for removing unwanted objects.</p>
+                <p>AI "fills the hole" - select an area, and AI generates matching content using surrounding context.
+                    Perfect for removing unwanted objects.</p>
             </div>
             <div class="concept-card">
                 <div class="concept-icon"><i data-lucide="sparkles"></i></div>
                 <h4>Generative Fill</h4>
-                <p>Add new elements to your image. Select an area and describe what you want - AI creates it seamlessly matching lighting and style.</p>
+                <p>Add new elements to your image. Select an area and describe what you want - AI creates it seamlessly
+                    matching lighting and style.</p>
             </div>
             <div class="concept-card">
                 <div class="concept-icon"><i data-lucide="maximize-2"></i></div>
                 <h4>Super Resolution</h4>
-                <p>Upscale images by 4x while adding realistic detail. AI generates textures, sharpness, and clarity that simple resizing cannot.</p>
+                <p>Upscale images by 4x while adding realistic detail. AI generates textures, sharpness, and clarity
+                    that simple resizing cannot.</p>
             </div>
             <div class="concept-card">
                 <div class="concept-icon"><i data-lucide="cpu"></i></div>
                 <h4>OpenVINO Acceleration</h4>
-                <p>All processing happens locally on your Intel hardware (CPU/GPU/NPU) - no internet needed, complete privacy.</p>
+                <p>All processing happens locally on your Intel hardware (CPU/GPU/NPU) - no internet needed, complete
+                    privacy.</p>
             </div>
         </div>
 
@@ -582,8 +588,9 @@
                 <div class="step-content">
                     <h4>Available AI Tools</h4>
                     <p><strong>Stable Diffusion</strong> - For inpainting and generative fill<br>
-                    <strong>Super Resolution</strong> - For upscaling images 4x<br>
-                    <strong>Semantic Segmentation</strong> - For automatic object selection</p>
+                        <strong>Super Resolution</strong> - For upscaling images 4x<br>
+                        <strong>Semantic Segmentation</strong> - For automatic object selection
+                    </p>
                 </div>
             </div>
         </div>
@@ -613,7 +620,8 @@
 
             <div class="prompt-section">
                 <div class="prompt-label">Prompt for Clean Removal</div>
-                <div class="prompt-box" onclick="copy(this)">clean background, natural texture, seamless blend, photorealistic, matching lighting</div>
+                <div class="prompt-box" onclick="copy(this)">clean background, natural texture, seamless blend,
+                    photorealistic, matching lighting</div>
             </div>
 
             <div class="settings-panel">
@@ -633,7 +641,8 @@
 
             <div class="info-box tip">
                 <i data-lucide="lightbulb" class="icon"></i>
-                <p><strong>Pro Tip:</strong> Select slightly MORE than the object to give AI enough context for seamless blending.</p>
+                <p><strong>Pro Tip:</strong> Select slightly MORE than the object to give AI enough context for seamless
+                    blending.</p>
             </div>
         </div>
 
@@ -653,17 +662,20 @@
 
             <div class="prompt-section">
                 <div class="prompt-label">Add Sunglasses</div>
-                <div class="prompt-box" onclick="copy(this)">stylish aviator sunglasses, reflective lenses with subtle city reflection, natural fit, matching skin tone shadows, photorealistic</div>
+                <div class="prompt-box" onclick="copy(this)">stylish aviator sunglasses, reflective lenses with subtle
+                    city reflection, natural fit, matching skin tone shadows, photorealistic</div>
             </div>
 
             <div class="prompt-section">
                 <div class="prompt-label">Add Jewelry</div>
-                <div class="prompt-box" onclick="copy(this)">elegant gold necklace, delicate chain, subtle shine, natural lighting reflection, photorealistic jewelry</div>
+                <div class="prompt-box" onclick="copy(this)">elegant gold necklace, delicate chain, subtle shine,
+                    natural lighting reflection, photorealistic jewelry</div>
             </div>
 
             <div class="prompt-section">
                 <div class="prompt-label">Add Hat/Cap</div>
-                <div class="prompt-box" onclick="copy(this)">casual baseball cap, natural fabric texture, proper shadow on face, fitting naturally on head, matching lighting</div>
+                <div class="prompt-box" onclick="copy(this)">casual baseball cap, natural fabric texture, proper shadow
+                    on face, fitting naturally on head, matching lighting</div>
             </div>
 
             <div class="settings-panel">
@@ -679,7 +691,8 @@
 
             <div class="info-box important">
                 <i data-lucide="info" class="icon"></i>
-                <p><strong>Selection Matters:</strong> For adding objects, make a selection in the exact shape/area where you want the object to appear. The AI will fill that selection with your described object.</p>
+                <p><strong>Selection Matters:</strong> For adding objects, make a selection in the exact shape/area
+                    where you want the object to appear. The AI will fill that selection with your described object.</p>
             </div>
         </div>
 
@@ -689,7 +702,8 @@
             <h2>Technique 3: Background Replacement</h2>
         </div>
 
-        <p>Transport subjects to entirely new locations by replacing the background while keeping the subject intact.</p>
+        <p>Transport subjects to entirely new locations by replacing the background while keeping the subject intact.
+        </p>
 
         <div class="technique-card">
             <div class="technique-header">
@@ -707,17 +721,20 @@
 
             <div class="prompt-section">
                 <div class="prompt-label">Paris Background</div>
-                <div class="prompt-box" onclick="copy(this)">Eiffel Tower in soft focus background, Parisian street, warm golden hour lighting, bokeh effect, romantic atmosphere, depth of field</div>
+                <div class="prompt-box" onclick="copy(this)">Eiffel Tower in soft focus background, Parisian street,
+                    warm golden hour lighting, bokeh effect, romantic atmosphere, depth of field</div>
             </div>
 
             <div class="prompt-section">
                 <div class="prompt-label">Beach Background</div>
-                <div class="prompt-box" onclick="copy(this)">tropical beach sunset, palm trees silhouette, soft ocean waves, golden sand, warm orange sky, paradise vacation, cinematic depth</div>
+                <div class="prompt-box" onclick="copy(this)">tropical beach sunset, palm trees silhouette, soft ocean
+                    waves, golden sand, warm orange sky, paradise vacation, cinematic depth</div>
             </div>
 
             <div class="prompt-section">
                 <div class="prompt-label">Professional Studio</div>
-                <div class="prompt-box" onclick="copy(this)">professional photography studio, soft gradient gray background, perfect studio lighting, clean corporate look, subtle shadows</div>
+                <div class="prompt-box" onclick="copy(this)">professional photography studio, soft gradient gray
+                    background, perfect studio lighting, clean corporate look, subtle shadows</div>
             </div>
 
             <div class="settings-panel">
@@ -738,7 +755,8 @@
             <h2>Technique 4: Super Resolution</h2>
         </div>
 
-        <p>Upscale your images by 4x while adding realistic detail - perfect for printing or recovering low-res photos.</p>
+        <p>Upscale your images by 4x while adding realistic detail - perfect for printing or recovering low-res photos.
+        </p>
 
         <div class="technique-card">
             <div class="technique-header">
@@ -757,7 +775,8 @@
 
             <div class="info-box tip">
                 <i data-lucide="zap" class="icon"></i>
-                <p><strong>No Prompt Required!</strong> Super Resolution automatically analyzes your image and adds appropriate detail. Just select the option and run.</p>
+                <p><strong>No Prompt Required!</strong> Super Resolution automatically analyzes your image and adds
+                    appropriate detail. Just select the option and run.</p>
             </div>
 
             <table class="comparison-table">
@@ -821,7 +840,8 @@
 
         <div class="info-box important">
             <i data-lucide="shield" class="icon"></i>
-            <p><strong>Privacy Advantage:</strong> All editing happens locally on your Intel AI PC. Your photos never leave your computer - perfect for sensitive personal or business images.</p>
+            <p><strong>Privacy Advantage:</strong> All editing happens locally on your Intel AI PC. Your photos never
+                leave your computer - perfect for sensitive personal or business images.</p>
         </div>
 
         <footer>

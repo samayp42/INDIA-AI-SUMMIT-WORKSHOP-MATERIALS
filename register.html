@@ -1,3 +1,4 @@
+we
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,8 +39,9 @@
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
-            --accent: #2563EB;
-            --accent-light: #DBEAFE;
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+            --accent: #0068B5;
+            --accent-light: #E8F4FC;
         }
 
         * {
@@ -81,13 +83,13 @@
         }
 
         .ambient-1 {
-            background: #DBEAFE;
+            background: #E8F4FC;
             top: -300px;
             right: -200px;
         }
 
         .ambient-2 {
-            background: #E0E7FF;
+            background: #E0F2FE;
             bottom: -300px;
             left: -200px;
         }
@@ -177,10 +179,18 @@
         }
 
         .page-header h1 .gradient {
-            background: linear-gradient(135deg, #2563EB, #7C3AED, #EC4899);
+            background: linear-gradient(135deg, #0068B5, #00C7FD);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* Intel logo in header */
+        .intel-logo-header {
+            display: block;
+            margin: 0 auto 24px;
+            height: 48px;
+            width: auto;
         }
 
         .page-header p {
@@ -225,7 +235,7 @@
             border-color: var(--accent);
             background: var(--accent);
             color: #fff;
-            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 104, 181, 0.3);
         }
 
         .step-circle.done {
@@ -736,7 +746,7 @@
             font-weight: 800;
             border: none;
             cursor: pointer;
-            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            background: #0068B5;
             color: #fff;
             transition: all 0.3s ease;
             letter-spacing: 0.5px;
@@ -746,7 +756,8 @@
 
         .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.3);
+            background: #000000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
         .submit-btn:disabled {
@@ -818,7 +829,7 @@
 
         /* TICKET HEADER — Animated gradient */
         .ticket-header {
-            background: linear-gradient(135deg, #2563EB, #7C3AED, #EC4899, #2563EB);
+            background: linear-gradient(135deg, #0068B5, #00C7FD, #0068B5);
             background-size: 300% 300%;
             animation: gradientShift 6s ease infinite;
             padding: 44px 28px 36px;
@@ -1538,9 +1549,10 @@
 
         <!-- Header -->
         <div class="page-header">
+            <img src="assets/intel.svg" alt="Intel" class="intel-logo-header">
             <div class="badge">
                 <span class="badge-dot"></span>
-                Registration Open
+                Workshop Registration
             </div>
             <h1>Register for <span class="gradient">AI PC Immersion Lab</span></h1>
         </div>

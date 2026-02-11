@@ -10,11 +10,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #DC2626;
-            --primary-dark: #B91C1C;
-            --primary-light: #FEF2F2;
-            --accent: #F97316;
-            --accent-light: #FFF7ED;
+            --primary: #0068B5;
+            --primary-dark: #005A9E;
+            --primary-light: #E8F4FC;
+            --accent: #00C7FD;
+            --accent-light: #E0F7FF;
             --bg: #FAFCFF;
             --text-main: #7F1D1D;
             --text-sub: #334155;
@@ -90,7 +90,7 @@
         }
 
         .part-number {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.8rem;
@@ -308,11 +308,25 @@
             color: #E5E7EB;
         }
 
-        .code-content .comment { color: #6B7280; }
-        .code-content .keyword { color: #F472B6; }
-        .code-content .string { color: #34D399; }
-        .code-content .function { color: #60A5FA; }
-        .code-content .class { color: #FBBF24; }
+        .code-content .comment {
+            color: #6B7280;
+        }
+
+        .code-content .keyword {
+            color: #F472B6;
+        }
+
+        .code-content .string {
+            color: #34D399;
+        }
+
+        .code-content .function {
+            color: #60A5FA;
+        }
+
+        .code-content .class {
+            color: #FBBF24;
+        }
 
         /* Component Cards */
         .component-grid {
@@ -691,6 +705,7 @@
         </a>
     </nav>
     <div class="container">
+        <img src="assets/intel.svg" alt="Intel" style="display: block; margin-bottom: 20px; height: 32px;">
         <div class="header-badge">
             <i data-lucide="mic"></i> SESSION 5 - STUDENT GUIDE
         </div>
@@ -708,7 +723,8 @@
             <div class="pipecat-logo">🐱</div>
             <div class="pipecat-info">
                 <h3>Pipecat Framework</h3>
-                <p>Pipecat is an open-source Python framework for building voice and multimodal AI agents. It handles the complex orchestration of STT, LLM, and TTS services in real-time.</p>
+                <p>Pipecat is an open-source Python framework for building voice and multimodal AI agents. It handles
+                    the complex orchestration of STT, LLM, and TTS services in real-time.</p>
                 <a href="https://github.com/pipecat-ai/pipecat" class="pipecat-link">github.com/pipecat-ai/pipecat →</a>
             </div>
         </div>
@@ -833,7 +849,7 @@
                 <span class="code-lang">Python</span>
             </div>
             <div class="code-content">
-<pre><span class="comment"># Import Pipecat components</span>
+                <pre><span class="comment"># Import Pipecat components</span>
 <span class="keyword">from</span> pipecat.pipeline.pipeline <span class="keyword">import</span> <span class="class">Pipeline</span>
 <span class="keyword">from</span> pipecat.pipeline.task <span class="keyword">import</span> <span class="class">PipelineTask</span>
 <span class="keyword">from</span> pipecat.services.openai <span class="keyword">import</span> <span class="class">OpenAILLMService</span>
@@ -870,7 +886,7 @@ pipeline = <span class="function">Pipeline</span>([
                 <span class="code-lang">Python</span>
             </div>
             <div class="code-content">
-<pre><span class="comment"># Define your AI's personality</span>
+                <pre><span class="comment"># Define your AI's personality</span>
 messages = [
     {
         <span class="string">"role"</span>: <span class="string">"system"</span>,
@@ -889,7 +905,8 @@ context_aggregator = llm.<span class="function">create_context_aggregator</span>
 
         <div class="info-box tip">
             <i data-lucide="lightbulb" class="icon"></i>
-            <p><strong>Key Insight:</strong> The system prompt defines your agent's entire personality. Keep responses short for natural conversation flow!</p>
+            <p><strong>Key Insight:</strong> The system prompt defines your agent's entire personality. Keep responses
+                short for natural conversation flow!</p>
         </div>
 
         <!-- PART 4: DEMO -->
@@ -909,7 +926,11 @@ context_aggregator = llm.<span class="function">create_context_aggregator</span>
 
             <div class="prompt-section">
                 <div class="prompt-label">System Prompt</div>
-                <div class="prompt-box" onclick="copy(this)">You are "Cyber Sam", a fast-talking, energetic tech news anchor from a futuristic news channel. Your style is witty, engaging, and slightly dramatic. Keep responses under 2 sentences - you're on live TV! Always ask a follow-up question to keep the interview moving. Use phrases like "Breaking news!", "Fascinating development!", and "Back to you!"</div>
+                <div class="prompt-box" onclick="copy(this)">You are "Cyber Sam", a fast-talking, energetic tech news
+                    anchor from a futuristic news channel. Your style is witty, engaging, and slightly dramatic. Keep
+                    responses under 2 sentences - you're on live TV! Always ask a follow-up question to keep the
+                    interview moving. Use phrases like "Breaking news!", "Fascinating development!", and "Back to you!"
+                </div>
             </div>
 
             <div class="try-this">
@@ -917,15 +938,16 @@ context_aggregator = llm.<span class="function">create_context_aggregator</span>
                 <div class="try-this-content">
                     <h4>Try These Prompts:</h4>
                     <p>"Sam, what's the biggest story in AI today?"<br>
-                    "Are robots going to take our jobs?"<br>
-                    "What do you think about AI-powered cars?"</p>
+                        "Are robots going to take our jobs?"<br>
+                        "What do you think about AI-powered cars?"</p>
                 </div>
             </div>
         </div>
 
         <div class="info-box important">
             <i data-lucide="zap" class="icon"></i>
-            <p><strong>Latency Test:</strong> Try interrupting Sam while it's speaking. A well-configured pipeline should stop immediately when you start talking (VAD in action).</p>
+            <p><strong>Latency Test:</strong> Try interrupting Sam while it's speaking. A well-configured pipeline
+                should stop immediately when you start talking (VAD in action).</p>
         </div>
 
         <!-- PART 5: ARCHITECTURE OVERVIEW -->
@@ -1031,7 +1053,8 @@ context_aggregator = llm.<span class="function">create_context_aggregator</span>
 
         <div class="info-box tip">
             <i data-lucide="shield" class="icon"></i>
-            <p><strong>Privacy Note:</strong> When running STT locally with Whisper on your Intel AI PC, voice data never leaves your device - perfect for sensitive applications.</p>
+            <p><strong>Privacy Note:</strong> When running STT locally with Whisper on your Intel AI PC, voice data
+                never leaves your device - perfect for sensitive applications.</p>
         </div>
 
         <footer>
