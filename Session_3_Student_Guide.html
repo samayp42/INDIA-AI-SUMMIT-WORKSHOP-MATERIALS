@@ -560,7 +560,7 @@
                 <path d="M19 12H5" />
                 <path d="m12 19-7-7 7-7" />
             </svg>
-            Back to Workshop
+            Back to Home
         </a>
     </nav>
     <div class="container">
@@ -614,63 +614,53 @@
             </div>
         </div>
 
-        <div class="info-box warning">
-            <i data-lucide="alert-triangle" style="flex-shrink:0;"></i>
+        <div class="info-box success">
+            <i data-lucide="play-circle" style="flex-shrink:0;"></i>
             <div>
-                <strong>Important: Read-Only Mode</strong>
-                The Zerodha MCP is configured in <strong>read-only mode</strong> for safety. It can VIEW your portfolio
-                and market data but CANNOT place, modify, or cancel orders. Your funds are completely safe.
+                <strong>Mock Zerodha MCP — Fully Interactive!</strong>
+                This workshop uses a <strong>mock Zerodha MCP server</strong> with simulated portfolio data. You can freely query holdings, positions, market data, and even place mock orders — everything works just like the real Kite API, but with sample data. Go ahead and experiment!
             </div>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════
-             PART 2: ZERODHA MCP TOOLS
+             PART 2: ZERODHA MOCK MCP TOOLS
              ═══════════════════════════════════════════════════════════ -->
         <div class="part-header">
             <div class="part-num">2</div>
             <div>
-                <h2>Zerodha MCP Tools</h2>
-                <p>All the capabilities available through the MCP connection</p>
+                <h2>Zerodha Mock MCP Tools</h2>
+                <p>9 tools available through the ZERODHA_MOCK MCP server</p>
             </div>
         </div>
 
-        <p>The Zerodha MCP exposes these tools that AI can call on your behalf:</p>
+        <p>The mock server at <code style="background:var(--code-bg);color:#86EFAC;padding:3px 8px;border-radius:5px;font-size:0.85rem;">http://localhost:3000/mcp</code> exposes these tools:</p>
 
         <div class="tools-grid">
             <div class="tool-card">
-                <div class="tool-icon" style="background:var(--purple-light);color:var(--purple);">
-                    <i data-lucide="briefcase"></i>
-                </div>
-                <h5>Holdings</h5>
-                <p>View your long-term stock holdings with P&L</p>
-                <code>get_holdings()</code>
-            </div>
-
-            <div class="tool-card">
                 <div class="tool-icon" style="background:var(--green-light);color:var(--green);">
-                    <i data-lucide="trending-up"></i>
+                    <i data-lucide="refresh-cw"></i>
                 </div>
-                <h5>Positions</h5>
-                <p>View intraday and F&O positions</p>
-                <code>get_positions()</code>
+                <h5>Init</h5>
+                <p>Reset session and create a new account. Use to start fresh.</p>
+                <code>init()</code>
             </div>
 
             <div class="tool-card">
                 <div class="tool-icon" style="background:var(--orange-light);color:#D97706;">
                     <i data-lucide="indian-rupee"></i>
                 </div>
-                <h5>Margins</h5>
-                <p>Check available trading margins</p>
-                <code>get_margins()</code>
+                <h5>Account</h5>
+                <p>Get current available balance and funds</p>
+                <code>get-account()</code>
             </div>
 
             <div class="tool-card">
-                <div class="tool-icon" style="background:var(--primary-light);color:var(--primary);">
-                    <i data-lucide="activity"></i>
+                <div class="tool-icon" style="background:var(--purple-light);color:var(--purple);">
+                    <i data-lucide="briefcase"></i>
                 </div>
-                <h5>Quote</h5>
-                <p>Get live price for any instrument</p>
-                <code>get_quote(symbol)</code>
+                <h5>Holdings</h5>
+                <p>Get list of stocks currently owned in portfolio</p>
+                <code>get-holdings()</code>
             </div>
 
             <div class="tool-card">
@@ -678,17 +668,53 @@
                     <i data-lucide="file-text"></i>
                 </div>
                 <h5>Orders</h5>
-                <p>View today's order history</p>
-                <code>get_orders()</code>
+                <p>Get history of all orders placed</p>
+                <code>get-orders()</code>
             </div>
 
             <div class="tool-card">
                 <div class="tool-icon" style="background:#F0FDFA;color:#14B8A6;">
                     <i data-lucide="bar-chart-3"></i>
                 </div>
-                <h5>Historical Data</h5>
-                <p>Get OHLC candles for analysis</p>
-                <code>get_historical()</code>
+                <h5>History</h5>
+                <p>Get historical OHLC price data for analysis</p>
+                <code>get-history()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--primary-light);color:var(--primary);">
+                    <i data-lucide="shopping-cart"></i>
+                </div>
+                <h5>Place Order</h5>
+                <p>Place a buy or sell order for a stock</p>
+                <code>place-order()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--primary-light);color:var(--primary);">
+                    <i data-lucide="activity"></i>
+                </div>
+                <h5>Quote</h5>
+                <p>Get live price and depth for a stock</p>
+                <code>get-quote()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--orange-light);color:#D97706;">
+                    <i data-lucide="newspaper"></i>
+                </div>
+                <h5>Market News</h5>
+                <p>Get latest financial news headlines and sentiment</p>
+                <code>get-market-news()</code>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon" style="background:var(--green-light);color:var(--green);">
+                    <i data-lucide="trending-up"></i>
+                </div>
+                <h5>Market Status</h5>
+                <p>Get market status, top gainers/losers, and index levels</p>
+                <code>get-market-status()</code>
             </div>
         </div>
 
@@ -725,25 +751,24 @@
             <div class="step">
                 <div class="step-num">3</div>
                 <div class="step-content">
-                    <h5>Configure Zerodha MCP</h5>
-                    <p>Enter the MCP server details provided in the workshop:</p>
-                    <code>Server URL: localhost:3000/zerodha-mcp</code>
+                    <h5>Configure Zerodha Mock MCP</h5>
+                    <p>Enter the <strong>Server Name</strong> and <strong>URL</strong> provided by the mentor on screen.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">4</div>
                 <div class="step-content">
-                    <h5>Authenticate with Kite</h5>
-                    <p>You'll be redirected to Zerodha login. Enter your credentials to authorize the connection.</p>
+                    <h5>Verify Available Tools</h5>
+                    <p>Once connected, you should see <strong>9 Available Tools</strong> listed. If you see them, you're good to go!</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">5</div>
                 <div class="step-content">
-                    <h5>Verify Connection</h5>
-                    <p>You should see "Zerodha MCP: Connected" with a green indicator.</p>
+                    <h5>Start Chatting!</h5>
+                    <p>Go to the chat window and try the prompts below. The AI will automatically call the right MCP tools.</p>
                 </div>
             </div>
         </div>
@@ -758,157 +783,210 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════════
-             PART 4: PORTFOLIO QUERIES
+             PART 4: GETTING STARTED
              ═══════════════════════════════════════════════════════════ -->
         <div class="part-header">
             <div class="part-num">4</div>
             <div>
-                <h2>Portfolio Queries</h2>
-                <p>Analyze your holdings and positions with natural language</p>
+                <h2>Getting Started</h2>
+                <p>Initialize your mock account and explore the basics</p>
             </div>
         </div>
 
-        <span class="category-label portfolio"><i data-lucide="briefcase" style="width:12px;height:12px;"></i>
-            Holdings</span>
-
-        <h3>Query 1: Portfolio Overview</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Show me my complete portfolio holdings. What's my total
-            invested value and current value?</div>
-
-        <div class="response-preview">
-            The AI will call <code>get_holdings()</code> and display your stocks with buy price, current price,
-            quantity, and P&L for each.
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Start Fresh</strong>
+                Begin by asking the AI to initialize your account. This creates a mock portfolio with sample holdings and balance for you to play with.
+            </div>
         </div>
 
-        <h3>Query 2: Top Performers</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Which stocks in my portfolio have given me the best returns?
-            Show top 5 by percentage gain.</div>
+        <h3>Prompt 1: Initialize Account</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Initialize my Zerodha mock account. Set me up with a fresh session so I can start trading.</div>
 
-        <h3>Query 3: Loss-Making Stocks</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">List all stocks in my portfolio that are currently in loss.
-            What's the total unrealized loss?</div>
+        <div class="response-preview">
+            The AI calls <code>init()</code> → creates a mock account with starting balance and sample holdings. You'll see your initial funds and portfolio.
+        </div>
 
-        <span class="category-label orders"><i data-lucide="trending-up" style="width:12px;height:12px;"></i>
-            Positions</span>
+        <h3>Prompt 2: Check My Balance</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">What's my current account balance? How much cash do I have available for trading?</div>
 
-        <h3>Query 4: Intraday Positions</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Show my current intraday positions. Am I in profit or loss
-            today?</div>
+        <div class="response-preview">
+            AI calls <code>get-account()</code> → returns your available funds, used margin, and total balance.
+        </div>
 
-        <h3>Query 5: Sector Exposure</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio by sector. Which sector has the highest
-            allocation?</div>
+        <h3>Prompt 3: View My Holdings</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Show me all the stocks I currently own. For each stock, tell me the quantity, buy price, current price, and profit or loss.</div>
+
+        <div class="response-preview">
+            AI calls <code>get-holdings()</code> → lists your portfolio with per-stock P&L breakdown.
+        </div>
 
         <!-- ═══════════════════════════════════════════════════════════
-             PART 5: MARKET DATA QUERIES
+             PART 5: MARKET INTELLIGENCE
              ═══════════════════════════════════════════════════════════ -->
         <div class="part-header">
             <div class="part-num">5</div>
             <div>
-                <h2>Market Data Queries</h2>
-                <p>Get real-time quotes and historical data</p>
+                <h2>Market Intelligence</h2>
+                <p>Quotes, news, market status — all via natural language</p>
             </div>
         </div>
 
-        <span class="category-label market"><i data-lucide="activity" style="width:12px;height:12px;"></i> Live
-            Quotes</span>
+        <span class="category-label market"><i data-lucide="activity" style="width:12px;height:12px;"></i> Live Data</span>
 
-        <h3>Query 6: Single Stock Quote</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">What is the current price of Reliance Industries? Show me the
-            day's high, low, and volume.</div>
+        <h3>Prompt 4: Stock Quote</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">What's the current price of Reliance Industries? Show me the bid, ask, day's high, low, and volume.</div>
 
-        <h3>Query 7: Multiple Stocks Comparison</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Compare the current prices of TCS, Infosys, and Wipro. Which
-            IT stock is performing best today?</div>
+        <div class="response-preview">
+            AI calls <code>get-quote()</code> → returns real-time price data with market depth.
+        </div>
 
-        <h3>Query 8: Index Status</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">What's the current Nifty 50 level? Is it up or down from
-            yesterday's close?</div>
+        <h3>Prompt 5: Market Overview</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Give me a full market overview — Nifty and Sensex levels, today's top gainers and losers, and the overall market sentiment.</div>
 
-        <span class="category-label analysis"><i data-lucide="bar-chart-3" style="width:12px;height:12px;"></i>
-            Historical Analysis</span>
+        <div class="response-preview">
+            AI calls <code>get-market-status()</code> → returns index levels, top movers, and market direction.
+        </div>
 
-        <h3>Query 9: Price History</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Get the last 30 days price data for HDFC Bank. What was the
-            highest and lowest price in this period?</div>
+        <h3>Prompt 6: Latest News</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">What's the latest financial news? Any major headlines that could impact the market today?</div>
 
-        <h3>Query 10: Trend Analysis</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Analyze the 1-month trend for Tata Motors. Is it in an
-            uptrend or downtrend? Calculate the percentage change.</div>
+        <div class="response-preview">
+            AI calls <code>get-market-news()</code> → returns news headlines with sentiment analysis.
+        </div>
+
+        <span class="category-label analysis"><i data-lucide="bar-chart-3" style="width:12px;height:12px;"></i> Historical</span>
+
+        <h3>Prompt 7: Price History</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Get the last 30 days of OHLC price data for HDFC Bank. What was the highest and lowest closing price? Is it trending up or down?</div>
+
+        <div class="response-preview">
+            AI calls <code>get-history()</code> → returns OHLC candles and the AI analyzes the trend pattern.
+        </div>
 
         <!-- ═══════════════════════════════════════════════════════════
-             PART 6: ADVANCED ANALYSIS
+             PART 6: TRADING & ORDERS
              ═══════════════════════════════════════════════════════════ -->
         <div class="part-header">
             <div class="part-num">6</div>
             <div>
-                <h2>Advanced Analysis</h2>
-                <p>Complex multi-step queries combining multiple data sources</p>
+                <h2>Trading & Orders</h2>
+                <p>Place mock trades and review your order history</p>
+            </div>
+        </div>
+
+        <div class="info-box success">
+            <i data-lucide="shield-check" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Safe to Experiment!</strong>
+                All orders go through the mock server — no real money involved. Place as many trades as you like to see how the AI handles buy/sell logic.
+            </div>
+        </div>
+
+        <span class="category-label orders"><i data-lucide="shopping-cart" style="width:12px;height:12px;"></i> Place Orders</span>
+
+        <h3>Prompt 8: Buy a Stock</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Buy 10 shares of Infosys at market price.</div>
+
+        <div class="response-preview">
+            AI calls <code>place-order()</code> with BUY action → confirms order execution with fill price and updates your holdings.
+        </div>
+
+        <h3>Prompt 9: Sell a Stock</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Sell 5 shares of TCS from my holdings.</div>
+
+        <h3>Prompt 10: View Order History</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Show me all the orders I've placed today. How many were buys vs sells? What's the total value traded?</div>
+
+        <div class="response-preview">
+            AI calls <code>get-orders()</code> → lists all executed trades with timestamps, quantities, and prices.
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PART 7: MULTI-TOOL THINKING CHAINS
+             ═══════════════════════════════════════════════════════════ -->
+        <div class="part-header">
+            <div class="part-num">7</div>
+            <div>
+                <h2>Multi-Tool Thinking Chains</h2>
+                <p>Watch the AI reason across multiple tools to solve complex queries</p>
             </div>
         </div>
 
         <div class="info-box purple">
             <i data-lucide="sparkles" style="flex-shrink:0;"></i>
             <div>
-                <strong>Multi-Tool Queries</strong>
-                These queries require the AI to call multiple MCP tools and combine the results. Watch the "Thought
-                Chain" to see how the AI reasons through each step.
+                <strong>This is where it gets interesting!</strong>
+                These prompts force the AI to call 2-4 tools in sequence, reason through intermediate results, and synthesize a final answer. Watch the thought chain carefully — this is agentic AI in action.
             </div>
         </div>
 
-        <h3>Query 11: Portfolio vs Market</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Compare my portfolio's performance against Nifty 50 today. Am
-            I beating the market or underperforming?</div>
+        <h3>Prompt 11: News-Driven Trade</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Check today's market news. Based on the sentiment and headlines, suggest one stock I should buy and one I should avoid. Then actually place a buy order for 5 shares of your recommended stock.</div>
 
-        <h3>Query 12: Concentration Risk</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Analyze my portfolio concentration. Is any single stock more
-            than 20% of my total portfolio? What's the risk?</div>
+        <div class="response-preview">
+            AI thinks: <code>get-market-news()</code> → analyze sentiment → <code>get-quote()</code> on candidates → reason about risk → <code>place-order()</code> for the pick. 3 tool calls chained with reasoning.
+        </div>
 
-        <h3>Query 13: Margin Utilization</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Check my available margin. How much more can I invest today?
-            What percentage of my margin is already used?</div>
+        <h3>Prompt 12: Portfolio Health Check</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Run a complete health check on my portfolio: show my holdings with current prices, calculate total P&L, check which sectors I'm concentrated in, and compare my performance against today's Nifty movement. Give me a risk score out of 10.</div>
 
-        <h3>Query 14: P&L Summary</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Give me a complete P&L summary: total invested, current
-            value, absolute profit/loss, and percentage return. Also show today's gain/loss separately.</div>
+        <div class="response-preview">
+            AI thinks: <code>get-holdings()</code> → <code>get-quote()</code> per stock → <code>get-market-status()</code> for Nifty → combine all data → synthesize risk assessment. 3+ tool calls.
+        </div>
 
-        <h3>Query 15: Investment Suggestion</h3>
-        <div class="prompt-box" onclick="copyPrompt(this)">Based on my current holdings and available margin, which
-            sectors am I underexposed to? Suggest areas to diversify.</div>
+        <h3>Prompt 13: Smart Rebalancing</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Look at my current holdings and account balance. I want to rebalance so that no single stock is more than 25% of my portfolio. Suggest specific sell and buy orders to achieve this, then execute them.</div>
+
+        <div class="response-preview">
+            AI thinks: <code>get-holdings()</code> → <code>get-account()</code> → calculate weights → identify over-allocated stocks → <code>place-order()</code> sells → <code>place-order()</code> buys. Full agentic workflow.
+        </div>
+
+        <h3>Prompt 14: Historical Strategy Backtest</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Get the 30-day price history for Reliance and TCS. Which stock had lower volatility? Which gave better returns? If I had ₹1 lakh to invest, how should I split between the two?</div>
+
+        <div class="response-preview">
+            AI thinks: <code>get-history()</code> for Reliance → <code>get-history()</code> for TCS → calculate volatility & returns → recommend allocation. Analytical reasoning across data.
+        </div>
+
+        <h3>Prompt 15: Full Trading Day Simulation</h3>
+        <div class="prompt-box" onclick="copyPrompt(this)">Let's simulate a trading day. First check market status and news. Then check my account balance and holdings. Based on everything, make 3 smart trades (buys or sells) and explain your reasoning for each. Finally, show my updated portfolio.</div>
+
+        <div class="response-preview">
+            AI orchestrates 6+ tool calls: <code>get-market-status()</code> → <code>get-market-news()</code> → <code>get-account()</code> → <code>get-holdings()</code> → 3x <code>place-order()</code> → <code>get-holdings()</code>. Full agent loop.
+        </div>
 
         <!-- ═══════════════════════════════════════════════════════════
-             PART 7: USE CASES
+             PART 8: REAL-WORLD USE CASES
              ═══════════════════════════════════════════════════════════ -->
         <div class="part-header">
-            <div class="part-num">7</div>
+            <div class="part-num">8</div>
             <div>
                 <h2>Real-World Use Cases</h2>
-                <p>Practical applications of Zerodha MCP</p>
+                <p>How MCP agents translate to production applications</p>
             </div>
         </div>
 
         <div class="usecase-grid">
             <div class="usecase-card">
-                <h5><i data-lucide="sunrise" style="width:18px;height:18px;color:var(--orange);"></i> Morning Review
-                </h5>
-                <p>"Give me a quick morning briefing: How did my portfolio stocks open? Any significant gaps up or
-                    down?"</p>
+                <h5><i data-lucide="sunrise" style="width:18px;height:18px;color:var(--orange);"></i> Morning Briefing</h5>
+                <p>"Check market status, pull my holdings, get the latest news — give me a 30-second morning briefing before markets open."</p>
             </div>
 
             <div class="usecase-card">
-                <h5><i data-lucide="sunset" style="width:18px;height:18px;color:var(--purple);"></i> EOD Summary</h5>
-                <p>"End of day summary: What was my total P&L today? Which stocks moved the most?"</p>
+                <h5><i data-lucide="newspaper" style="width:18px;height:18px;color:var(--purple);"></i> News-Based Alerts</h5>
+                <p>"Monitor news headlines. If any news mentions a stock in my portfolio, alert me and show the stock's current price."</p>
             </div>
 
             <div class="usecase-card">
-                <h5><i data-lucide="target" style="width:18px;height:18px;color:var(--green);"></i> Target Tracking</h5>
-                <p>"Check if any of my stocks hit their 52-week high or low today."</p>
+                <h5><i data-lucide="shield-check" style="width:18px;height:18px;color:var(--green);"></i> Risk Monitor</h5>
+                <p>"Check if any of my holdings has dropped more than 5% today. If so, suggest whether to hold or cut losses."</p>
             </div>
 
             <div class="usecase-card">
-                <h5><i data-lucide="pie-chart" style="width:18px;height:18px;color:var(--primary);"></i> Rebalancing
-                </h5>
-                <p>"My portfolio seems heavy on banking stocks. Show me the allocation breakdown."</p>
+                <h5><i data-lucide="bot" style="width:18px;height:18px;color:var(--primary);"></i> Auto-Trader Agent</h5>
+                <p>"Build a simple strategy: if a stock drops 3% below my buy price, sell it. Run this check on all my holdings."</p>
             </div>
         </div>
 
@@ -919,7 +997,7 @@
                 <h4 style="color:#065F46;margin-bottom:8px;">What You Learned</h4>
                 <ul style="margin:0 0 0 16px;color:#065F46;">
                     <li><strong>MCP</strong> connects AI to real external data sources</li>
-                    <li><strong>Zerodha MCP</strong> provides read-only access to your Kite account</li>
+                    <li><strong>Zerodha MCP</strong> connects to a mock trading session with simulated data</li>
                     <li><strong>Natural language</strong> queries automatically translate to API calls</li>
                     <li><strong>Multi-step reasoning</strong> allows complex portfolio analysis</li>
                     <li>AI can combine multiple data sources for comprehensive insights</li>

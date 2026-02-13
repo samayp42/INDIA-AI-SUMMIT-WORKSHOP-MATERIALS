@@ -57,54 +57,74 @@ const SESSIONS = {
 
 // ═══════════════════════════════════════════════════════════════
 //  SCHEDULE — Date-wise session assignments
-//  Each date maps to an ordered array of { sessionId, time }.
-//  To reshuffle: just change the sessionId or reorder the array.
+//  Each session has 2 slots (A & B) of 30 minutes each.
+//  To reshuffle: change the sessionId or reorder the array.
 //  To drop a session on a day: remove it from the array.
 //  To add a new date: add a new entry.
 // ═══════════════════════════════════════════════════════════════
 
 const SCHEDULE = {
     '16 Feb 2026': [
-        { sessionId: 1, time: '10:00 AM – 11:00 AM' },
-        { sessionId: 2, time: '11:00 AM – 12:00 PM' },
-        { sessionId: 3, time: '12:00 PM – 01:00 PM' },
-        { sessionId: 4, time: '02:00 PM – 03:00 PM' },
-        { sessionId: 5, time: '03:00 PM – 04:00 PM' },
-        { sessionId: 6, time: '04:00 PM – 05:00 PM' },
+        { sessionId: 1, slots: [{ slotId: 'A', time: '10:00 AM – 10:30 AM' }, { slotId: 'B', time: '10:30 AM – 11:00 AM' }] },
+        { sessionId: 2, slots: [{ slotId: 'A', time: '11:00 AM – 11:30 AM' }, { slotId: 'B', time: '11:30 AM – 12:00 PM' }] },
+        { sessionId: 3, slots: [{ slotId: 'A', time: '12:00 PM – 12:30 PM' }, { slotId: 'B', time: '12:30 PM – 1:00 PM' }] },
+        { sessionId: 4, slots: [{ slotId: 'A', time: '02:00 PM – 02:30 PM' }, { slotId: 'B', time: '02:30 PM – 03:00 PM' }] },
+        { sessionId: 5, slots: [{ slotId: 'A', time: '03:00 PM – 03:30 PM' }, { slotId: 'B', time: '03:30 PM – 04:00 PM' }] },
+        { sessionId: 6, slots: [{ slotId: 'A', time: '04:00 PM – 04:30 PM' }, { slotId: 'B', time: '04:30 PM – 05:00 PM' }] },
     ],
     '17 Feb 2026': [
-        { sessionId: 1, time: '10:00 AM – 11:00 AM' },
-        { sessionId: 2, time: '11:00 AM – 12:00 PM' },
-        { sessionId: 3, time: '12:00 PM – 01:00 PM' },
-        { sessionId: 4, time: '02:00 PM – 03:00 PM' },
-        { sessionId: 5, time: '03:00 PM – 04:00 PM' },
-        { sessionId: 6, time: '04:00 PM – 05:00 PM' },
+        { sessionId: 1, slots: [{ slotId: 'A', time: '10:00 AM – 10:30 AM' }, { slotId: 'B', time: '10:30 AM – 11:00 AM' }] },
+        { sessionId: 2, slots: [{ slotId: 'A', time: '11:00 AM – 11:30 AM' }, { slotId: 'B', time: '11:30 AM – 12:00 PM' }] },
+        { sessionId: 3, slots: [{ slotId: 'A', time: '12:00 PM – 12:30 PM' }, { slotId: 'B', time: '12:30 PM – 1:00 PM' }] },
+        { sessionId: 4, slots: [{ slotId: 'A', time: '02:00 PM – 02:30 PM' }, { slotId: 'B', time: '02:30 PM – 03:00 PM' }] },
+        { sessionId: 5, slots: [{ slotId: 'A', time: '03:00 PM – 03:30 PM' }, { slotId: 'B', time: '03:30 PM – 04:00 PM' }] },
+        { sessionId: 6, slots: [{ slotId: 'A', time: '04:00 PM – 04:30 PM' }, { slotId: 'B', time: '04:30 PM – 05:00 PM' }] },
     ],
     '18 Feb 2026': [
-        { sessionId: 1, time: '10:00 AM – 11:00 AM' },
-        { sessionId: 2, time: '11:00 AM – 12:00 PM' },
-        { sessionId: 3, time: '12:00 PM – 01:00 PM' },
-        { sessionId: 4, time: '02:00 PM – 03:00 PM' },
-        { sessionId: 5, time: '03:00 PM – 04:00 PM' },
-        { sessionId: 6, time: '04:00 PM – 05:00 PM' },
+        { sessionId: 1, slots: [{ slotId: 'A', time: '10:00 AM – 10:30 AM' }, { slotId: 'B', time: '10:30 AM – 11:00 AM' }] },
+        { sessionId: 2, slots: [{ slotId: 'A', time: '11:00 AM – 11:30 AM' }, { slotId: 'B', time: '11:30 AM – 12:00 PM' }] },
+        { sessionId: 3, slots: [{ slotId: 'A', time: '12:00 PM – 12:30 PM' }, { slotId: 'B', time: '12:30 PM – 1:00 PM' }] },
+        { sessionId: 4, slots: [{ slotId: 'A', time: '02:00 PM – 02:30 PM' }, { slotId: 'B', time: '02:30 PM – 03:00 PM' }] },
+        { sessionId: 5, slots: [{ slotId: 'A', time: '03:00 PM – 03:30 PM' }, { slotId: 'B', time: '03:30 PM – 04:00 PM' }] },
+        { sessionId: 6, slots: [{ slotId: 'A', time: '04:00 PM – 04:30 PM' }, { slotId: 'B', time: '04:30 PM – 05:00 PM' }] },
     ],
     '19 Feb 2026': [
-        { sessionId: 1, time: '10:00 AM – 11:00 AM' },
-        { sessionId: 2, time: '11:00 AM – 12:00 PM' },
-        { sessionId: 3, time: '12:00 PM – 01:00 PM' },
-        { sessionId: 4, time: '02:00 PM – 03:00 PM' },
-        { sessionId: 5, time: '03:00 PM – 04:00 PM' },
-        { sessionId: 6, time: '04:00 PM – 05:00 PM' },
+        { sessionId: 1, slots: [{ slotId: 'A', time: '10:00 AM – 10:30 AM' }, { slotId: 'B', time: '10:30 AM – 11:00 AM' }] },
+        { sessionId: 2, slots: [{ slotId: 'A', time: '11:00 AM – 11:30 AM' }, { slotId: 'B', time: '11:30 AM – 12:00 PM' }] },
+        { sessionId: 3, slots: [{ slotId: 'A', time: '12:00 PM – 12:30 PM' }, { slotId: 'B', time: '12:30 PM – 1:00 PM' }] },
+        { sessionId: 4, slots: [{ slotId: 'A', time: '02:00 PM – 02:30 PM' }, { slotId: 'B', time: '02:30 PM – 03:00 PM' }] },
+        { sessionId: 5, slots: [{ slotId: 'A', time: '03:00 PM – 03:30 PM' }, { slotId: 'B', time: '03:30 PM – 04:00 PM' }] },
+        { sessionId: 6, slots: [{ slotId: 'A', time: '04:00 PM – 04:30 PM' }, { slotId: 'B', time: '04:30 PM – 05:00 PM' }] },
     ],
     '20 Feb 2026': [
-        { sessionId: 1, time: '10:00 AM – 11:00 AM' },
-        { sessionId: 2, time: '11:00 AM – 12:00 PM' },
-        { sessionId: 3, time: '12:00 PM – 01:00 PM' },
-        { sessionId: 4, time: '02:00 PM – 03:00 PM' },
-        { sessionId: 5, time: '03:00 PM – 04:00 PM' },
-        { sessionId: 6, time: '04:00 PM – 05:00 PM' },
+        { sessionId: 1, slots: [{ slotId: 'A', time: '10:00 AM – 10:30 AM' }, { slotId: 'B', time: '10:30 AM – 11:00 AM' }] },
+        { sessionId: 2, slots: [{ slotId: 'A', time: '11:00 AM – 11:30 AM' }, { slotId: 'B', time: '11:30 AM – 12:00 PM' }] },
+        { sessionId: 3, slots: [{ slotId: 'A', time: '12:00 PM – 12:30 PM' }, { slotId: 'B', time: '12:30 PM – 1:00 PM' }] },
+        { sessionId: 4, slots: [{ slotId: 'A', time: '02:00 PM – 02:30 PM' }, { slotId: 'B', time: '02:30 PM – 03:00 PM' }] },
+        { sessionId: 5, slots: [{ slotId: 'A', time: '03:00 PM – 03:30 PM' }, { slotId: 'B', time: '03:30 PM – 04:00 PM' }] },
+        { sessionId: 6, slots: [{ slotId: 'A', time: '04:00 PM – 04:30 PM' }, { slotId: 'B', time: '04:30 PM – 05:00 PM' }] },
     ],
 };
+
+// ═══════════════════════════════════════════════════════════════
+//  BLOCKED SLOTS — Reserve specific slots for invited guests
+//  Format: "dateKey|sessionId|slotId"
+//  These slots will appear greyed out / "Reserved" in registration.
+//  Example: '16 Feb 2026|1|A' → blocks Session 1, Slot A on 16 Feb
+// ═══════════════════════════════════════════════════════════════
+
+const BLOCKED_SLOTS = [
+    // '16 Feb 2026|1|A',
+    // '17 Feb 2026|3|B',
+];
+
+// ═══════════════════════════════════════════════════════════════
+//  HELPER — Check if a slot is blocked
+// ═══════════════════════════════════════════════════════════════
+
+function isSlotBlocked(dateKey, sessionId, slotId) {
+    return BLOCKED_SLOTS.includes(`${dateKey}|${sessionId}|${slotId}`);
+}
 
 // ═══════════════════════════════════════════════════════════════
 //  EVENT DATES — derived from SCHEDULE keys automatically

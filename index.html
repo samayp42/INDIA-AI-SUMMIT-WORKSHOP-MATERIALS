@@ -93,6 +93,29 @@
         }
 
         /* ═══════════════════════════════════════════
+           GLASSMORPHISM NAVBAR
+           ═══════════════════════════════════════════ */
+        .glass-nav {
+            position: fixed;
+            top: 3px;
+            left: 0;
+            right: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            background: rgba(0, 104, 181, 0.10);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(0, 104, 181, 0.15);
+            z-index: 9999;
+        }
+        .glass-nav-logo {
+            height: 28px;
+            width: auto;
+        }
+
+        /* ═══════════════════════════════════════════
            HERO — FULL-VIEWPORT IMMERSIVE
            ═══════════════════════════════════════════ */
         .hero {
@@ -931,9 +954,11 @@
 <body>
 
     <div class="top-accent"></div>
-    <div style="position:absolute; top:24px; left:24px; z-index:10000; opacity:1;">
-        <img src="assets/intel.svg" alt="Intel" style="width:120px; height:auto;">
-    </div>
+
+    <!-- Fixed glassmorphism navbar -->
+    <nav class="glass-nav">
+        <img src="assets/intel.svg" alt="Intel" class="glass-nav-logo">
+    </nav>
 
     <div class="page">
 
@@ -1163,6 +1188,7 @@
                 leaves your device.</p>
             <p style="margin-top:6px;">In case of any queries or concerns, write to us at <a
                     href="mailto:support@digitalreadiness.org">support@digitalreadiness.org</a></p>
+            <p style="margin-top:8px;font-size:0.7rem;color:#94A3B8;">* Workshop slot timings are subject to change.</p>
         </footer>
 
     </div>

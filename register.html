@@ -91,6 +91,29 @@
         }
 
         /* ═══════════════════════════════════════════
+           GLASSMORPHISM NAVBAR
+           ═══════════════════════════════════════════ */
+        .glass-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            background: rgba(0, 104, 181, 0.10);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(0, 104, 181, 0.15);
+            z-index: 9999;
+        }
+        .glass-nav-logo {
+            height: 28px;
+            width: auto;
+        }
+
+        /* ═══════════════════════════════════════════
            PAGE LAYOUT
            ═══════════════════════════════════════════ */
         .page {
@@ -98,7 +121,7 @@
             z-index: 1;
             max-width: 860px;
             margin: 0 auto;
-            padding: 40px 24px 80px;
+            padding: 80px 24px 80px;
         }
 
         /* Back link */
@@ -626,6 +649,69 @@
             color: #B45309;
         }
 
+        /* ═══════════════════════════════════════════
+           SLOT SUB-CARDS (A / B within session)
+           ═══════════════════════════════════════════ */
+        .slot-picker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .slot-btn {
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: #F8FAFC;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+        .slot-btn:hover:not(.blocked) {
+            border-color: var(--accent);
+            background: #EFF6FF;
+            transform: translateY(-1px);
+        }
+        .slot-btn .slot-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 2px;
+        }
+        .slot-btn .slot-time {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        /* Blocked / Reserved slot */
+        .slot-btn.blocked {
+            opacity: 0.45;
+            cursor: not-allowed;
+            background: #F1F5F9;
+            border-color: #E2E8F0;
+            position: relative;
+        }
+        .slot-btn.blocked .slot-label {
+            color: var(--text-tertiary);
+        }
+        .slot-btn.blocked .slot-time {
+            color: var(--text-tertiary);
+        }
+        .slot-reserved-tag {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #FEE2E2;
+            color: #DC2626;
+            margin-top: 4px;
+        }
+
         /* Step back button */
         .step-back-btn {
             display: inline-flex;
@@ -720,6 +806,153 @@
         .form-input.error {
             border-color: #EF4444;
             box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+        }
+
+        /* ═══════════════════════════════════════════
+           PROFESSION ROLE CARDS
+           ═══════════════════════════════════════════ */
+        .role-picker {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .role-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 18px 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .role-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        .role-card.selected {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, 0.06);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+        }
+        .role-card.error {
+            border-color: #EF4444;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+        }
+        .role-card .role-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            background: rgba(255,255,255,0.04);
+            transition: all 0.25s ease;
+        }
+        .role-card.selected .role-icon {
+            transform: scale(1.15);
+        }
+        .role-card .role-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.2;
+            transition: color 0.2s ease;
+        }
+        .role-card.selected .role-label {
+            color: var(--text-primary);
+        }
+        .role-card .role-check {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .role-card.selected .role-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ═══════════════════════════════════════════
+           YEAR PILLS — horizontal scrollable
+           ═══════════════════════════════════════════ */
+        .year-picker-wrap {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.3s ease,
+                        margin 0.3s ease;
+            margin-top: 0;
+        }
+        .year-picker-wrap.open {
+            max-height: 120px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+        .year-picker-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .year-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .year-pill {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--surface);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            white-space: nowrap;
+        }
+        .year-pill:hover {
+            border-color: rgba(255,255,255,0.15);
+            color: var(--text-primary);
+        }
+        .year-pill.selected {
+            border-color: var(--accent);
+            background: rgba(37, 99, 235, 0.10);
+            color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        }
+        .year-pill.error {
+            border-color: #EF4444;
+        }
+
+        @media (max-width: 480px) {
+            .role-picker { gap: 8px; }
+            .role-card { padding: 14px 6px 10px; }
+            .role-card .role-icon { width: 30px; height: 30px; font-size: 15px; }
+            .role-card .role-label { font-size: 0.7rem; }
+            .year-pill { padding: 6px 12px; font-size: 0.74rem; }
         }
 
         .error-msg {
@@ -1126,7 +1359,7 @@
         /* Tablet */
         @media (max-width: 768px) {
             .page {
-                padding: 24px 16px 60px;
+                padding: 72px 16px 60px;
             }
 
             .page-header {
@@ -1171,7 +1404,7 @@
         /* Mobile */
         @media (max-width: 480px) {
             .page {
-                padding: 16px 12px 48px;
+                padding: 66px 12px 48px;
             }
 
             .back-link {
@@ -1530,9 +1763,11 @@
 </head>
 
 <body>
-    <div style="position:absolute; top:24px; left:24px; z-index:10000; opacity:1;">
-        <img src="assets/intel.svg" alt="Intel" style="width:120px; height:auto;">
-    </div>
+    <!-- Fixed glassmorphism navbar -->
+    <nav class="glass-nav">
+        <img src="assets/intel.svg" alt="Intel" class="glass-nav-logo">
+    </nav>
+
     <div class="ambient ambient-1"></div>
     <div class="ambient ambient-2"></div>
 
@@ -1641,6 +1876,45 @@
                         <input type="email" id="email" class="form-input" placeholder="e.g. aarav@example.com"
                             autocomplete="email">
                     </div>
+                    <div class="form-group">
+                        <label>I am a... *</label>
+                        <div class="role-picker" id="role-picker">
+                            <div class="role-card" data-value="Student" onclick="pickRole(this)">
+                                <span class="role-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <div class="role-icon">🎓</div>
+                                <div class="role-label">Student</div>
+                            </div>
+                            <div class="role-card" data-value="Working Professional" onclick="pickRole(this)">
+                                <span class="role-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <div class="role-icon">💼</div>
+                                <div class="role-label">Working Professional</div>
+                            </div>
+                            <div class="role-card" data-value="Founder" onclick="pickRole(this)">
+                                <span class="role-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <div class="role-icon">🚀</div>
+                                <div class="role-label">Founder</div>
+                            </div>
+                        </div>
+                        <div class="error-msg" id="profession-error">Please select who you are</div>
+
+                        <div class="year-picker-wrap" id="year-picker-wrap">
+                            <div class="year-picker-label">Which year? *</div>
+                            <div class="year-pills" id="year-pills">
+                                <div class="year-pill" data-value="1st Year" onclick="pickYear(this)">1st</div>
+                                <div class="year-pill" data-value="2nd Year" onclick="pickYear(this)">2nd</div>
+                                <div class="year-pill" data-value="3rd Year" onclick="pickYear(this)">3rd</div>
+                                <div class="year-pill" data-value="4th Year" onclick="pickYear(this)">4th</div>
+                                <div class="year-pill" data-value="5th Year" onclick="pickYear(this)">5th</div>
+                                <div class="year-pill" data-value="Postgraduate" onclick="pickYear(this)">PG</div>
+                            </div>
+                            <div class="error-msg" id="year-error">Please pick your year</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="institution">Institution / Organisation *</label>
+                        <input type="text" id="institution" class="form-input" placeholder="e.g. IIT Delhi, TCS, etc." required>
+                        <div class="error-msg" id="institution-error">Please enter your institution or organisation</div>
+                    </div>
                     <button type="submit" class="submit-btn" id="submit-btn">
                         <span class="btn-text">Register Now →</span>
                         <div class="spinner"></div>
@@ -1665,6 +1939,7 @@
         </p>
         <p style="margin-top: 8px;">In case of any queries or concerns, write to us at <a
                 href="mailto:support@digitalreadiness.org">support@digitalreadiness.org</a></p>
+        <p style="margin-top: 8px;font-size:0.7rem;color:#94A3B8;">* Workshop slot timings are subject to change.</p>
     </footer>
 
     <!-- Load schedule config (edit schedule-config.js to reshuffle sessions/dates) -->
@@ -1688,6 +1963,7 @@
             selectedSession: null,
             sessionTitle: null,
             sessionTime: null,
+            slot: null,
         };
 
         // ═══════════════════════════════════════════
@@ -1765,25 +2041,38 @@
         // ═══════════════════════════════════════════
         function renderSessions(dateKey) {
             const grid = document.getElementById('session-pick-grid');
-            const slots = SCHEDULE[dateKey];
-            if (!slots || slots.length === 0) {
+            const entries = SCHEDULE[dateKey];
+            if (!entries || entries.length === 0) {
                 grid.innerHTML = '<p style="color:var(--text-tertiary);text-align:center;padding:20px;">No sessions scheduled for this date.</p>';
                 return;
             }
-            grid.innerHTML = slots.map(slot => {
-                const s = SESSIONS[slot.sessionId];
+            grid.innerHTML = entries.map(entry => {
+                const s = SESSIONS[entry.sessionId];
                 if (!s) return '';
                 const pillsHtml = s.audience.map(a => `<span class="pill">${a}</span>`).join('');
+                const slotsHtml = entry.slots.map(slot => {
+                    const blocked = isSlotBlocked(dateKey, entry.sessionId, slot.slotId);
+                    const blockedClass = blocked ? ' blocked' : '';
+                    const onclick = blocked ? '' : `onclick="selectSession(${entry.sessionId}, '${s.title.replace(/'/g, "\\'")}', '${slot.time}', 'Slot ${slot.slotId}')"`;
+                    return `
+                        <div class="slot-btn${blockedClass}" ${onclick}>
+                            <div class="slot-label">Slot ${slot.slotId}</div>
+                            <div class="slot-time">${slot.time}</div>
+                            ${blocked ? '<span class="slot-reserved-tag">Reserved</span>' : ''}
+                        </div>
+                    `;
+                }).join('');
                 return `
-                    <div class="session-pick-card ${s.colorClass}"
-                         onclick="selectSession(${slot.sessionId}, '${s.title.replace(/'/g, "\\'")}', '${slot.time}')">
+                    <div class="session-pick-card ${s.colorClass}">
                         <span class="spc-badge">${s.tag}</span>
                         <div class="spc-title">${s.title}</div>
-                        <div class="spc-time">${slot.time}</div>
                         <div class="spc-desc">${s.desc}</div>
                         <div class="spc-audience">
                             <span class="aud-for">👥 For:</span>
                             ${pillsHtml}
+                        </div>
+                        <div class="slot-picker">
+                            ${slotsHtml}
                         </div>
                     </div>
                 `;
@@ -1794,10 +2083,11 @@
         // STEP 2: SESSION PICK (card grid — no tabs)
         // ═══════════════════════════════════════════
 
-        function selectSession(num, title, time) {
+        function selectSession(num, title, time, slot) {
             state.selectedSession = num;
             state.sessionTitle = title;
             state.sessionTime = time;
+            state.slot = slot;
 
             // Build summary chips
             const summary = document.getElementById('chosen-summary');
@@ -1812,11 +2102,43 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
                     </svg>
-                    Session ${num} • ${time}
+                    Session ${num} • ${slot} • ${time}
                 </span>
             `;
 
             goToStep(3);
+        }
+
+        // ═══════════════════════════════════════════
+        // ROLE & YEAR PICKERS
+        // ═══════════════════════════════════════════
+        let selectedRole = '';
+        let selectedYear = '';
+
+        function pickRole(el) {
+            // Deselect all
+            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected', 'error'));
+            document.getElementById('profession-error').classList.remove('visible');
+            // Select this one
+            el.classList.add('selected');
+            selectedRole = el.dataset.value;
+
+            // Toggle year picker
+            const yearWrap = document.getElementById('year-picker-wrap');
+            if (selectedRole === 'Student') {
+                yearWrap.classList.add('open');
+            } else {
+                yearWrap.classList.remove('open');
+                selectedYear = '';
+                document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('selected'));
+            }
+        }
+
+        function pickYear(el) {
+            document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('selected', 'error'));
+            document.getElementById('year-error').classList.remove('visible');
+            el.classList.add('selected');
+            selectedYear = el.dataset.value;
         }
 
         // ═══════════════════════════════════════════
@@ -1828,13 +2150,20 @@
             const nameEl = document.getElementById('full-name');
             const mobileEl = document.getElementById('mobile');
             const emailEl = document.getElementById('email');
+            const institutionEl = document.getElementById('institution');
             const btn = document.getElementById('submit-btn');
 
             // Reset errors
             nameEl.classList.remove('error');
             mobileEl.classList.remove('error');
+            institutionEl.classList.remove('error');
+            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('error'));
+            document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('error'));
             document.getElementById('name-error').classList.remove('visible');
             document.getElementById('mobile-error').classList.remove('visible');
+            document.getElementById('profession-error').classList.remove('visible');
+            document.getElementById('year-error').classList.remove('visible');
+            document.getElementById('institution-error').classList.remove('visible');
 
             let valid = true;
 
@@ -1844,10 +2173,28 @@
                 valid = false;
             }
 
-            // Universal phone validation: allow +, -, (), space, and 7-15 digits
+            // Universal phone validation
             if (!/^[\d\s+\-()]{7,20}$/.test(mobileEl.value)) {
                 mobileEl.classList.add('error');
                 document.getElementById('mobile-error').classList.add('visible');
+                valid = false;
+            }
+
+            if (!selectedRole) {
+                document.querySelectorAll('.role-card').forEach(c => c.classList.add('error'));
+                document.getElementById('profession-error').classList.add('visible');
+                valid = false;
+            }
+
+            if (selectedRole === 'Student' && !selectedYear) {
+                document.querySelectorAll('.year-pill').forEach(p => p.classList.add('error'));
+                document.getElementById('year-error').classList.add('visible');
+                valid = false;
+            }
+
+            if (!institutionEl.value.trim()) {
+                institutionEl.classList.add('error');
+                document.getElementById('institution-error').classList.add('visible');
                 valid = false;
             }
 
@@ -1860,9 +2207,13 @@
                 session: `Session ${state.selectedSession}`,
                 sessionTitle: state.sessionTitle,
                 sessionTime: state.sessionTime,
+                slot: state.slot,
                 fullName: nameEl.value.trim(),
                 mobile: mobileEl.value.trim(),
                 email: emailEl.value.trim() || '—',
+                profession: selectedRole,
+                yearOfStudy: selectedRole === 'Student' ? selectedYear : '—',
+                institution: institutionEl.value.trim(),
             };
 
             // Loading state
@@ -1940,7 +2291,7 @@
                         <div class="ticket-row">
                             <div class="ticket-label">Session</div>
                             <div class="ticket-value">${data.session} — ${data.sessionTitle}</div>
-                            <div style="font-size: 0.82rem; color: #64748B; margin-top: 6px; font-weight: 500;">${data.sessionTime}</div>
+                            <div style="font-size: 0.82rem; color: #64748B; margin-top: 6px; font-weight: 500;">${data.slot} • ${data.sessionTime}</div>
                         </div>
 
                         <div class="ticket-footer-area">

@@ -503,7 +503,7 @@
                 <path d="M19 12H5" />
                 <path d="m12 19-7-7 7-7" />
             </svg>
-            Back to Workshop
+            Back to Home
         </a>
     </nav>
     <div class="container">
@@ -595,9 +595,77 @@
             </div>
         </div>
 
-        <!-- PART 3: INPAINTING -->
+        <!-- PART 3: GENERATE HERO IMAGE -->
         <div class="part-header">
             <span class="part-number">PART 3</span>
+            <h2>Generate Your Hero Image</h2>
+        </div>
+
+        <p>Before we start editing, let's create the base image you'll work with throughout this session. We'll use Stable Diffusion's <strong>text-to-image</strong> mode to generate a portrait — your "hero" that you'll then remove objects from, add accessories to, swap backgrounds on, and upscale.</p>
+
+        <div class="technique-card">
+            <div class="technique-header">
+                <span class="technique-badge">CREATE</span>
+                <span class="technique-title">Generate Your Base Portrait</span>
+            </div>
+
+            <h4>Step-by-Step:</h4>
+            <ol style="margin: 15px 0; padding-left: 20px; color: var(--text-sub);">
+                <li>Go to <strong>Layer → OpenVINO-AI-Plugins → Stable Diffusion</strong></li>
+                <li>Select <strong>Text to Image</strong> mode</li>
+                <li>Copy-paste the prompt below (or write your own!)</li>
+                <li>Set the recommended settings and click <strong>Generate</strong></li>
+                <li>Wait for the image to appear — this is your hero for the rest of the session!</li>
+            </ol>
+
+            <div class="prompt-section">
+                <div class="prompt-label">Hero Portrait Prompt</div>
+                <div class="prompt-box" onclick="copy(this)">portrait of a young adventurer wearing a leather jacket, standing in a busy city street, golden hour lighting, shallow depth of field, photorealistic, detailed face, 8k quality</div>
+            </div>
+
+            <div class="prompt-section">
+                <div class="prompt-label">Alternative — Sci-Fi Character</div>
+                <div class="prompt-box" onclick="copy(this)">cinematic portrait of a futuristic space explorer in a sleek suit, neon-lit cyberpunk city background, dramatic lighting, reflections, photorealistic, ultra detailed</div>
+            </div>
+
+            <div class="prompt-section">
+                <div class="prompt-label">Alternative — Fantasy Warrior</div>
+                <div class="prompt-box" onclick="copy(this)">epic portrait of a medieval warrior in light armor, ancient castle courtyard background, misty morning light, cinematic composition, photorealistic, highly detailed</div>
+            </div>
+
+            <div class="settings-panel">
+                <div class="setting-row">
+                    <span class="setting-name">Mode</span>
+                    <span class="setting-value">Text to Image</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-name">Width × Height</span>
+                    <span class="setting-value">512 × 512</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-name">Steps</span>
+                    <span class="setting-value">25 - 35</span>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-name">CFG Scale</span>
+                    <span class="setting-value">7 - 9</span>
+                </div>
+            </div>
+
+            <div class="info-box tip">
+                <i data-lucide="lightbulb" class="icon"></i>
+                <p><strong>Why 512×512?</strong> This is the sweet spot for Stable Diffusion — fast generation with good quality. We'll use Super Resolution to upscale it 4x at the end!</p>
+            </div>
+
+            <div class="info-box important">
+                <i data-lucide="save" class="icon"></i>
+                <p><strong>Save Your Hero!</strong> Once you're happy with the result, go to <strong>File → Export As</strong> and save it as <code>my-hero.png</code>. You'll reuse this image in every technique that follows.</p>
+            </div>
+        </div>
+
+        <!-- PART 4: INPAINTING -->
+        <div class="part-header">
+            <span class="part-number">PART 4</span>
             <h2>Technique 1: Inpainting (Remove Objects)</h2>
         </div>
 
@@ -646,9 +714,9 @@
             </div>
         </div>
 
-        <!-- PART 4: GENERATIVE FILL -->
+        <!-- PART 5: GENERATIVE FILL -->
         <div class="part-header">
-            <span class="part-number">PART 4</span>
+            <span class="part-number">PART 5</span>
             <h2>Technique 2: Generative Fill (Add Objects)</h2>
         </div>
 
@@ -696,9 +764,9 @@
             </div>
         </div>
 
-        <!-- PART 5: BACKGROUND SWAP -->
+        <!-- PART 6: BACKGROUND SWAP -->
         <div class="part-header">
-            <span class="part-number">PART 5</span>
+            <span class="part-number">PART 6</span>
             <h2>Technique 3: Background Replacement</h2>
         </div>
 
@@ -749,9 +817,9 @@
             </div>
         </div>
 
-        <!-- PART 6: SUPER RESOLUTION -->
+        <!-- PART 7: SUPER RESOLUTION -->
         <div class="part-header">
-            <span class="part-number">PART 6</span>
+            <span class="part-number">PART 7</span>
             <h2>Technique 4: Super Resolution</h2>
         </div>
 
@@ -799,9 +867,9 @@
             </table>
         </div>
 
-        <!-- PART 7: USE CASES -->
+        <!-- PART 8: USE CASES -->
         <div class="part-header">
-            <span class="part-number">PART 7</span>
+            <span class="part-number">PART 8</span>
             <h2>Real-World Applications</h2>
         </div>
 
