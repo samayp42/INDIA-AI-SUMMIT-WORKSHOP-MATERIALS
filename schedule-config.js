@@ -107,26 +107,6 @@ const SCHEDULE = {
 };
 
 // ═══════════════════════════════════════════════════════════════
-//  BLOCKED SLOTS — Reserve specific slots for invited guests
-//  Format: "dateKey|sessionId|slotId"
-//  These slots will appear greyed out / "Reserved" in registration.
-//  Example: '16 Feb 2026|1|A' → blocks Session 1, Slot A on 16 Feb
-// ═══════════════════════════════════════════════════════════════
-
-const BLOCKED_SLOTS = [
-    // '16 Feb 2026|1|A',
-    // '17 Feb 2026|3|B',
-];
-
-// ═══════════════════════════════════════════════════════════════
-//  HELPER — Check if a slot is blocked
-// ═══════════════════════════════════════════════════════════════
-
-function isSlotBlocked(dateKey, sessionId, slotId) {
-    return BLOCKED_SLOTS.includes(`${dateKey}|${sessionId}|${slotId}`);
-}
-
-// ═══════════════════════════════════════════════════════════════
 //  EVENT DATES — derived from SCHEDULE keys automatically
 // ═══════════════════════════════════════════════════════════════
 

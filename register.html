@@ -2315,9 +2315,32 @@
         }
 
         // ═══════════════════════════════════════════
+        // BLOCKED SLOTS (fetched live from Google Sheets Config tab)
+        // ═══════════════════════════════════════════
+        let blockedSlots = [];
+
+        function isSlotBlocked(dateKey, sessionId, slotId) {
+            return blockedSlots.includes(`${dateKey}|${sessionId}|${slotId}`);
+        }
+
+        async function loadBlockedSlots() {
+            try {
+                const resp = await fetch(GOOGLE_SCRIPT_URL);
+                const data = await resp.json();
+                blockedSlots = data.blockedSlots || [];
+            } catch (e) {
+                console.warn('Could not load blocked slots config:', e);
+                blockedSlots = [];
+            }
+        }
+
+        // ═══════════════════════════════════════════
         // BOOT
         // ═══════════════════════════════════════════
-        init();
+        (async function boot() {
+            await loadBlockedSlots();
+            init();
+        })();
     </script>
 </body>
 
