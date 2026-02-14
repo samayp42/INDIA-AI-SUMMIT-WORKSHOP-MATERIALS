@@ -725,50 +725,45 @@
             <div class="part-num">3</div>
             <div>
                 <h2>Setup on AI Superbuilder</h2>
-                <p>Connect Zerodha MCP to Intel AI Superbuilder</p>
+                <p>Create your MCP server, build your agent, and configure a system prompt</p>
             </div>
         </div>
 
+        <!-- Section A: Create MCP Server -->
+        <h3 style="margin-top:24px;"><i data-lucide="server" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;"></i> A. Create Your MCP Server</h3>
+
         <div class="setup-steps">
-            <h4><i data-lucide="settings"></i> Connection Steps</h4>
+            <h4><i data-lucide="plus-circle"></i> MCP Server Setup</h4>
 
             <div class="step">
                 <div class="step-num">1</div>
                 <div class="step-content">
-                    <h5>Open AI Superbuilder</h5>
-                    <p>Launch Intel AI Superbuilder application on your AI PC.</p>
+                    <h5>Open Super MCP Agent</h5>
+                    <p>Launch AI Superbuilder and navigate to <strong>Super MCP Agent</strong>.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">2</div>
                 <div class="step-content">
-                    <h5>Navigate to MCP Settings</h5>
-                    <p>Go to Settings → MCP Servers → Add New Server</p>
+                    <h5>Go to MCP Manager</h5>
+                    <p>Click on <strong>MCP Manager</strong> to manage your MCP servers.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">3</div>
                 <div class="step-content">
-                    <h5>Configure Zerodha Mock MCP</h5>
-                    <p>Enter the <strong>Server Name</strong> and <strong>URL</strong> provided by the mentor on screen.</p>
+                    <h5>Make a New MCP Server</h5>
+                    <p>Click <strong>"New MCP Server"</strong> to create a new server connection.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">4</div>
                 <div class="step-content">
-                    <h5>Verify Available Tools</h5>
-                    <p>Once connected, you should see <strong>9 Available Tools</strong> listed. If you see them, you're good to go!</p>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">5</div>
-                <div class="step-content">
-                    <h5>Start Chatting!</h5>
-                    <p>Go to the chat window and try the prompts below. The AI will automatically call the right MCP tools.</p>
+                    <h5>Add the Server URL</h5>
+                    <p>Enter the <strong>MCP Server URL</strong> provided by the mentor on screen, then click <strong>Accept</strong>.</p>
                 </div>
             </div>
         </div>
@@ -776,9 +771,105 @@
         <div class="info-box success">
             <i data-lucide="check-circle" style="flex-shrink:0;"></i>
             <div>
-                <strong>Connection Successful!</strong>
-                Once connected, you can ask natural language questions about your portfolio and the AI will
-                automatically call the appropriate Zerodha MCP tools.
+                <strong>MCP Server Created!</strong>
+                Your Zerodha Finance MCP server is now registered. Next, we'll create an agent and connect it.
+            </div>
+        </div>
+
+        <!-- Section B: Create Agent & Connect MCP -->
+        <h3 style="margin-top:32px;"><i data-lucide="cpu" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;"></i> B. Create Your Agent</h3>
+
+        <div class="setup-steps">
+            <h4><i data-lucide="bot"></i> Agent Setup</h4>
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h5>Add a New Agent</h5>
+                    <p>Go back to <strong>Super MCP Agent</strong> and click <strong>"Add New Agent"</strong>.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h5>Name Your Agent</h5>
+                    <p>Give it a name: <code>Zerodha</code></p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h5>Add Description & System Prompt</h5>
+                    <p>Add a short description (e.g. <em>"Finance AI Agent for portfolio analysis and trading"</em>).</p>
+                    <p>Then paste the <strong>System Prompt</strong> from Section C below into the system prompt field.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h5>Select MCP Tool</h5>
+                    <p>In the agent config, select the <strong>Zerodha Finance MCP</strong> server you just created. This gives the agent access to all 9 trading tools.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <h5>Start & Chat!</h5>
+                    <p>Click <strong>Start</strong> — your agent is now live! You can start chatting and it will automatically call the right MCP tools based on your questions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box success">
+            <i data-lucide="check-circle" style="flex-shrink:0;"></i>
+            <div>
+                <strong>Agent Ready!</strong>
+                Your Zerodha agent is connected to the MCP server. Now let's give it the right instructions.
+            </div>
+        </div>
+
+        <!-- Section C: System Prompt -->
+        <h3 style="margin-top:32px;"><i data-lucide="file-text" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;"></i> C. System Prompt</h3>
+
+        <div class="info-box tip">
+            <i data-lucide="lightbulb" style="flex-shrink:0;"></i>
+            <div>
+                <strong>What is a System Prompt?</strong>
+                A system prompt tells the AI agent <em>who it is</em> and <em>how to behave</em>. It sets the rules, personality, and guardrails — like giving instructions to a new employee before their first day.
+            </div>
+        </div>
+
+        <h4 style="margin-top:20px;">Copy this System Prompt (click the box)</h4>
+        <div class="prompt-box" onclick="copyPrompt(this)" style="white-space:pre-wrap;font-size:0.82rem;line-height:1.6;">You are a Finance AI Agent connected to a Zerodha Mock Trading account via MCP tools.
+
+Your role:
+- Help users analyze their portfolio, track markets, and make informed trading decisions.
+- Always think step-by-step before acting. Explain your reasoning.
+
+Rules:
+1. Before placing any trade, ALWAYS check the user's current balance using get-account() and current holdings using get-holdings().
+2. When asked about a stock, fetch the live quote using get-quote() before giving advice.
+3. Use get-history() to analyze price trends when the user asks for technical analysis.
+4. Check get-market-status() before suggesting trades — don't trade if the market is closed.
+5. When placing orders with place-order(), always confirm the stock name, quantity, and order type (BUY/SELL) with the user before executing.
+6. Present all monetary values in INR format.
+7. After every trade, show the updated balance and holdings.
+8. If the user asks something outside your trading capabilities, politely let them know and suggest what you CAN help with.
+
+Personality:
+- Be professional but friendly, like a helpful financial advisor.
+- Use tables and structured formatting when presenting portfolio data.
+- Flag risks clearly — if a trade would use more than 50% of available balance, warn the user.</div>
+
+        <div class="info-box success" style="margin-top:16px;">
+            <i data-lucide="check-circle" style="flex-shrink:0;"></i>
+            <div>
+                <strong>All Set!</strong>
+                Your Finance AI Agent is fully configured — MCP server created, agent connected, and system prompt loaded. Try the prompts in the next section!
             </div>
         </div>
 
