@@ -1939,7 +1939,7 @@
         </p>
         <p style="margin-top: 8px;">In case of any queries or concerns, write to us at <a
                 href="mailto:support@digitalreadiness.org">support@digitalreadiness.org</a></p>
-        <p style="margin-top: 8px;font-size:0.7rem;color:#94A3B8;">* Workshop slot timings are subject to change.</p>
+        <p style="margin-top: 8px;font-size:0.7rem;color:#94A3B8;">* Session timings are subject to change. Due to limited seating, the organizers may reassign slots. You can reach out to us at support@digitalreadiness.org for queries.</p>
     </footer>
 
     <!-- Load schedule config (edit schedule-config.js to reshuffle sessions/dates) -->
@@ -2268,7 +2268,7 @@
                             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                         </div>
                         <div class="ticket-title">You're In!</div>
-                        <div class="ticket-subtitle">Your seat will be confirmed soon...Our team will reach out with further details soon.</div>
+                        <div class="ticket-subtitle">Your seat will be confirmed soon...Our team will reach out with further details. Thank you for registering!</div>
                     </div>
                     
                     <div class="ticket-rip">
@@ -2325,11 +2325,15 @@
 
         async function loadBlockedSlots() {
             try {
+                console.log('[BlockedSlots] Fetching config from:', GOOGLE_SCRIPT_URL);
                 const resp = await fetch(GOOGLE_SCRIPT_URL);
                 const data = await resp.json();
                 blockedSlots = data.blockedSlots || [];
+                console.log('[BlockedSlots] Loaded', blockedSlots.length, 'blocked slots:', blockedSlots);
+                if (data.error) console.warn('[BlockedSlots] Server error:', data.error);
             } catch (e) {
-                console.warn('Could not load blocked slots config:', e);
+                console.error('[BlockedSlots] Fetch FAILED:', e);
+
                 blockedSlots = [];
             }
         }
