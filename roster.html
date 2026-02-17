@@ -97,39 +97,7 @@
             page-break-inside: avoid;
         }
 
-        /* Left Column: Time */
-        .slot-time {
-            width: 35mm;
-            padding-right: 3mm;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid #eee;
-            color: #444;
-        }
-
-        .slot-time .start-time {
-            font-size: 12pt;
-            font-weight: 700;
-            color: #1a1a1a;
-        }
-
-        .slot-time .end-time {
-            font-size: 9pt;
-            color: #888;
-        }
-
-        .slot-time .duration {
-            margin-top: 1mm;
-            font-size: 8pt;
-            font-weight: 500;
-            background: #f0f0f0;
-            padding: 0.5mm 1.5mm;
-            border-radius: 1mm;
-            width: fit-content;
-        }
-
-        /* Right Column: Content */
+        /* Content */
         .slot-content {
             flex: 1;
             padding-left: 4mm;
@@ -176,12 +144,6 @@
             display: flex;
             flex-direction: column;
             gap: 0.5mm;
-        }
-
-        .schedule-segment .seg-time {
-            font-size: 7.5pt;
-            color: #888;
-            font-weight: 600;
         }
 
         .schedule-segment .seg-activity {
@@ -362,18 +324,13 @@
             <img src="assets/intel.svg" alt="Intel" style="float: right; height: 32px; margin-top: -5px;">
             <h1>Daily Workshop Roster</h1>
             <p class="subtitle">Complete Day-to-Day Schedule & Agenda</p>
-            <div class="date">10:00 AM — 05:00 PM</div>
+            <div class="date">6 Sessions — Slot A & Slot B</div>
         </div>
 
         <div class="roster-container">
 
             <!-- Session 1 -->
             <div class="slot-card s1">
-                <div class="slot-time">
-                    <div class="start-time">10:00</div>
-                    <div class="end-time">11:00</div>
-                    <div class="duration">2 × 30 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">Session 1</span>
@@ -381,11 +338,9 @@
                     </div>
                     <div class="internal-schedule">
                         <div class="schedule-segment">
-                            <span class="seg-time">10:00 - 10:30</span>
                             <span class="seg-activity">Slot A</span>
                         </div>
                         <div class="schedule-segment">
-                            <span class="seg-time">10:30 - 11:00</span>
                             <span class="seg-activity">Slot B</span>
                         </div>
                     </div>
@@ -403,11 +358,6 @@
 
             <!-- Session 2 -->
             <div class="slot-card s2">
-                <div class="slot-time">
-                    <div class="start-time">11:00</div>
-                    <div class="end-time">12:00</div>
-                    <div class="duration">2 × 30 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">Session 2</span>
@@ -415,11 +365,9 @@
                     </div>
                     <div class="internal-schedule">
                         <div class="schedule-segment">
-                            <span class="seg-time">11:00 - 11:30</span>
                             <span class="seg-activity">Slot A</span>
                         </div>
                         <div class="schedule-segment">
-                            <span class="seg-time">11:30 - 12:00</span>
                             <span class="seg-activity">Slot B</span>
                         </div>
                     </div>
@@ -437,11 +385,6 @@
 
             <!-- Session 3 -->
             <div class="slot-card s3">
-                <div class="slot-time">
-                    <div class="start-time">12:00</div>
-                    <div class="end-time">01:00</div>
-                    <div class="duration">2 × 30 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">Session 3</span>
@@ -449,11 +392,9 @@
                     </div>
                     <div class="internal-schedule">
                         <div class="schedule-segment">
-                            <span class="seg-time">12:00 - 12:30</span>
                             <span class="seg-activity">Slot A</span>
                         </div>
                         <div class="schedule-segment">
-                            <span class="seg-time">12:30 - 01:00</span>
                             <span class="seg-activity">Slot B</span>
                         </div>
                     </div>
@@ -471,31 +412,16 @@
 
             <!-- LUNCH -->
             <div class="slot-card lunch">
-                <div class="slot-time">
-                    <div class="start-time">01:00</div>
-                    <div class="end-time">02:00</div>
-                    <div class="duration">60 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">LUNCH</span>
                         <div class="slot-title">Lunch Break</div>
-                    </div>
-                    <div class="internal-schedule">
-                        <div class="schedule-segment" style="flex:1; background: transparent; border:none; padding:0;">
-                            <span class="seg-activity" style="font-size:10pt;">Refuel & Network 🍕</span>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Session 4 -->
             <div class="slot-card s4">
-                <div class="slot-time">
-                    <div class="start-time">02:00</div>
-                    <div class="end-time">03:00</div>
-                    <div class="duration">2 × 30 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">Session 4</span>
@@ -503,11 +429,9 @@
                     </div>
                     <div class="internal-schedule">
                         <div class="schedule-segment">
-                            <span class="seg-time">02:00 - 02:30</span>
                             <span class="seg-activity">Slot A</span>
                         </div>
                         <div class="schedule-segment">
-                            <span class="seg-time">02:30 - 03:00</span>
                             <span class="seg-activity">Slot B</span>
                         </div>
                     </div>
@@ -525,11 +449,6 @@
 
             <!-- Session 5 -->
             <div class="slot-card s5">
-                <div class="slot-time">
-                    <div class="start-time">03:00</div>
-                    <div class="end-time">04:00</div>
-                    <div class="duration">2 × 30 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">Session 5</span>
@@ -537,11 +456,9 @@
                     </div>
                     <div class="internal-schedule">
                         <div class="schedule-segment">
-                            <span class="seg-time">03:00 - 03:30</span>
                             <span class="seg-activity">Slot A</span>
                         </div>
                         <div class="schedule-segment">
-                            <span class="seg-time">03:30 - 04:00</span>
                             <span class="seg-activity">Slot B</span>
                         </div>
                     </div>
@@ -559,11 +476,6 @@
 
             <!-- Session 6 -->
             <div class="slot-card s6">
-                <div class="slot-time">
-                    <div class="start-time">04:00</div>
-                    <div class="end-time">05:00</div>
-                    <div class="duration">2 × 30 mins</div>
-                </div>
                 <div class="slot-content">
                     <div class="slot-header">
                         <span class="slot-badge">Session 6</span>
@@ -571,11 +483,9 @@
                     </div>
                     <div class="internal-schedule">
                         <div class="schedule-segment">
-                            <span class="seg-time">04:00 - 04:30</span>
                             <span class="seg-activity">Slot A</span>
                         </div>
                         <div class="schedule-segment">
-                            <span class="seg-time">04:30 - 05:00</span>
                             <span class="seg-activity">Slot B</span>
                         </div>
                     </div>
@@ -594,8 +504,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 5mm; color: #888; font-size: 8pt;">
-            Each session runs twice (Slot A + Slot B) — same content, two batches per hour.
-            <br>* Slot timings are subject to change.
+            Each session runs twice (Slot A + Slot B) — same content, two batches.
         </div>
     </div>
 
