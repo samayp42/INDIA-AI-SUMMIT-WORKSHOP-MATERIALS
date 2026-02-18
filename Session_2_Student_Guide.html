@@ -805,8 +805,7 @@
 
         <div class="scenario-box">
             <h4><i data-lucide="pen-tool" style="width:18px;height:18px;"></i> The Mission</h4>
-            <p>A client sends a rough napkin sketch of their dream living room. They want to see 3 style variations
-                before committing to ₹15 Lakh renovation. You have 10 minutes.</p>
+            <p>An architect sends a rough pencil sketch of a modern two-story house exterior. The client wants to see 3 style variations before finalizing the facade design. You have 10 minutes.</p>
         </div>
 
         <div class="info-box success">
@@ -817,8 +816,8 @@
             </div>
         </div>
 
-        <!-- Sketch Prompt 1: Modern -->
-        <h3>Style 1: Modern Minimalist</h3>
+        <!-- Sketch Prompt 1: Modern Glass -->
+        <h3>Style 1: Modern Glass House</h3>
 
         <div class="prompt-json">
             <div class="prompt-json-header">
@@ -826,33 +825,25 @@
                 <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
             </div>
             <div class="prompt-json-body">
-                <span class="json-comment">// Modern Interior Transform</span>
+                <span class="json-comment">// Modern Exterior Transform</span>
                 {
-                <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to photorealistic
-                    interior"</span>,
-                <span class="json-key">"style"</span>: <span class="json-string">"modern minimalist, clean
-                    lines"</span>,
-                <span class="json-key">"materials"</span>: <span class="json-string">"light oak flooring, white walls,
-                    glass accents"</span>,
-                <span class="json-key">"lighting"</span>: <span class="json-string">"natural daylight through large
-                    windows"</span>,
-                <span class="json-key">"details"</span>: <span class="json-string">"indoor plants, premium
-                    furniture"</span>,
-                <span class="json-key">"quality"</span>: <span class="json-string">"architectural visualization, 4K,
-                    photorealistic"</span>
+                <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to photorealistic house exterior"</span>,
+                <span class="json-key">"style"</span>: <span class="json-string">"modern contemporary, clean geometric lines, flat roof"</span>,
+                <span class="json-key">"materials"</span>: <span class="json-string">"floor-to-ceiling glass panels, white concrete walls, wood cladding accents"</span>,
+                <span class="json-key">"lighting"</span>: <span class="json-string">"golden hour sunlight, warm interior glow through glass"</span>,
+                <span class="json-key">"surroundings"</span>: <span class="json-string">"manicured green lawn, landscaped garden, flowering shrubs"</span>,
+                <span class="json-key">"quality"</span>: <span class="json-string">"architectural exterior visualization, 4K, photorealistic"</span>
                 }
             </div>
         </div>
 
         <div class="compiled-prompt" onclick="copyCompiled(this)"
-            data-prompt="Transform this sketch into a photorealistic modern minimalist interior, clean lines, light oak flooring, white walls, glass accents, natural daylight through large windows, indoor plants, premium furniture, architectural visualization, 4K, photorealistic">
-            <p>Transform this sketch into a photorealistic modern minimalist interior, clean lines, light oak flooring,
-                white walls, glass accents, natural daylight through large windows, indoor plants, premium furniture,
-                architectural visualization, 4K, photorealistic</p>
+            data-prompt="Transform this sketch into a photorealistic modern contemporary house exterior, clean geometric lines, flat roof, floor-to-ceiling glass panels, white concrete walls, wood cladding accents, golden hour sunlight, warm interior glow through glass, manicured green lawn, landscaped garden, flowering shrubs, architectural exterior visualization, 4K, photorealistic">
+            <p>Transform this sketch into a photorealistic modern contemporary house exterior, clean geometric lines, flat roof, floor-to-ceiling glass panels, white concrete walls, wood cladding accents, golden hour sunlight, warm interior glow through glass, manicured green lawn, landscaped garden, flowering shrubs, architectural exterior visualization, 4K, photorealistic</p>
         </div>
 
-        <!-- Sketch Prompt 2: Scandinavian -->
-        <h3>Style 2: Scandinavian Hygge</h3>
+        <!-- Sketch Prompt 2: Tropical Villa -->
+        <h3>Style 2: Tropical Villa</h3>
 
         <div class="prompt-json">
             <div class="prompt-json-header">
@@ -860,33 +851,25 @@
                 <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
             </div>
             <div class="prompt-json-body">
-                <span class="json-comment">// Scandinavian Interior Transform</span>
+                <span class="json-comment">// Tropical Villa Exterior Transform</span>
                 {
-                <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to cozy
-                    Scandinavian interior"</span>,
-                <span class="json-key">"style"</span>: <span class="json-string">"Scandinavian hygge, warm and
-                    inviting"</span>,
-                <span class="json-key">"materials"</span>: <span class="json-string">"warm wood tones, wool textiles,
-                    sheepskin rug"</span>,
-                <span class="json-key">"lighting"</span>: <span class="json-string">"soft pendant lighting, candle
-                    glow"</span>,
-                <span class="json-key">"colors"</span>: <span class="json-string">"muted earth tones, cream,
-                    beige"</span>,
-                <span class="json-key">"quality"</span>: <span class="json-string">"interior photography, 4K, magazine
-                    quality"</span>
+                <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to tropical luxury villa exterior"</span>,
+                <span class="json-key">"style"</span>: <span class="json-string">"tropical modern, warm and inviting, open design"</span>,
+                <span class="json-key">"materials"</span>: <span class="json-string">"natural stone facade, teak wood panels, large glass windows"</span>,
+                <span class="json-key">"lighting"</span>: <span class="json-string">"bright tropical sunlight, soft shadows from palm trees"</span>,
+                <span class="json-key">"surroundings"</span>: <span class="json-string">"palm trees, tropical plants, infinity pool, stone pathway"</span>,
+                <span class="json-key">"quality"</span>: <span class="json-string">"luxury real estate photography, 4K, magazine quality"</span>
                 }
             </div>
         </div>
 
         <div class="compiled-prompt" onclick="copyCompiled(this)"
-            data-prompt="Transform this sketch into a cozy Scandinavian hygge interior, warm and inviting, warm wood tones, wool textiles, sheepskin rug, soft pendant lighting, candle glow, muted earth tones, cream, beige, interior photography, 4K, magazine quality">
-            <p>Transform this sketch into a cozy Scandinavian hygge interior, warm and inviting, warm wood tones, wool
-                textiles, sheepskin rug, soft pendant lighting, candle glow, muted earth tones, cream, beige, interior
-                photography, 4K, magazine quality</p>
+            data-prompt="Transform this sketch into a tropical luxury villa exterior, tropical modern, warm and inviting, open design, natural stone facade, teak wood panels, large glass windows, bright tropical sunlight, soft shadows from palm trees, palm trees, tropical plants, infinity pool, stone pathway, luxury real estate photography, 4K, magazine quality">
+            <p>Transform this sketch into a tropical luxury villa exterior, tropical modern, warm and inviting, open design, natural stone facade, teak wood panels, large glass windows, bright tropical sunlight, soft shadows from palm trees, palm trees, tropical plants, infinity pool, stone pathway, luxury real estate photography, 4K, magazine quality</p>
         </div>
 
-        <!-- Sketch Prompt 3: Industrial -->
-        <h3>Style 3: Industrial Loft</h3>
+        <!-- Sketch Prompt 3: Industrial Urban -->
+        <h3>Style 3: Industrial Urban</h3>
 
         <div class="prompt-json">
             <div class="prompt-json-header">
@@ -894,36 +877,27 @@
                 <button class="copy-btn" onclick="copyJSON(this)">Copy Prompt</button>
             </div>
             <div class="prompt-json-body">
-                <span class="json-comment">// Industrial Interior Transform</span>
+                <span class="json-comment">// Industrial Urban Exterior Transform</span>
                 {
-                <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to industrial loft
-                    interior"</span>,
-                <span class="json-key">"style"</span>: <span class="json-string">"industrial, urban, raw
-                    aesthetic"</span>,
-                <span class="json-key">"materials"</span>: <span class="json-string">"exposed brick walls, steel beams,
-                    concrete floor"</span>,
-                <span class="json-key">"lighting"</span>: <span class="json-string">"edison bulb lighting, warm moody
-                    atmosphere"</span>,
-                <span class="json-key">"furniture"</span>: <span class="json-string">"leather sofa, metal accents,
-                    vintage pieces"</span>,
-                <span class="json-key">"quality"</span>: <span class="json-string">"architectural photography, 8K,
-                    dramatic"</span>
+                <span class="json-key">"transform"</span>: <span class="json-string">"Convert sketch to industrial urban house exterior"</span>,
+                <span class="json-key">"style"</span>: <span class="json-string">"industrial urban, raw edgy aesthetic, bold angular design"</span>,
+                <span class="json-key">"materials"</span>: <span class="json-string">"exposed brick facade, dark steel framing, large factory-style windows"</span>,
+                <span class="json-key">"lighting"</span>: <span class="json-string">"moody overcast sky, warm light spilling from windows"</span>,
+                <span class="json-key">"surroundings"</span>: <span class="json-string">"concrete driveway, metal gate, minimalist gravel landscaping"</span>,
+                <span class="json-key">"quality"</span>: <span class="json-string">"architectural photography, 8K, dramatic contrast"</span>
                 }
             </div>
         </div>
 
         <div class="compiled-prompt" onclick="copyCompiled(this)"
-            data-prompt="Transform this sketch into an industrial loft interior, urban raw aesthetic, exposed brick walls, steel beams, concrete floor, edison bulb lighting, warm moody atmosphere, leather sofa, metal accents, vintage pieces, architectural photography, 8K, dramatic">
-            <p>Transform this sketch into an industrial loft interior, urban raw aesthetic, exposed brick walls, steel
-                beams, concrete floor, edison bulb lighting, warm moody atmosphere, leather sofa, metal accents, vintage
-                pieces, architectural photography, 8K, dramatic</p>
+            data-prompt="Transform this sketch into an industrial urban house exterior, raw edgy aesthetic, bold angular design, exposed brick facade, dark steel framing, large factory-style windows, moody overcast sky, warm light spilling from windows, concrete driveway, metal gate, minimalist gravel landscaping, architectural photography, 8K, dramatic contrast">
+            <p>Transform this sketch into an industrial urban house exterior, raw edgy aesthetic, bold angular design, exposed brick facade, dark steel framing, large factory-style windows, moody overcast sky, warm light spilling from windows, concrete driveway, metal gate, minimalist gravel landscaping, architectural photography, 8K, dramatic contrast</p>
         </div>
 
         <!-- Negative Prompt -->
         <div class="negative-prompt">
-            <h5><i data-lucide="x-circle" style="width:14px;height:14px;"></i> NEGATIVE PROMPT (For Interiors)</h5>
-            <p onclick="copyText(this)">text, watermark, distorted perspective, extra furniture, dark, gloomy, low
-                quality, blurry, jpeg artifacts, people, cartoon</p>
+            <h5><i data-lucide="x-circle" style="width:14px;height:14px;"></i> NEGATIVE PROMPT (For Exteriors)</h5>
+            <p onclick="copyText(this)">text, watermark, distorted perspective, extra buildings, dark, gloomy, low quality, blurry, jpeg artifacts, people, cartoon, floating elements, unrealistic proportions</p>
         </div>
 
         <!-- Strength Settings -->
